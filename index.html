@@ -1015,32 +1015,153 @@
   </div>
 
 </footer>
-
-
 <script>
-  document.getElementById("clientForm").addEventListener("submit", function(e){
-    e.preventDefault();
+const PROXIGO_API = "https://web-production-3704e7.up.railway.app";
 
-    document.getElementById("successMessage").style.display = "block";
+document.addEventListener("DOMContentLoaded", function () {
 
-    document.getElementById("successMessage").scrollIntoView({
-      behavior:"smooth",
-      block:"center"
+    const clientForm = document.getElementById("clientForm");
+
+    if (!clientForm) {
+        console.error("Proxigo : formulaire client introuvable.");
+        return;
+    }
+
+    clientForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const serviceElement = document.getElementById("service");
+        const cityElement = document.getElementById("city");
+        const descriptionElement = document.getElementById("description");
+        const contactElement = document.getElementById("contact");
+
+        const service = serviceElement
+            ? serviceElement.value.trim()
+            : "";
+
+        const city = cityElement
+            ? cityElement.value.trim()
+            : "";
+
+        const description = descriptionElement
+            ? descriptionElement.value.trim()
+            : "";
+
+        const contact = contactElement
+            ? contactElement.value.trim()
+            : "";
+
+        if (!service || !city || !description) {
+            alert(
+                "Veuillez compléter le service, la ville et la description."
+            );
+            return;
+        }
+
+        const submitButton =
+            clientForm.querySelector('button[type="submit"]');
+
+        const originalButtonText =
+            submitButton ? submitButton.textContent : "";
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent =
+                "Proxigo recherche des professionnels...";
+        }
+
+        const message =
+            "Je recherche un professionnel. " +
+            "Service : " + service + ". " +
+            "Ville : " + city + ". " +
+            "Description : " + description + ". " +
+            (contact
+                ? "Contact client : " + contact + "."
+                : "");
+
+        const requestData = {
+            message: message,
+            user_id: crypto.randomUUID(),
+            language: "fr",
+            client_latitude: 0,
+            client_longitude: 0,
+            dispatch_limit: 3,
+            generate_quote: true,
+            booking_action: "",
+            booking_payload: {}
+        };
+
+        try {
+
+            const response = await fetch(
+                PROXIGO_API + "/agent/workflow",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Erreur API Proxigo : " + response.status
+                );
+            }
+
+            const result = await response.json();
+
+            console.log("Réponse Proxigo AI :", result);
+
+            const successMessage =
+                document.getElementById("successMessage");
+
+            if (successMessage) {
+
+                successMessage.style.display = "block";
+
+                successMessage.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            } else {
+
+                alert(
+                    "Votre demande a bien été envoyée à Proxigo."
+                );
+            }
+
+            clientForm.reset();
+
+        } catch (error) {
+
+            console.error("Erreur Proxigo :", error);
+
+            alert(
+                "Une erreur est survenue pendant l'envoi. " +
+                "Veuillez réessayer."
+            );
+
+        } finally {
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        }
     });
-  });
 
-
-  document.getElementById("proForm").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    document.getElementById("proSuccess").style.display = "block";
-
-    document.getElementById("proSuccess").scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
-  });
+});
 </script>
+
+
+
+
+
+  
 
 </body>
 </html>
