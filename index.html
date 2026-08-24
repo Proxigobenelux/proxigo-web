@@ -892,31 +892,76 @@
 
   <div class="container">
 
-    <div class="tender-box">
+    <div class="tender-box" style="display:block;">
 
-      <div>
-        <div class="eyebrow" style="text-align:left">
-          Proxigo Business
-        </div>
-
-        <h2>
-          Trouvez également des appels d'offres.
-        </h2>
-
-        <p>
-          Proxigo développe des outils destinés aux professionnels
-          pour identifier des opportunités et marchés
-          correspondant à leur activité.
-        </p>
+      <div class="eyebrow" style="text-align:left;">
+        PROXIGO BUSINESS
       </div>
 
-      <a href="#professionnels" class="btn btn-primary">
-        Découvrir pour les pros
-      </a>
+      <h2>
+        Trouvez des appels d'offres adaptés à votre activité
+      </h2>
+
+      <p>
+        Proxigo aide les professionnels à identifier des marchés
+        et opportunités correspondant à leur métier et à leur zone
+        d'intervention.
+      </p>
+
+      <div style="margin-top:25px; display:grid; gap:15px;">
+
+        <div>
+          <label for="tenderJob">
+            Votre métier ou activité
+          </label>
+
+          <input
+            id="tenderJob"
+            type="text"
+            placeholder="Ex. Nettoyage, plomberie, construction..."
+          >
+        </div>
+
+        <div>
+          <label for="tenderCountry">
+            Pays
+          </label>
+
+          <select id="tenderCountry">
+            <option value="">Tous les pays</option>
+            <option value="BE">Belgique</option>
+            <option value="LU">Luxembourg</option>
+            <option value="NL">Pays-Bas</option>
+            <option value="FR">France</option>
+            <option value="EU">Europe</option>
+          </select>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="searchTendersButton"
+        >
+          Rechercher des appels d'offres
+        </button>
+
+      </div>
+
+      <div
+        id="tenderResults"
+        style="margin-top:25px; display:none;"
+      >
+        <h3>Opportunités trouvées</h3>
+
+        <p id="tenderStatus">
+          Recherche des appels d'offres correspondant à votre activité...
+        </p>
+      </div>
 
     </div>
 
   </div>
+
 </section>
 
 
