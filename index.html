@@ -1201,7 +1201,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+<script>
+/* =========================================================
+   PROXIGO — RECHERCHE APPELS D'OFFRES
+   ========================================================= */
 
+const PROXIGO_AI_API = "https://web-production-3704e7.up.railway.app";
+
+async function rechercherAppelsOffres(job, country = "BE", limit = 20) {
+    try {
+        const url =
+            `${PROXIGO_AI_API}/opportunities/search` +
+            `?job=${encodeURIComponent(job)}` +
+            `&country=${encodeURIComponent(country)}` +
+            `&limit=${limit}`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Erreur API : ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log("Proxigo AI - Appels d'offres :", data);
+
+        return data;
+
+    } catch (error) {
+        console.error("Erreur Proxigo AI :", error);
+
+        return {
+            status: "error",
+            count: 0,
+            opportunities: [],
+            error: error.message
+        };
+    }
+}
+
+/* Test rapide depuis la console du navigateur :
+   rechercherAppelsOffres("nettoyage", "BE", 10)
+*/
+</script>
 
 
 
