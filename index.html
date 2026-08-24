@@ -7,197 +7,549 @@
   <title>Proxigo Benelux — Trouvez un professionnel près de chez vous</title>
 
   <meta name="description"
-        content="Décrivez gratuitement votre besoin et trouvez des professionnels près de chez vous avec Proxigo Benelux.">
+        content="Besoin d'un plombier, électricien, service de nettoyage ou autre professionnel ? Déposez gratuitement votre demande sur Proxigo Benelux.">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#07101f;
+      --bg2:#0b1729;
+      --card:#101d31;
+      --line:#22324a;
+      --text:#ffffff;
+      --muted:#a9b5c6;
+      --blue:#2f66ff;
+      --green:#22d6a3;
+      --white:#ffffff;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #07101f;
-      color: white;
-      line-height: 1.6;
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 7%;
-      border-bottom: 1px solid #1e293b;
+    html{
+      scroll-behavior:smooth;
     }
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
 
-    .logo span {
-      color: #20d6a4;
+    a{
+      text-decoration:none;
     }
 
-    nav a {
-      color: #d8e0ec;
-      text-decoration: none;
-      margin-left: 25px;
+    .container{
+      width:min(1180px,90%);
+      margin:auto;
     }
 
-    .hero {
-      min-height: 620px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 70px 20px;
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(7,16,31,.96);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    .logo{
+      font-size:26px;
+      font-weight:900;
+      color:white;
+      letter-spacing:.5px;
+    }
+
+    .logo span{
+      color:var(--green);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:25px;
+    }
+
+    nav a{
+      color:#d8dfeb;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    nav a:hover{
+      color:white;
+    }
+
+    .nav-btn{
+      background:var(--blue);
+      color:white;
+      padding:11px 17px;
+      border-radius:8px;
+    }
+
+    .hero{
+      padding:90px 0 70px;
       background:
-        radial-gradient(circle at top right, #123566 0%, transparent 35%),
-        #07101f;
+        radial-gradient(circle at 80% 25%,rgba(34,100,255,.28),transparent 38%),
+        var(--bg);
     }
 
-    .hero-content {
-      max-width: 900px;
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:50px;
+      align-items:center;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 8px 15px;
-      border: 1px solid #20d6a4;
-      border-radius: 50px;
-      color: #20d6a4;
-      margin-bottom: 25px;
-      font-size: 14px;
-      font-weight: bold;
+    .badge{
+      display:inline-block;
+      padding:8px 13px;
+      border:1px solid var(--green);
+      color:var(--green);
+      border-radius:50px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:22px;
     }
 
-    h1 {
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 1.05;
-      margin-bottom: 25px;
+    h1{
+      font-size:clamp(45px,6vw,72px);
+      line-height:1.04;
+      letter-spacing:-2px;
+      margin-bottom:22px;
     }
 
-    h1 span {
-      color: #20d6a4;
+    h1 span{
+      color:var(--green);
     }
 
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-      color: #b6c1d1;
-      font-size: 20px;
+    .hero-text{
+      color:var(--muted);
+      max-width:670px;
+      font-size:19px;
+      margin-bottom:30px;
     }
 
-    .buttons {
-      margin-top: 35px;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .hero-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 22px;
+      color:#dfe6ef;
+      margin-top:25px;
+      font-size:14px;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 16px 27px;
-      border-radius: 9px;
-      text-decoration: none;
-      font-weight: 700;
+    .hero-points span::before{
+      content:"✓";
+      color:var(--green);
+      margin-right:7px;
+      font-weight:bold;
     }
 
-    .primary {
-      background: #2864ff;
-      color: white;
+    .request-box{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:30px;
+      box-shadow:0 25px 80px rgba(0,0,0,.25);
     }
 
-    .secondary {
-      border: 1px solid #44546a;
-      color: white;
+    .request-box h2{
+      font-size:25px;
+      margin-bottom:6px;
     }
 
-    .how {
-      padding: 80px 7%;
-      text-align: center;
-      background: #0a1425;
+    .request-box > p{
+      color:var(--muted);
+      margin-bottom:22px;
+      font-size:14px;
     }
 
-    .how h2 {
-      font-size: 38px;
-      margin-bottom: 12px;
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:bold;
+      margin:13px 0 6px;
     }
 
-    .subtitle {
-      color: #9aa8bb;
-      margin-bottom: 45px;
+    input,
+    select,
+    textarea{
+      width:100%;
+      background:#081322;
+      color:white;
+      border:1px solid #314159;
+      padding:14px;
+      border-radius:9px;
+      outline:none;
+      font-size:15px;
     }
 
-    .steps {
-      max-width: 1100px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    input:focus,
+    select:focus,
+    textarea:focus{
+      border-color:var(--blue);
     }
 
-    .card {
-      background: #101c30;
-      border: 1px solid #25334a;
-      border-radius: 15px;
-      padding: 35px 25px;
-      text-align: left;
+    textarea{
+      min-height:105px;
+      resize:vertical;
     }
 
-    .number {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #2864ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-bottom: 20px;
+    .btn{
+      border:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:15px 22px;
+      border-radius:9px;
+      font-size:15px;
+      font-weight:800;
     }
 
-    .card h3 {
-      margin-bottom: 10px;
+    .btn-primary{
+      color:white;
+      background:var(--blue);
     }
 
-    .card p {
-      color: #aeb9c9;
+    .btn-green{
+      color:#021510;
+      background:var(--green);
     }
 
-    .pro {
-      padding: 85px 7%;
-      text-align: center;
+    .btn-outline{
+      color:white;
+      border:1px solid #40506a;
+      background:transparent;
     }
 
-    .pro h2 {
-      font-size: 38px;
-      margin-bottom: 15px;
+    .full{
+      width:100%;
+      margin-top:18px;
     }
 
-    .pro p {
-      color: #aeb9c9;
-      max-width: 700px;
-      margin: 0 auto 30px;
+    section{
+      padding:80px 0;
     }
 
-    footer {
-      border-top: 1px solid #1e293b;
-      padding: 30px 7%;
-      text-align: center;
-      color: #7f8ca0;
+    .section-dark{
+      background:var(--bg2);
     }
 
-    @media (max-width: 750px) {
-      nav {
-        display: none;
+    .eyebrow{
+      color:var(--green);
+      text-transform:uppercase;
+      font-size:12px;
+      letter-spacing:1.5px;
+      font-weight:800;
+      text-align:center;
+      margin-bottom:8px;
+    }
+
+    .section-title{
+      font-size:clamp(31px,4vw,44px);
+      text-align:center;
+      line-height:1.15;
+      margin-bottom:12px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      color:var(--muted);
+      max-width:700px;
+      margin:0 auto 42px;
+    }
+
+    .services{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+
+    .service{
+      padding:24px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:13px;
+      transition:.2s;
+    }
+
+    .service:hover{
+      transform:translateY(-4px);
+      border-color:#40577b;
+    }
+
+    .service-icon{
+      font-size:28px;
+      margin-bottom:13px;
+    }
+
+    .service h3{
+      font-size:17px;
+      margin-bottom:5px;
+    }
+
+    .service p{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .step{
+      padding:30px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .step-number{
+      width:43px;
+      height:43px;
+      background:var(--blue);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      margin-bottom:19px;
+    }
+
+    .step h3{
+      margin-bottom:8px;
+    }
+
+    .step p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .pro-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:45px;
+      align-items:center;
+    }
+
+    .pro-copy h2{
+      font-size:42px;
+      line-height:1.15;
+      margin-bottom:18px;
+    }
+
+    .pro-copy p{
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .checklist{
+      list-style:none;
+      margin:20px 0 30px;
+    }
+
+    .checklist li{
+      margin:11px 0;
+      color:#dce4ef;
+    }
+
+    .checklist li::before{
+      content:"✓";
+      color:var(--green);
+      font-weight:bold;
+      margin-right:10px;
+    }
+
+    .pro-card{
+      background:linear-gradient(145deg,#12213a,#0c1728);
+      border:1px solid #30415d;
+      padding:35px;
+      border-radius:18px;
+    }
+
+    .pro-card h3{
+      font-size:26px;
+      margin-bottom:9px;
+    }
+
+    .pro-card p{
+      color:var(--muted);
+      margin-bottom:24px;
+    }
+
+    .cities{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+    }
+
+    .city{
+      padding:11px 16px;
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:50px;
+      color:#dfe6ef;
+      font-size:14px;
+    }
+
+    .tenders{
+      background:
+        linear-gradient(120deg,rgba(47,102,255,.17),rgba(34,214,163,.08)),
+        var(--bg2);
+    }
+
+    .tender-box{
+      border:1px solid #315178;
+      border-radius:18px;
+      padding:45px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+    }
+
+    .tender-box h2{
+      font-size:35px;
+      margin-bottom:8px;
+    }
+
+    .tender-box p{
+      color:var(--muted);
+      max-width:700px;
+    }
+
+    .faq{
+      max-width:850px;
+      margin:auto;
+    }
+
+    details{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:10px;
+      margin-bottom:10px;
+      padding:18px 20px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    details p{
+      color:var(--muted);
+      padding-top:12px;
+      font-size:14px;
+    }
+
+    .cta{
+      text-align:center;
+    }
+
+    .cta-box{
+      padding:55px 30px;
+      border:1px solid #2a4163;
+      background:linear-gradient(140deg,#102344,#0b192d);
+      border-radius:20px;
+    }
+
+    .cta-box h2{
+      font-size:40px;
+      margin-bottom:10px;
+    }
+
+    .cta-box p{
+      color:var(--muted);
+      max-width:650px;
+      margin:0 auto 25px;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:40px 0;
+      color:#7f8da2;
+      font-size:13px;
+    }
+
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:25px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      color:#98a5b8;
+    }
+
+    .success{
+      display:none;
+      background:rgba(34,214,163,.12);
+      border:1px solid var(--green);
+      color:#aaffdf;
+      padding:13px;
+      border-radius:8px;
+      margin-top:15px;
+      font-size:14px;
+    }
+
+    @media(max-width:900px){
+      .hero-grid,
+      .pro-grid{
+        grid-template-columns:1fr;
       }
 
-      .steps {
-        grid-template-columns: 1fr;
+      .services{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .tender-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media(max-width:650px){
+      nav a:not(.nav-btn){
+        display:none;
+      }
+
+      h1{
+        letter-spacing:-1px;
+      }
+
+      .services,
+      .steps{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:60px;
+      }
+
+      .request-box{
+        padding:22px;
       }
     }
   </style>
@@ -206,104 +558,489 @@
 <body>
 
 <header>
-  <div class="logo">PROXI<span>GO</span></div>
+  <div class="container nav">
 
-  <nav>
-    <a href="#comment">Comment ça marche</a>
-    <a href="#professionnels">Professionnels</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <a class="logo" href="#">
+      PROXI<span>GO</span>
+    </a>
+
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#comment">Comment ça marche</a>
+      <a href="#professionnels">Professionnels</a>
+      <a href="#appels">Appels d'offres</a>
+      <a href="#demande" class="nav-btn">Déposer une demande</a>
+    </nav>
+
+  </div>
 </header>
 
-<section class="hero">
-  <div class="hero-content">
 
-    <div class="badge">
-      PROXIGO BENELUX
+<main>
+
+<section class="hero" id="demande">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="badge">PROXIGO BENELUX</div>
+
+      <h1>
+        Le bon professionnel,
+        <span>près de chez vous.</span>
+      </h1>
+
+      <p class="hero-text">
+        Plomberie, électricité, nettoyage, petits travaux,
+        déménagement et bien plus encore.
+        Décrivez votre besoin gratuitement et Proxigo vous aide
+        à trouver les professionnels adaptés dans votre région.
+      </p>
+
+      <div class="hero-points">
+        <span>Demande gratuite</span>
+        <span>Professionnels locaux</span>
+        <span>Vous restez libre de choisir</span>
+      </div>
     </div>
 
-    <h1>
-      Besoin d'un professionnel
-      <span>près de chez vous ?</span>
-    </h1>
 
-    <p>
-      Décrivez gratuitement votre besoin.
-      Proxigo vous aide à trouver des professionnels adaptés
-      dans votre région.
+    <div class="request-box">
+
+      <h2>Que souhaitez-vous faire ?</h2>
+
+      <p>
+        Envoyez votre demande en quelques instants.
+      </p>
+
+      <form id="clientForm">
+
+        <label for="service">Service recherché</label>
+
+        <select id="service" required>
+          <option value="">Choisissez un service</option>
+          <option>Plomberie</option>
+          <option>Électricité</option>
+          <option>Nettoyage</option>
+          <option>Petits travaux</option>
+          <option>Déménagement</option>
+          <option>Peinture</option>
+          <option>Maçonnerie</option>
+          <option>Jardinage</option>
+          <option>Lavage automobile</option>
+          <option>Nettoyage de poubelles</option>
+          <option>Panneaux solaires</option>
+          <option>Autre</option>
+        </select>
+
+        <label for="city">Votre ville</label>
+        <input id="city" type="text"
+               placeholder="Ex. La Louvière, Bruxelles..."
+               required>
+
+        <label for="description">Décrivez votre besoin</label>
+        <textarea id="description"
+                  placeholder="Ex. Je cherche un plombier pour une fuite sous mon évier..."
+                  required></textarea>
+
+        <label for="contact">Téléphone ou e-mail</label>
+        <input id="contact"
+               type="text"
+               placeholder="Pour permettre au professionnel de vous contacter"
+               required>
+
+        <button class="btn btn-primary full" type="submit">
+          Envoyer ma demande gratuitement
+        </button>
+
+        <div class="success" id="successMessage">
+          Votre demande est prête. La connexion avec le moteur Proxigo sera activée prochainement.
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section-dark" id="services">
+
+  <div class="container">
+
+    <div class="eyebrow">Services populaires</div>
+
+    <h2 class="section-title">
+      De quoi avez-vous besoin ?
+    </h2>
+
+    <p class="section-subtitle">
+      Proxigo rassemble progressivement des professionnels
+      de différents métiers pour faciliter vos recherches.
     </p>
 
-    <div class="buttons">
-      <a class="btn primary" href="#demande">
-        Déposer ma demande gratuitement
-      </a>
+    <div class="services">
 
-      <a class="btn secondary" href="#professionnels">
-        Je suis professionnel
-      </a>
+      <div class="service">
+        <div class="service-icon">🔧</div>
+        <h3>Plomberie</h3>
+        <p>Fuites, installations, sanitaires, débouchage.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">⚡</div>
+        <h3>Électricité</h3>
+        <p>Dépannage, installations et petits travaux électriques.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🧹</div>
+        <h3>Nettoyage</h3>
+        <p>Maisons, bureaux, immeubles et après chantier.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🛠️</div>
+        <h3>Petits travaux</h3>
+        <p>Montage, réparations et homme à tout faire.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🚚</div>
+        <h3>Déménagement</h3>
+        <p>Aide au déménagement et transport.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🎨</div>
+        <h3>Peinture</h3>
+        <p>Travaux intérieurs et extérieurs.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🌿</div>
+        <h3>Jardinage</h3>
+        <p>Entretien, taille et aménagement extérieur.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">✨</div>
+        <h3>Autres services</h3>
+        <p>Expliquez votre besoin et laissez Proxigo vous orienter.</p>
+      </div>
+
     </div>
 
   </div>
 </section>
 
-<section class="how" id="comment">
 
-  <h2>Comment fonctionne Proxigo ?</h2>
+<section id="comment">
 
-  <p class="subtitle">
-    Une façon simple de trouver le bon professionnel.
-  </p>
+  <div class="container">
 
-  <div class="steps">
+    <div class="eyebrow">Simple et rapide</div>
 
-    <div class="card">
-      <div class="number">1</div>
-      <h3>Décrivez votre besoin</h3>
-      <p>
-        Expliquez le travail à réaliser, votre localisation
-        et vos disponibilités.
-      </p>
-    </div>
+    <h2 class="section-title">
+      Comment fonctionne Proxigo ?
+    </h2>
 
-    <div class="card">
-      <div class="number">2</div>
-      <h3>Proxigo recherche</h3>
-      <p>
-        Votre demande peut être transmise aux professionnels
-        correspondant à votre besoin.
-      </p>
-    </div>
+    <p class="section-subtitle">
+      Une demande, des professionnels adaptés, puis vous choisissez.
+    </p>
 
-    <div class="card">
-      <div class="number">3</div>
-      <h3>Choisissez votre professionnel</h3>
-      <p>
-        Comparez les réponses et choisissez librement
-        le professionnel qui vous convient.
-      </p>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Décrivez votre besoin</h3>
+        <p>
+          Indiquez le travail recherché, votre ville
+          et les informations utiles.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Proxigo recherche</h3>
+        <p>
+          Votre demande pourra être rapprochée
+          des professionnels correspondant à votre besoin.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Vous choisissez</h3>
+        <p>
+          Comparez les réponses et décidez librement
+          avec quel professionnel vous souhaitez travailler.
+        </p>
+      </div>
+
     </div>
 
   </div>
 </section>
 
-<section class="pro" id="professionnels">
 
-  <h2>Vous êtes professionnel ?</h2>
+<section class="section-dark" id="professionnels">
 
-  <p>
-    Rejoignez Proxigo pour développer votre visibilité
-    et accéder à de nouvelles demandes de clients dans votre région.
-  </p>
+  <div class="container pro-grid">
 
-  <a class="btn primary" href="#">
-    Rejoindre Proxigo
-  </a>
+    <div class="pro-copy">
 
+      <div class="eyebrow" style="text-align:left">
+        Pour les professionnels
+      </div>
+
+      <h2>
+        Développez votre activité avec Proxigo.
+      </h2>
+
+      <p>
+        Artisan, indépendant ou entreprise :
+        Proxigo est conçu pour vous rapprocher de nouvelles
+        demandes correspondant à votre métier et votre zone.
+      </p>
+
+      <ul class="checklist">
+        <li>Présentez vos services</li>
+        <li>Choisissez votre zone d'intervention</li>
+        <li>Recevez des opportunités pertinentes</li>
+        <li>Développez votre visibilité locale</li>
+      </ul>
+
+      <a href="#inscription-pro" class="btn btn-primary">
+        Rejoindre Proxigo
+      </a>
+
+    </div>
+
+
+    <div class="pro-card" id="inscription-pro">
+
+      <h3>Je suis professionnel</h3>
+
+      <p>
+        Laissez vos coordonnées pour préparer votre inscription.
+      </p>
+
+      <form id="proForm">
+
+        <label>Nom / entreprise</label>
+        <input type="text" required>
+
+        <label>Métier</label>
+        <input type="text"
+               placeholder="Ex. Plombier, nettoyage..."
+               required>
+
+        <label>Ville / zone</label>
+        <input type="text" required>
+
+        <label>Téléphone ou e-mail</label>
+        <input type="text" required>
+
+        <button type="submit" class="btn btn-green full">
+          Demander mon inscription
+        </button>
+
+        <div class="success" id="proSuccess">
+          Inscription préparée. La connexion à la base Proxigo sera activée prochainement.
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
 </section>
 
-<footer id="contact">
-  © 2026 Proxigo Benelux — Tous droits réservés
+
+<section>
+
+  <div class="container">
+
+    <div class="eyebrow">Zones desservies</div>
+
+    <h2 class="section-title">
+      Proxigo se développe près de chez vous
+    </h2>
+
+    <p class="section-subtitle">
+      Lancement progressif en Belgique et dans le Benelux.
+    </p>
+
+    <div class="cities">
+      <span class="city">Bruxelles</span>
+      <span class="city">La Louvière</span>
+      <span class="city">Charleroi</span>
+      <span class="city">Mons</span>
+      <span class="city">Liège</span>
+      <span class="city">Namur</span>
+      <span class="city">Anvers</span>
+      <span class="city">Gand</span>
+      <span class="city">Luxembourg</span>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="tenders" id="appels">
+
+  <div class="container">
+
+    <div class="tender-box">
+
+      <div>
+        <div class="eyebrow" style="text-align:left">
+          Proxigo Business
+        </div>
+
+        <h2>
+          Trouvez également des appels d'offres.
+        </h2>
+
+        <p>
+          Proxigo développe des outils destinés aux professionnels
+          pour identifier des opportunités et marchés
+          correspondant à leur activité.
+        </p>
+      </div>
+
+      <a href="#professionnels" class="btn btn-primary">
+        Découvrir pour les pros
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section id="faq">
+
+  <div class="container">
+
+    <div class="eyebrow">Questions fréquentes</div>
+
+    <h2 class="section-title">
+      Tout savoir sur Proxigo
+    </h2>
+
+    <div class="faq">
+
+      <details>
+        <summary>Est-ce gratuit pour déposer une demande ?</summary>
+        <p>
+          Oui. Le particulier peut déposer sa demande gratuitement.
+        </p>
+      </details>
+
+      <details>
+        <summary>Suis-je obligé de choisir un professionnel ?</summary>
+        <p>
+          Non. Vous restez libre d'accepter ou non les propositions reçues.
+        </p>
+      </details>
+
+      <details>
+        <summary>Comment les professionnels sont-ils sélectionnés ?</summary>
+        <p>
+          Proxigo développe un processus d'inscription,
+          de profil et de vérification afin d'améliorer
+          progressivement la qualité du réseau.
+        </p>
+      </details>
+
+      <details>
+        <summary>Proxigo est-il disponible partout ?</summary>
+        <p>
+          Le déploiement est progressif, en commençant par
+          plusieurs zones de Belgique et du Benelux.
+        </p>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <h2>
+        Un travail à faire ?
+      </h2>
+
+      <p>
+        Décrivez votre besoin dès maintenant.
+        La demande est gratuite et sans engagement.
+      </p>
+
+      <a href="#demande" class="btn btn-green">
+        Déposer ma demande
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      <strong>PROXIGO BENELUX</strong><br>
+      © 2026 Proxigo — Tous droits réservés
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">CGU</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+  </div>
+
 </footer>
+
+
+<script>
+  document.getElementById("clientForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    document.getElementById("successMessage").style.display = "block";
+
+    document.getElementById("successMessage").scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  });
+
+
+  document.getElementById("proForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    document.getElementById("proSuccess").style.display = "block";
+
+    document.getElementById("proSuccess").scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  });
+</script>
 
 </body>
 </html>
