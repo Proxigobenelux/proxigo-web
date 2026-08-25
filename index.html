@@ -1582,16 +1582,183 @@ if (proLoginButton) {
     console.log("Professionnel connecté :", data);
 
     proLoginMessage.textContent = "Connexion réussie.";
-
+    await loadProfessionalDashboard();
     alert("Bienvenue dans votre espace professionnel Proxigo.");
   });
 }  
-  </script>
+async function loadProfessionalDashboard() {
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
 
+  if (userError || !user) {
+    return;
+  }
 
+  const { data: professional, error: profileError } = await supabaseClient
+    .from("professionals")
+    .select("company_name, category, city, subscription, is_verified, is_active")
+    .eq("user_id", user.id)
+    .single();
+
+  if (profileError) {
+    console.error("Erreur profil professionnel :", profileError);
+    return;
+  }
+
+  const dashboard = document.getElementById("proDashboard");
+  const loginBox = document.getElementById("proLoginBox");
+
+  if (dashboard) {
+    dashboard.style.display = "block";
+  }
+
+  if (loginBox) {
+    loginBox.style.display = "none";
+  }
+
+  document.getElementById("proWelcome").textContent =
+    "Bienvenue " + (professional.company_name || "professionnel") + " 👋";
+
+  document.getElementById("dashboardCompany").textContent =
+    professional.company_name || "Entreprise non renseignée";
+
+  document.getElementById("dashboardCategory").textContent =
+    "Métier : " + (professional.category || "Non renseigné");
+
+  document.getElementById("dashboardCity").textContent =
+    "Ville : " + (professional.city || "Non renseignée");
+
+  document.getElementById("dashboardSubscription").textContent =
+    "Formule actuelle : " + (professional.subscription || "free");
+}
+
+const proLogoutButton = document.getElementById("proLogoutButton");
+
+if (proLogoutButton) {
+  proLogoutButton.addEventListener("click", async function () {
+    await supabaseClient.auth.signOut();
+
+    const dashboard = document.getElementById("proDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "none";
+    }
+
+    alert("Vous êtes déconnecté de votre espace Proxigo.");
+  });
+}
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_IN" && session) {
+    loadProfessionalDashboard();
+  }
+
+  if (event === "SIGNED_OUT") {
+    const dashboard = document.getElementById("proDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "none";
+    }
+  }
+});
+
+loadProfessionalDashboard();  
+</script>
+
+<!-- ============================= -->
+<!-- PROXIGO - ESPACE PROFESSIONNEL -->
+<!-- ============================= -->
+
+<section id="proDashboard" style="display:none; padding:40px 20px;">
+
+  <div style="max-width:1100px; margin:auto;">
+
+    <h2>🚀 Mon espace professionnel Proxigo</h2>
+
+    <p id="proWelcome">
+      Bienvenue dans votre tableau de bord.
+    </p>
+
+    <hr>
+
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-top:30px;
+    ">
+
+      <div class="card">
+        <h3>🏢 Mon entreprise</h3>
+        <p id="dashboardCompany">Chargement...</p>
+        <p id="dashboardCategory"></p>
+        <p id="dashboardCity"></p>
+      </div>
+
+      <div class="card">
+        <h3>💼 Mon abonnement</h3>
+        <p id="dashboardSubscription">Chargement...</p>
+      </div>
+
+      <div class="card">
+        <h3>📩 Demandes clients</h3>
+        <p>Consultez les nouvelles demandes correspondant à votre métier.</p>
+        <button type="button" class="btn btn-green full">
+          Voir les demandes
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>📑 Appels d'offres</h3>
+        <p>Découvrez les opportunités détectées par Proxigo.</p>
+        <button type="button" class="btn btn-green full">
+          Voir les appels d'offres
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>💰 Mes devis</h3>
+        <p>Préparez et suivez vos devis clients.</p>
+        <button type="button" class="btn btn-green full">
+          Mes devis
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>🔔 Notifications</h3>
+        <p>Retrouvez vos nouvelles opportunités et alertes.</p>
+        <button type="button" class="btn btn-green full">
+          Mes notifications
+        </button>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      id="proLogoutButton"
+      class="btn full"
+      style="margin-top:30px;"
+    >
+      Se déconnecter
+    </button>
+
+  </div>
+
+</section>
 
 
   
+
+
+
+
+
+
+
+
 
 </body>
 </html>
