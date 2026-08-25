@@ -2112,7 +2112,23 @@ if (viewRequestsButton && requestsBox) {
         💰 ${request.budget_text || "Budget non précisé"}<br>
         📅 ${request.requested_date_text || "Date non précisée"}
       `;
+const interestedButton = document.createElement("button");
 
+interestedButton.type = "button";
+interestedButton.className = "btn btn-green";
+interestedButton.style.marginTop = "12px";
+interestedButton.textContent = "Je suis intéressé";
+
+interestedButton.onclick = function () {
+  alert(
+    "Demande sélectionnée : " +
+    (request.description || "Service") +
+    " à " +
+    (request.city || "ville non précisée")
+  );
+};
+
+card.appendChild(interestedButton);
       requestsList.appendChild(card);
     });
   };
