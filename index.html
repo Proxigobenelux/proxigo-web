@@ -2044,7 +2044,79 @@ if (saveBtnFinal) {
 
 
 
+const viewRequestsButton = document.getElementById("viewRequestsButton");
+const requestsBox = document.getElementById("requestsBox");
+const requestsStatus = document.getElementById("requestsStatus");
+const requestsList = document.getElementById("requestsList");
 
+if (viewRequestsButton && requestsBox) {
+  viewRequestsButton.onclick = async function () {
+    requestsBox.style.display = "block";
+    requestsStatus.textContent = "Chargement des demandes...";
+    requestsList.innerHTML = "";
+
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      requestsStatus.textContent = "Vous devez être connecté.";
+      return;
+    }
+
+    const { data: professional, error: profileError } = await supabaseClient
+      .from("professionals")
+      .select("category, city")
+      .eq("user_id", user.id)
+      .single();
+
+    if (profileError || !professional) {
+      console.error("Erreur profil :", profileError);
+      requestsStatus.textContent = "Impossible de charger votre profil.";
+      return;
+    }
+
+    const { data: requests, error: requestsError } = await supabaseClient
+      .from("service_requests")
+      .select("id, category, description, city, country, budget_text, requested_date_text, status")
+      .ilike("category", "%" + professional.category + "%")
+      
+      .limit(20);
+
+    if (requestsError) {
+      console.error("Erreur demandes :", requestsError);
+      requestsStatus.textContent =
+        "Impossible de charger les demandes : " + requestsError.message;
+      return;
+    }
+
+    if (!requests || requests.length === 0) {
+      requestsStatus.textContent =
+        "Aucune demande trouvée pour votre métier.";
+      return;
+    }
+
+    requestsStatus.textContent =
+      requests.length + " demande(s) trouvée(s).";
+
+    requests.forEach(function (request) {
+      const card = document.createElement("div");
+
+      card.style.cssText =
+        "padding:12px; margin-top:10px; border:1px solid #334155; border-radius:10px;";
+
+      card.innerHTML = `
+        <strong>${request.category || "Service"}</strong><br>
+        ${request.description || "Sans description"}<br>
+        📍 ${request.city || "Ville non précisée"}<br>
+        💰 ${request.budget_text || "Budget non précisé"}<br>
+        📅 ${request.requested_date_text || "Date non précisée"}
+      `;
+
+      requestsList.appendChild(card);
+    });
+  };
+}
 
 
 </body>
