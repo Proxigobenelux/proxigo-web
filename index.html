@@ -1923,9 +1923,13 @@ loadProfessionalDashboard();
       <div class="card">
         <h3>📩 Demandes clients</h3>
         <p>Consultez les nouvelles demandes correspondant à votre métier.</p>
-        <button type="button" class="btn btn-green full">
+        <button type="button" class="btn btn-green full"id="viewRequestsButton">
           Voir les demandes
         </button>
+      <div id="requestsBox" style="display:none; margin-top:15px;">
+  <p id="requestsStatus">Chargement des demandes...</p>
+  <div id="requestsList"></div>
+</div>
       </div>
 
       <div class="card">
