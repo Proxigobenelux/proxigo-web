@@ -1975,6 +1975,62 @@ loadProfessionalDashboard();
       editBoxFinal.style.display = "block";
     };
   }
+
+const saveBtnFinal = document.getElementById("saveProfileButton");
+const saveMessageFinal = document.getElementById("profileSaveMessage");
+
+if (saveBtnFinal) {
+  saveBtnFinal.onclick = async function () {
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      saveMessageFinal.textContent = "Vous devez être connecté.";
+      return;
+    }
+
+    const companyName =
+      document.getElementById("editCompanyName").value.trim();
+
+    const category =
+      document.getElementById("editCategory").value.trim();
+
+    const city =
+      document.getElementById("editCity").value.trim();
+
+    const phone =
+      document.getElementById("editPhone").value.trim();
+
+    const { error } = await supabaseClient
+      .from("professionals")
+      .update({
+        company_name: companyName,
+        category: category,
+        city: city,
+        phone: phone
+      })
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.error("Erreur sauvegarde profil :", error);
+      saveMessageFinal.textContent =
+        "Impossible d'enregistrer : " + error.message;
+      return;
+    }
+
+    saveMessageFinal.textContent = "✅ Profil enregistré avec succès.";
+
+    document.getElementById("dashboardCompany").textContent =
+      companyName || "Entreprise non renseignée";
+
+    document.getElementById("dashboardCategory").textContent =
+      "Métier : " + (category || "Non renseigné");
+
+    document.getElementById("dashboardCity").textContent =
+      "Ville : " + (city || "Non renseignée");
+  };
+}
 </script>
 
   
