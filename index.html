@@ -1338,6 +1338,17 @@ if (searchTendersButton) {
     ${escapeTenderHtml(item.title || "Appel d'offres")}
 </h3>
 
+${item.relevance_score !== undefined ? `
+    <div style="
+        margin:6px 0 10px 0;
+        font-size:14px;
+        font-weight:700;
+    ">
+        🎯 Pertinence : ${escapeTenderHtml(item.relevance_score)} / 100
+        — ${escapeTenderHtml(item.relevance_label || "À vérifier")}
+    </div>
+` : ""}
+
 ${item.organism ? `
     <p style="margin:8px 0;">
         <strong>🏢 Organisme :</strong>
