@@ -1966,7 +1966,16 @@ loadProfessionalDashboard();
   </div>
 
 </section>
+<script>
+  const editBtnFinal = document.getElementById("editProfileButton");
+  const editBoxFinal = document.getElementById("editProfileBox");
 
+  if (editBtnFinal && editBoxFinal) {
+    editBtnFinal.onclick = function () {
+      editBoxFinal.style.display = "block";
+    };
+  }
+</script>
 
   
 
