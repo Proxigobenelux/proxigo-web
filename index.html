@@ -1242,7 +1242,113 @@ async function rechercherAppelsOffres(job, country = "BE", limit = 20) {
 
 /* Test rapide depuis la console du navigateur :
    rechercherAppelsOffres("nettoyage", "BE", 10)
-*/
+*/// =========================================================
+// AFFICHAGE DES APPELS D'OFFRES SUR PROXIGO
+// =========================================================
+
+const searchTendersButton = document.getElementById("searchTendersButton");
+const tenderJob = document.getElementById("tenderJob");
+const tenderCountry = document.getElementById("tenderCountry");
+const tenderResults = document.getElementById("tenderResults");
+
+if (searchTendersButton) {
+    searchTendersButton.addEventListener("click", async () => {
+
+        const job = tenderJob.value.trim();
+        const country = tenderCountry.value;
+
+        if (!job) {
+            alert("Veuillez indiquer un métier ou un mot-clé.");
+            return;
+        }
+
+        searchTendersButton.disabled = true;
+        searchTendersButton.textContent = "Recherche Proxigo AI...";
+
+        tenderResults.style.display = "block";
+        tenderResults.innerHTML = "<p>Recherche des appels d'offres en cours...</p>";
+
+        const data = await rechercherAppelsOffres(job, country, 20);
+
+        searchTendersButton.disabled = false;
+        searchTendersButton.textContent = "Rechercher des appels d'offres";
+
+        if (data.status !== "ok") {
+            tenderResults.innerHTML =
+                "<p>Une erreur est survenue pendant la recherche.</p>";
+            return;
+        }
+
+        if (!data.opportunities || data.opportunities.length === 0) {
+            tenderResults.innerHTML =
+                "<p>Aucun appel d'offres trouvé pour cette recherche.</p>";
+            return;
+        }
+
+        tenderResults.innerHTML = `
+            <h3>${data.count} appel(s) d'offres trouvé(s)</h3>
+            <div class="proxigo-tender-list">
+                ${data.opportunities.map(item => `
+                    <div style="
+                        padding:18px;
+                        margin:15px 0;
+                        border:1px solid rgba(255,255,255,.15);
+                        border-radius:12px;
+                        background:rgba(255,255,255,.04);
+                    ">
+                        <h3>${escapeTenderHtml(item.title || "Appel d'offres")}</h3>
+
+                        <p>
+                            <strong>Source :</strong>
+                            ${escapeTenderHtml(item.source_name || "Non précisée")}
+                        </p>
+
+                        ${item.organism ? `
+                            <p>
+                                <strong>Organisme :</strong>
+                                ${escapeTenderHtml(item.organism)}
+                            </p>
+                        ` : ""}
+
+                        ${item.source_url ? `
+                            <a
+                                href="${escapeTenderUrl(item.source_url)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-primary"
+                            >
+                                Voir l'appel d'offres
+                            </a>
+                        ` : ""}
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    });
+}
+
+function escapeTenderHtml(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function escapeTenderUrl(value) {
+    try {
+        const url = new URL(value);
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+            return url.href;
+        }
+
+        return "#";
+    } catch {
+        return "#";
+    }
+}
 </script>
 
 
