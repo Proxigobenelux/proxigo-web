@@ -1467,7 +1467,44 @@ const SUPABASE_PUBLISHABLE_KEY ="sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz"
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
-</script>
+  const proForm = document.getElementById("proForm");
+
+if (proForm) {
+  proForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("proEmail").value.trim();
+    const password = document.getElementById("proPassword").value;
+    const passwordConfirm = document.getElementById("proPasswordConfirm").value;
+
+    if (password !== passwordConfirm) {
+      alert("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: "https://proxigobenelux.github.io/proxigo-web/"
+      }
+    });
+
+    if (error) {
+      console.error("Erreur inscription Proxigo :", error);
+      alert("Impossible de créer le compte : " + error.message);
+      return;
+    }
+
+    console.log("Compte professionnel créé :", data);
+
+    alert(
+      "Votre compte a été créé. Vérifiez votre e-mail pour confirmer votre inscription."
+    );
+  });
+}
+  </script>
+
 
 
 
