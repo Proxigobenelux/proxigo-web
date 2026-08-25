@@ -1288,8 +1288,12 @@ if (searchTendersButton) {
         tenderResults.innerHTML = `
             <h3>${data.count} appel(s) d'offres trouvé(s)</h3>
             <div class="proxigo-tender-list">
-                ${data.opportunities.map(item => `
-                    <div style="
+              ${data.opportunities.map((item, index) => `
+                    <div
+    class="proxigo-tender-card"
+    data-tender-index="${index}"
+    style="
+        display:${index < 5 ? "block" : "none"};
                         padding:18px;
                         margin:15px 0;
                         border:1px solid rgba(255,255,255,.15);
@@ -1367,10 +1371,36 @@ ${item.source_url ? `
                     </div>
                 `).join("")}
             </div>
+            ${data.opportunities.length > 5 ? `
+    <div style="text-align:center; margin-top:22px;">
+        <button
+            type="button"
+            id="showMoreTenders"
+            class="btn btn-primary"
+        >
+            Voir plus d'appels d'offres
+        </button>
+    </div>
+` : ""}
         `;
     });
 }
+const showMoreTenders = document.getElementById("showMoreTenders");
 
+if (showMoreTenders) {
+    showMoreTenders.addEventListener("click", () => {
+
+        const hiddenCards = document.querySelectorAll(
+            '.proxigo-tender-card[style*="display:none"]'
+        );
+
+        hiddenCards.forEach(card => {
+            card.style.display = "block";
+        });
+
+        showMoreTenders.style.display = "none";
+    });
+}
 function escapeTenderHtml(value) {
     return String(value)
         .replaceAll("&", "&amp;")
