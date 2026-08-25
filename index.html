@@ -829,18 +829,21 @@
       <form id="proForm">
 
         <label>Nom / entreprise</label>
-        <input type="text" required>
+<input type="text" id="proCompanyName" required>
 
-        <label>Métier</label>
-        <input type="text"
-               placeholder="Ex. Plombier, nettoyage..."
-               required>
+<label>Métier</label>
+<input
+    type="text"
+    id="proCategory"
+    placeholder="Ex. Plombier, nettoyage..."
+    required
+>
 
-        <label>Ville / zone</label>
-        <input type="text" required>
+<label>Ville / zone</label>
+<input type="text" id="proCity" required>
 
-        <label>Téléphone ou e-mail</label>
-        <input type="text" required>
+<label>Téléphone</label>
+<input type="text" id="proPhone" required>
 <label>E-mail</label>
 <input
     type="email"
@@ -1472,7 +1475,10 @@ const SUPABASE_PUBLISHABLE_KEY ="sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz"
 if (proForm) {
   proForm.addEventListener("submit", async function (event) {
     event.preventDefault();
-
+const companyName = document.getElementById("proCompanyName").value.trim();
+const category = document.getElementById("proCategory").value.trim();
+const city = document.getElementById("proCity").value.trim();
+const phone = document.getElementById("proPhone").value.trim();
     const email = document.getElementById("proEmail").value.trim();
     const password = document.getElementById("proPassword").value;
     const passwordConfirm = document.getElementById("proPasswordConfirm").value;
@@ -1485,9 +1491,15 @@ if (proForm) {
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
       password: password,
-      options: {
-        emailRedirectTo: "https://proxigobenelux.github.io/proxigo-web/"
-      }
+     options: {
+    emailRedirectTo: "https://proxigobenelux.github.io/proxigo-web/",
+    data: {
+        company_name: companyName,
+        category: category,
+        city: city,
+        phone: phone
+    }
+}
     });
 
     if (error) {
