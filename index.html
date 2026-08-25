@@ -1695,6 +1695,30 @@ loadProfessionalDashboard();
         <p id="dashboardCompany">Chargement...</p>
         <p id="dashboardCategory"></p>
         <p id="dashboardCity"></p>
+        <button type="button" class="btn btn-green" id="editProfileButton">
+  Modifier mon profil
+</button>
+
+<div id="editProfileBox" style="display:none; margin-top:20px;">
+
+  <label>Nom / entreprise</label>
+  <input type="text" id="editCompanyName">
+
+  <label>Métier</label>
+  <input type="text" id="editCategory">
+
+  <label>Ville</label>
+  <input type="text" id="editCity">
+
+  <label>Téléphone</label>
+  <input type="text" id="editPhone">
+
+  <button type="button" class="btn btn-green full" id="saveProfileButton">
+    Enregistrer mon profil
+  </button>
+
+  <p id="profileSaveMessage"></p>
+</div>
       </div>
 
       <div class="card">
