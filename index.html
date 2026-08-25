@@ -1296,30 +1296,74 @@ if (searchTendersButton) {
                         border-radius:12px;
                         background:rgba(255,255,255,.04);
                     ">
-                        <h3>${escapeTenderHtml(item.title || "Appel d'offres")}</h3>
+                        <div style="
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-start;
+    margin-bottom:12px;
+">
+    <span style="
+        display:inline-block;
+        padding:5px 10px;
+        border-radius:999px;
+        background:rgba(34,214,163,.12);
+        border:1px solid rgba(34,214,163,.35);
+        font-size:12px;
+        font-weight:700;
+    ">
+        ${escapeTenderHtml(
+            tenderCountry.options[tenderCountry.selectedIndex]?.text ||
+            "Europe"
+        )}
+    </span>
 
-                        <p>
-                            <strong>Source :</strong>
-                            ${escapeTenderHtml(item.source_name || "Non précisée")}
-                        </p>
+    <span style="
+        font-size:12px;
+        opacity:.75;
+    ">
+        ${escapeTenderHtml(item.source_name || "Source publique")}
+    </span>
+</div>
 
-                        ${item.organism ? `
-                            <p>
-                                <strong>Organisme :</strong>
-                                ${escapeTenderHtml(item.organism)}
-                            </p>
-                        ` : ""}
+<h3 style="
+    font-size:18px;
+    line-height:1.4;
+    margin:0 0 12px 0;
+">
+    ${escapeTenderHtml(item.title || "Appel d'offres")}
+</h3>
 
-                        ${item.source_url ? `
-                            <a
-                                href="${escapeTenderUrl(item.source_url)}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn btn-primary"
-                            >
-                                Voir l'appel d'offres
-                            </a>
-                        ` : ""}
+${item.organism ? `
+    <p style="margin:8px 0;">
+        <strong>🏢 Organisme :</strong>
+        ${escapeTenderHtml(item.organism)}
+    </p>
+` : ""}
+
+<p style="
+    margin:8px 0 16px 0;
+    opacity:.8;
+    font-size:14px;
+">
+    <strong>📡 Source :</strong>
+    ${escapeTenderHtml(item.source_name || "Non précisée")}
+</p>
+
+${item.source_url ? `
+    <a
+        href="${escapeTenderUrl(item.source_url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        style="
+            display:inline-block;
+            margin-top:6px;
+        "
+    >
+        Voir l'appel d'offres ↗
+    </a>
+` : ""}
                     </div>
                 `).join("")}
             </div>
