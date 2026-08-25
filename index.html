@@ -1634,7 +1634,98 @@ async function loadProfessionalDashboard() {
     "Formule actuelle : " + (professional.subscription || "free");
 }
 
-const proLogoutButton = document.getElementById("proLogoutButton");
+
+  const editProfileButton = document.getElementById("editProfileButton");
+const editProfileBox = document.getElementById("editProfileBox");
+const saveProfileButton = document.getElementById("saveProfileButton");
+const profileSaveMessage = document.getElementById("profileSaveMessage");
+
+if (editProfileButton && editProfileBox) {
+  editProfileButton.addEventListener("click", async function () {
+
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      return;
+    }
+
+    const { data: professional, error } = await supabaseClient
+      .from("professionals")
+      .select("company_name, category, city, phone")
+      .eq("user_id", user.id)
+      .single();
+
+    if (error) {
+      console.error("Erreur chargement profil :", error);
+      profileSaveMessage.textContent = "Impossible de charger votre profil.";
+      return;
+    }
+
+    document.getElementById("editCompanyName").value =
+      professional.company_name || "";
+
+    document.getElementById("editCategory").value =
+      professional.category || "";
+
+    document.getElementById("editCity").value =
+      professional.city || "";
+
+    document.getElementById("editPhone").value =
+      professional.phone || "";
+
+    editProfileBox.style.display = "block";
+  });
+}
+
+if (saveProfileButton) {
+  saveProfileButton.addEventListener("click", async function () {
+
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      profileSaveMessage.textContent = "Vous devez être connecté.";
+      return;
+    }
+
+    const companyName =
+      document.getElementById("editCompanyName").value.trim();
+
+    const category =
+      document.getElementById("editCategory").value.trim();
+
+    const city =
+      document.getElementById("editCity").value.trim();
+
+    const phone =
+      document.getElementById("editPhone").value.trim();
+
+    const { error } = await supabaseClient
+      .from("professionals")
+      .update({
+        company_name: companyName,
+        category: category,
+        city: city,
+        phone: phone
+      })
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.error("Erreur sauvegarde profil :", error);
+      profileSaveMessage.textContent =
+        "Impossible d'enregistrer : " + error.message;
+      return;
+    }
+
+    profileSaveMessage.textContent = "✅ Profil enregistré avec succès.";
+
+    await loadProfessionalDashboard();
+  });
+}
+  const proLogoutButton = document.getElementById("proLogoutButton");
 
 if (proLogoutButton) {
   proLogoutButton.addEventListener("click", async function () {
