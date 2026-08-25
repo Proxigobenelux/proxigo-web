@@ -876,6 +876,38 @@
         </div>
 
       </form>
+      <div style="margin-top:20px; text-align:center;">
+  <p>Déjà inscrit comme professionnel ?</p>
+  <button type="button" class="btn btn-green full" id="showProLogin">
+    Se connecter à mon espace Pro
+  </button>
+</div>
+
+<div id="proLoginBox" style="display:none; margin-top:20px;">
+  <h3>Connexion professionnel</h3>
+
+  <label>E-mail</label>
+  <input
+    type="email"
+    id="proLoginEmail"
+    placeholder="vous@entreprise.be"
+    required
+  >
+
+  <label>Mot de passe</label>
+  <input
+    type="password"
+    id="proLoginPassword"
+    placeholder="Votre mot de passe"
+    required
+  >
+
+  <button type="button" class="btn btn-green full" id="proLoginButton">
+    Se connecter
+  </button>
+
+  <p id="proLoginMessage"></p>
+</div>
 
     </div>
 
@@ -1515,6 +1547,45 @@ const phone = document.getElementById("proPhone").value.trim();
     );
   });
 }
+const showProLogin = document.getElementById("showProLogin");
+const proLoginBox = document.getElementById("proLoginBox");
+const proLoginButton = document.getElementById("proLoginButton");
+const proLoginMessage = document.getElementById("proLoginMessage");
+
+if (showProLogin && proLoginBox) {
+  showProLogin.addEventListener("click", function () {
+    proLoginBox.style.display = "block";
+  });
+}
+
+if (proLoginButton) {
+  proLoginButton.addEventListener("click", async function () {
+    const email = document.getElementById("proLoginEmail").value.trim();
+    const password = document.getElementById("proLoginPassword").value;
+
+    if (!email || !password) {
+      proLoginMessage.textContent = "Veuillez saisir votre e-mail et votre mot de passe.";
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      console.error("Erreur connexion Proxigo :", error);
+      proLoginMessage.textContent = "Connexion impossible : " + error.message;
+      return;
+    }
+
+    console.log("Professionnel connecté :", data);
+
+    proLoginMessage.textContent = "Connexion réussie.";
+
+    alert("Bienvenue dans votre espace professionnel Proxigo.");
+  });
+}  
   </script>
 
 
