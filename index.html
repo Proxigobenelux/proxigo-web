@@ -1883,7 +1883,7 @@ async function loadProfessionalDashboard() {
     "Ville : " + (professional.city || "Non renseignée");
 
   document.getElementById("dashboardSubscription").textContent =
-    "Formule actuelle : " + (professional.subscription || "free");
+   (professional.subscription || "free").toUpperCase();
 }
 
 
