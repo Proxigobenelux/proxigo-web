@@ -1249,6 +1249,81 @@ if (clientInterestsStatus) {
 if (clientInterestsList) {
   clientInterestsList.innerHTML = "";
 }
+          // Charger les professionnels intéressés par cette demande
+if (currentRequestId && clientInterestsList) {
+
+    const { data: interests, error: interestsError } = await supabaseClient
+        .from("service_request_interests")
+        .select("professional_user_id, status, created_at")
+        .eq("service_request_id", currentRequestId)
+        .eq("status", "interested");
+
+    if (interestsError) {
+        console.error("Erreur chargement intérêts :", interestsError);
+        clientInterestsStatus.textContent =
+            "Impossible de charger les professionnels intéressés.";
+    } else if (!interests || interests.length === 0) {
+
+        clientInterestsStatus.textContent =
+            "Votre demande est enregistrée. Aucun professionnel ne s'est encore déclaré intéressé.";
+
+    } else {
+
+        clientInterestsStatus.textContent =
+            interests.length + " professionnel(s) intéressé(s) par votre demande.";
+
+        for (const interest of interests) {
+
+            const { data: pro, error: proError } = await supabaseClient
+                .from("professionals")
+                .select("company_name, contact_name, category, city, phone, email")
+                .eq("user_id", interest.professional_user_id)
+                .maybeSingle();
+
+            if (proError) {
+                console.error("Erreur chargement professionnel :", proError);
+                continue;
+            }
+
+            if (!pro) continue;
+
+            const proCard = document.createElement("div");
+
+            proCard.style.marginTop = "12px";
+            proCard.style.padding = "15px";
+            proCard.style.border = "1px solid #334155";
+            proCard.style.borderRadius = "12px";
+
+            const company = document.createElement("strong");
+            company.textContent =
+                "👷 " + (pro.company_name || pro.contact_name || "Professionnel Proxigo");
+
+            const details = document.createElement("div");
+            details.style.marginTop = "8px";
+
+            details.innerHTML =
+                "🔧 " + (pro.category || "Professionnel") + "<br>" +
+                "📍 " + (pro.city || "Ville non précisée");
+
+            proCard.appendChild(company);
+            proCard.appendChild(details);
+
+            if (pro.phone) {
+                const contactButton = document.createElement("a");
+
+                contactButton.href = "tel:" + pro.phone;
+                contactButton.textContent = "📞 Contacter";
+                contactButton.className = "btn btn-green";
+                contactButton.style.display = "inline-block";
+                contactButton.style.marginTop = "12px";
+
+                proCard.appendChild(contactButton);
+            }
+
+            clientInterestsList.appendChild(proCard);
+        }
+    }
+}
             const successMessage =
                 document.getElementById("successMessage");
 
