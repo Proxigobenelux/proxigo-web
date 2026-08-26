@@ -2167,10 +2167,58 @@ loadProfessionalDashboard();
 </div>
       </div>
 
-      <div class="card">
-        <h3>💼 Mon abonnement</h3>
-        <p id="dashboardSubscription">Chargement...</p>
-      </div>
+      <div class="card" id="subscriptionCard">
+  <h3>💼 Mon abonnement</h3>
+
+  <p>
+    Formule actuelle :
+    <strong id="dashboardSubscription">Chargement...</strong>
+  </p>
+
+  <div style="margin-top:16px;">
+    <strong>🆓 FREE — 0 €</strong>
+    <p style="margin-top:5px;">
+      ✓ Profil professionnel<br>
+      ✓ Accès limité aux demandes clients<br>
+      ✕ Accès complet aux appels d'offres
+    </p>
+  </div>
+
+  <div style="margin-top:18px;">
+    <strong>⭐ PRO — 29 €/mois</strong>
+    <p style="margin-top:5px;">
+      ✓ Demandes clients<br>
+      ✓ Accès aux appels d'offres<br>
+      ✓ Alertes Proxigo<br>
+      ✓ Profil professionnel amélioré
+    </p>
+
+    <button
+      type="button"
+      class="btn btn-primary full"
+      id="upgradeProButton">
+      Passer à PRO — 29 €/mois
+    </button>
+  </div>
+
+  <div style="margin-top:18px;">
+    <strong>🚀 BUSINESS — 59 €/mois</strong>
+    <p style="margin-top:5px;">
+      ✓ Accès complet aux appels d'offres<br>
+      ✓ Priorité sur les demandes clients<br>
+      ✓ Alertes prioritaires<br>
+      ✓ Visibilité renforcée<br>
+      ✓ Fonctionnalités premium
+    </p>
+
+    <button
+      type="button"
+      class="btn btn-green full"
+      id="upgradeBusinessButton">
+      Passer à BUSINESS — 59 €/mois
+    </button>
+  </div>
+</div>
 
       <div class="card">
         <h3>📩 Demandes clients</h3>
