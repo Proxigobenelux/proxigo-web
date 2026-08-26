@@ -1241,11 +1241,16 @@ const currentRequestId = result?.request?.id;
 if (currentRequestId) {
   localStorage.setItem("proxigo_last_request_id", currentRequestId);
 }
+          const savedRequestId =
+  localStorage.getItem("proxigo_last_request_id");
+
+const requestIdToLoad =
+  currentRequestId || savedRequestId;
           const clientInterestsBox = document.getElementById("clientInterestsBox");
 const clientInterestsStatus = document.getElementById("clientInterestsStatus");
 const clientInterestsList = document.getElementById("clientInterestsList");
 
-if (clientInterestsBox) {
+if (requestIdToLoad && clientInterestsBox)
   clientInterestsBox.style.display = "block";
 }
 
@@ -1258,12 +1263,12 @@ if (clientInterestsList) {
   clientInterestsList.innerHTML = "";
 }
           // Charger les professionnels intéressés par cette demande
-if (currentRequestId && clientInterestsList) {
+if (requestIdToLoad && clientInterestsList) {
 
     const { data: interests, error: interestsError } = await supabaseClient
         .from("service_request_interests")
         .select("professional_user_id, status, created_at")
-        .eq("service_request_id", currentRequestId)
+        .eq("service_request_id", requestIdToLoad)
         .eq("status", "interested");
 
     if (interestsError) {
