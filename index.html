@@ -1228,7 +1228,27 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
 
             console.log("Réponse Proxigo AI :", result);
+const currentRequestId = result?.request?.id;
 
+if (currentRequestId) {
+  localStorage.setItem("proxigo_last_request_id", currentRequestId);
+}
+          const clientInterestsBox = document.getElementById("clientInterestsBox");
+const clientInterestsStatus = document.getElementById("clientInterestsStatus");
+const clientInterestsList = document.getElementById("clientInterestsList");
+
+if (clientInterestsBox) {
+  clientInterestsBox.style.display = "block";
+}
+
+if (clientInterestsStatus) {
+  clientInterestsStatus.textContent =
+    "Votre demande est enregistrée. Les professionnels intéressés apparaîtront ici.";
+}
+
+if (clientInterestsList) {
+  clientInterestsList.innerHTML = "";
+}
             const successMessage =
                 document.getElementById("successMessage");
 
