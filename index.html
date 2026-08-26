@@ -1193,10 +1193,18 @@ document.addEventListener("DOMContentLoaded", function () {
             (contact
                 ? "Contact client : " + contact + "."
                 : "");
+const {
+  data: { user },
+  error: userError
+} = await supabaseClient.auth.getUser();
 
+if (userError || !user) {
+  alert("Vous devez être connecté pour envoyer une demande.");
+  return;
+}
         const requestData = {
             message: message,
-            user_id: crypto.randomUUID(),
+            user_id: user.id,
             language: "fr",
             client_latitude: 0,
             client_longitude: 0,
