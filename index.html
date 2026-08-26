@@ -2427,6 +2427,115 @@ card.appendChild(interestedButton);
   };
 }
 </script>
+<script>
+window.addEventListener("load", async function () {
 
+  const savedRequestId =
+    localStorage.getItem("proxigo_last_request_id");
+
+  if (!savedRequestId) return;
+
+  const box =
+    document.getElementById("clientInterestsBox");
+
+  const status =
+    document.getElementById("clientInterestsStatus");
+
+  const list =
+    document.getElementById("clientInterestsList");
+
+  if (!box || !status || !list) return;
+
+  box.style.display = "block";
+  status.textContent =
+    "Recherche des professionnels intéressés...";
+  list.innerHTML = "";
+
+  const { data: interests, error: interestsError } =
+    await supabaseClient
+      .from("service_request_interests")
+      .select("professional_user_id")
+      .eq("service_request_id", savedRequestId)
+      .eq("status", "interested");
+
+  if (interestsError) {
+    console.error("Erreur intérêts :", interestsError);
+    status.textContent =
+      "Impossible de charger les professionnels intéressés.";
+    return;
+  }
+
+  if (!interests || interests.length === 0) {
+    status.textContent =
+      "Aucun professionnel ne s'est encore déclaré intéressé.";
+    return;
+  }
+
+  status.textContent =
+    interests.length +
+    " professionnel(s) intéressé(s) par votre demande.";
+
+  for (const interest of interests) {
+
+    const { data: pros, error: proError } =
+      await supabaseClient
+        .from("professionals")
+        .select(
+          "company_name, contact_name, category, city, phone, email"
+        )
+        .eq("user_id", interest.professional_user_id)
+        .limit(1);
+
+    if (proError) {
+      console.error("Erreur professionnel :", proError);
+      continue;
+    }
+
+    const pro = pros?.[0];
+
+    if (!pro) continue;
+
+    const card = document.createElement("div");
+
+    card.style.marginTop = "12px";
+    card.style.padding = "15px";
+    card.style.border = "1px solid #334155";
+    card.style.borderRadius = "12px";
+
+    card.innerHTML =
+      "<strong>👷 " +
+      (pro.company_name ||
+       pro.contact_name ||
+       "Professionnel Proxigo") +
+      "</strong><br><br>" +
+      "🔧 " +
+      (pro.category || "Professionnel") +
+      "<br>" +
+      "📍 " +
+      (pro.city || "Ville non précisée");
+
+    if (pro.phone) {
+
+      const button =
+        document.createElement("a");
+
+      button.href = "tel:" + pro.phone;
+      button.textContent = "📞 Contacter";
+      button.className = "btn btn-green";
+      button.style.display = "inline-block";
+      button.style.marginTop = "12px";
+
+      card.appendChild(
+        document.createElement("br")
+      );
+
+      card.appendChild(button);
+    }
+
+    list.appendChild(card);
+  }
+
+});
+</script>
 </body>
 </html>
