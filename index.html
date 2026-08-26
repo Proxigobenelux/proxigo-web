@@ -1375,7 +1375,139 @@ if (requestIdToLoad && clientInterestsList) {
             }
         }
     });
+// Recharger automatiquement les professionnels intéressés
+// lorsque le client revient ou actualise la page
+(async function loadSavedClientInterests() {
 
+  const savedRequestId =
+    localStorage.getItem("proxigo_last_request_id");
+
+  if (!savedRequestId) {
+    return;
+  }
+
+  const clientInterestsBox =
+    document.getElementById("clientInterestsBox");
+
+  const clientInterestsStatus =
+    document.getElementById("clientInterestsStatus");
+
+  const clientInterestsList =
+    document.getElementById("clientInterestsList");
+
+  if (!clientInterestsBox || !clientInterestsList) {
+    return;
+  }
+
+  clientInterestsBox.style.display = "block";
+  clientInterestsList.innerHTML = "";
+
+  if (clientInterestsStatus) {
+    clientInterestsStatus.textContent =
+      "Recherche des professionnels intéressés...";
+  }
+
+  const { data: interests, error: interestsError } =
+    await supabaseClient
+      .from("service_request_interests")
+      .select("professional_user_id, status, created_at")
+      .eq("service_request_id", savedRequestId)
+      .eq("status", "interested");
+
+  if (interestsError) {
+    console.error(
+      "Erreur chargement intérêts client :",
+      interestsError
+    );
+
+    if (clientInterestsStatus) {
+      clientInterestsStatus.textContent =
+        "Impossible de charger les professionnels intéressés.";
+    }
+
+    return;
+  }
+
+  if (!interests || interests.length === 0) {
+    if (clientInterestsStatus) {
+      clientInterestsStatus.textContent =
+        "Aucun professionnel ne s'est encore déclaré intéressé.";
+    }
+
+    return;
+  }
+
+  if (clientInterestsStatus) {
+    clientInterestsStatus.textContent =
+      interests.length +
+      " professionnel(s) intéressé(s) par votre demande.";
+  }
+
+  for (const interest of interests) {
+
+    const { data: pros, error: proError } =
+      await supabaseClient
+        .from("professionals")
+        .select(
+          "company_name, contact_name, category, city, phone, email"
+        )
+        .eq("user_id", interest.professional_user_id)
+        .limit(1);
+
+    if (proError) {
+      console.error(
+        "Erreur chargement professionnel :",
+        proError
+      );
+      continue;
+    }
+
+    const pro = pros?.[0];
+
+    if (!pro) {
+      continue;
+    }
+
+    const proCard = document.createElement("div");
+
+    proCard.style.marginTop = "12px";
+    proCard.style.padding = "15px";
+    proCard.style.border = "1px solid #334155";
+    proCard.style.borderRadius = "12px";
+
+    proCard.innerHTML =
+      "<strong>👷 " +
+      (pro.company_name ||
+        pro.contact_name ||
+        "Professionnel Proxigo") +
+      "</strong><br><br>" +
+      "🔧 " +
+      (pro.category || "Professionnel") +
+      "<br>" +
+      "📍 " +
+      (pro.city || "Ville non précisée");
+
+    if (pro.phone) {
+      const contactButton =
+        document.createElement("a");
+
+      contactButton.href = "tel:" + pro.phone;
+      contactButton.textContent = "📞 Contacter";
+      contactButton.className = "btn btn-green";
+      contactButton.style.display = "inline-block";
+      contactButton.style.marginTop = "12px";
+
+      proCard.appendChild(
+        document.createElement("br")
+      );
+
+      proCard.appendChild(contactButton);
+    }
+
+    clientInterestsList.appendChild(proCard);
+  }
+
+})();
 });
 </script>
 <script>
