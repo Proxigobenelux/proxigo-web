@@ -582,6 +582,33 @@
   transform: scale(1.01);
   box-shadow: 0 22px 60px rgba(0,0,0,0.35);
 }
+    .org-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto 0;
+}
+
+.org-wrapper .org-chart {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.didi-click {
+  position: absolute;
+  left: 32.3%;
+  top: 2%;
+  width: 34.7%;
+  height: 21%;
+  cursor: pointer;
+  border-radius: 18px;
+}
+
+.didi-click:hover {
+  outline: 3px solid rgba(47, 102, 255, 0.75);
+  background: rgba(47, 102, 255, 0.06);
+}
   </style>
 </head>
 
@@ -856,11 +883,18 @@
       Découvrez l'organisation et les responsables de Proxigo Benelux.
     </p>
 
-    <a href="didi-luvuezo-nsimba.html" class="org-link">
+    <div class="org-wrapper">
+
   <img src="organigramme-proxigo.png"
        alt="Organigramme Proxigo Benelux"
        class="org-chart">
-</a>
+
+  <a href="didi-luvuezo-nsimba.html"
+     class="didi-click"
+     aria-label="Voir le profil et le CV de Didi Luvuezo Nsimba">
+  </a>
+
+</div>
 
   </div>
 </section>
