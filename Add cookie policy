@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Politique relative aux cookies | Proxigo Benelux</title>
+
+  <meta name="description"
+        content="Politique relative aux cookies utilisés sur Proxigo Benelux.">
+
+  <link rel="canonical" href="https://proxigo.eu/cookies.html">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
+      color: #1d2939;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #071a33;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #cbd5e1;
+    }
+
+    main {
+      max-width: 950px;
+      margin: 35px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #0b5ed7;
+      margin-top: 35px;
+    }
+
+    a {
+      color: #0b5ed7;
+    }
+
+    .info {
+      background: #f0f7ff;
+      border-left: 4px solid #0b5ed7;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .important {
+      background: #fff8e7;
+      border-left: 4px solid #f0ad00;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      background: #071a33;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: white;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        margin: 15px;
+        padding: 25px;
+      }
+
+      header h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Politique relative aux cookies</h1>
+  <p>Proxigo Benelux</p>
+</header>
+
+<main>
+
+  <p>
+    La présente politique explique l'utilisation des cookies et
+    technologies similaires sur la plateforme
+    <strong>Proxigo Benelux</strong>, accessible à l'adresse
+    <strong>https://proxigo.eu</strong>.
+  </p>
+
+
+  <h2>1. Responsable du site</h2>
+
+  <div class="info">
+
+    <p>
+      <strong>Proxigo Benelux</strong><br>
+      Exploité par Didi Facility Services
+    </p>
+
+    <p>
+      <strong>Entrepreneur :</strong><br>
+      Luvuezo Nsimba Didi – Entrepreneur individuel (EI)
+    </p>
+
+    <p>
+      <strong>Adresse :</strong><br>
+      13 avenue de la Société des Nations<br>
+      77144 Montévrain<br>
+      France
+    </p>
+
+    <p>
+      <strong>SIREN :</strong> 103 791 844
+    </p>
+
+    <p>
+      <strong>TVA intracommunautaire :</strong>
+      FR15 103791844
+    </p>
+
+    <p>
+      <strong>E-mail :</strong>
+      <a href="mailto:didiluvservices@gmail.com">
+        didiluvservices@gmail.com
+      </a>
+    </p>
+
+  </div>
+
+
+  <h2>2. Qu'est-ce qu'un cookie ?</h2>
+
+  <p>
+    Un cookie est un petit fichier ou élément de stockage susceptible
+    d'être enregistré ou lu sur l'appareil utilisé pour consulter un
+    site internet.
+  </p>
+
+  <p>
+    Des technologies similaires peuvent également être utilisées,
+    notamment le stockage local du navigateur.
+  </p>
+
+
+  <h2>3. Pourquoi Proxigo utilise ces technologies ?</h2>
+
+  <p>
+    Certains cookies ou mécanismes techniques peuvent être nécessaires
+    pour assurer le fonctionnement de Proxigo.
+  </p>
+
+  <p>Ils peuvent notamment permettre :</p>
+
+  <ul>
+    <li>la connexion à un compte utilisateur ;</li>
+    <li>le maintien d'une session ;</li>
+    <li>la sécurisation de la plateforme ;</li>
+    <li>la mémorisation de certaines préférences ;</li>
+    <li>le fonctionnement des formulaires ;</li>
+    <li>le fonctionnement des services destinés aux professionnels.</li>
+  </ul>
+
+
+  <h2>4. Cookies strictement nécessaires</h2>
+
+  <p>
+    Certains mécanismes sont indispensables au fonctionnement ou
+    à la sécurité du service.
+  </p>
+
+  <p>
+    Lorsque la réglementation le permet, ces technologies peuvent être
+    utilisées sans consentement préalable lorsqu'elles sont strictement
+    nécessaires au service demandé par l'utilisateur.
+  </p>
+
+
+  <h2>5. Authentification</h2>
+
+  <p>
+    Proxigo utilise des technologies permettant notamment la création
+    et la gestion des comptes clients et professionnels.
+  </p>
+
+  <p>
+    Le système d'authentification peut utiliser des mécanismes de
+    stockage permettant de reconnaître une session et de maintenir
+    l'utilisateur connecté.
+  </p>
+
+
+  <h2>6. Paiements et Stripe</h2>
+
+  <p>
+    Proxigo peut proposer des abonnements ou fonctionnalités payantes
+    aux professionnels.
+  </p>
+
+  <p>
+    Les paiements peuvent être traités par
+    <strong>Stripe</strong>, prestataire spécialisé dans les paiements
+    électroniques.
+  </p>
+
+  <p>
+    Stripe peut utiliser des cookies ou technologies similaires
+    notamment pour sécuriser les transactions et lutter contre la fraude.
+  </p>
+
+
+  <h2>7. Mesure d'audience</h2>
+
+  <p>
+    Proxigo peut être amené à utiliser des outils permettant de mesurer
+    la fréquentation et l'utilisation de la plateforme.
+  </p>
+
+  <p>
+    Lorsque ces outils nécessitent le consentement de l'utilisateur,
+    ils ne doivent être activés qu'après obtention de ce consentement.
+  </p>
+
+
+  <h2>8. Publicité et réseaux sociaux</h2>
+
+  <p>
+    Proxigo peut utiliser ou intégrer des services provenant de réseaux
+    sociaux ou de plateformes publicitaires.
+  </p>
+
+  <p>
+    Lorsque ces services déposent ou utilisent des cookies soumis au
+    consentement, l'utilisateur doit pouvoir accepter ou refuser leur
+    utilisation conformément aux règles applicables.
+  </p>
+
+
+  <h2>9. Services tiers</h2>
+
+  <p>
+    Certains services utilisés par Proxigo sont fournis par des
+    prestataires externes.
+  </p>
+
+  <p>Il peut notamment s'agir de services :</p>
+
+  <ul>
+    <li>d'hébergement ;</li>
+    <li>d'authentification ;</li>
+    <li>de base de données ;</li>
+    <li>de paiement ;</li>
+    <li>de cartographie ;</li>
+    <li>de communication ;</li>
+    <li>de mesure d'audience.</li>
+  </ul>
+
+  <p>
+    Ces prestataires peuvent traiter certaines informations conformément
+    à leurs propres politiques et aux accords applicables avec Proxigo.
+  </p>
+
+
+  <h2>10. Consentement</h2>
+
+  <div class="important">
+
+    <p>
+      Lorsque des cookies ou technologies non strictement nécessaires
+      sont utilisés, Proxigo doit permettre à l'utilisateur d'effectuer
+      un choix conformément aux règles applicables.
+    </p>
+
+    <p>
+      L'utilisateur doit notamment pouvoir refuser les cookies concernés
+      aussi facilement qu'il peut les accepter lorsque le consentement
+      est requis.
+    </p>
+
+  </div>
+
+
+  <h2>11. Modification du choix</h2>
+
+  <p>
+    Lorsque Proxigo utilise des cookies soumis au consentement,
+    l'utilisateur doit pouvoir modifier son choix.
+  </p>
+
+  <p>
+    Une fonctionnalité de gestion des préférences pourra être proposée
+    directement sur la plateforme lorsque ces technologies sont activées.
+  </p>
+
+
+  <h2>12. Paramètres du navigateur</h2>
+
+  <p>
+    Les navigateurs internet permettent généralement de consulter,
+    bloquer ou supprimer certains cookies.
+  </p>
+
+  <p>
+    Les modalités dépendent du navigateur utilisé.
+  </p>
+
+  <p>
+    Le blocage de certains mécanismes strictement nécessaires peut
+    cependant empêcher certaines fonctionnalités de Proxigo de
+    fonctionner correctement.
+  </p>
+
+
+  <h2>13. Durée de conservation</h2>
+
+  <p>
+    Les cookies et technologies similaires ne sont conservés que pendant
+    une durée proportionnée à leur finalité et conformément aux exigences
+    légales applicables.
+  </p>
+
+  <p>
+    Les durées peuvent varier selon le type de technologie et le
+    prestataire concerné.
+  </p>
+
+
+  <h2>14. Données personnelles</h2>
+
+  <p>
+    Certains cookies ou technologies peuvent entraîner le traitement
+    de données personnelles.
+  </p>
+
+  <p>
+    Pour davantage d'informations concernant le traitement des données,
+    consultez notre
+    <a href="/confidentialite.html">
+      Politique de confidentialité
+    </a>.
+  </p>
+
+
+  <h2>15. Évolution de cette politique</h2>
+
+  <p>
+    Cette politique peut être modifiée afin de tenir compte de
+    l'évolution des fonctionnalités de Proxigo, des technologies
+    utilisées ou des exigences réglementaires.
+  </p>
+
+
+  <h2>16. Contact</h2>
+
+  <p>
+    Pour toute question concernant les cookies ou la protection
+    des données :
+  </p>
+
+  <p>
+    <strong>Didi Facility Services – Proxigo Benelux</strong><br>
+    13 avenue de la Société des Nations<br>
+    77144 Montévrain<br>
+    France
+  </p>
+
+  <p>
+    E-mail :
+    <a href="mailto:didiluvservices@gmail.com">
+      didiluvservices@gmail.com
+    </a>
+  </p>
+
+
+  <h2>17. Dernière mise à jour</h2>
+
+  <p>
+    Dernière mise à jour :
+    <strong>28 août 2026</strong>.
+  </p>
+
+</main>
+
+
+<footer>
+
+  <p>
+    <strong>Proxigo Benelux</strong><br>
+    Plateforme exploitée par Didi Facility Services
+  </p>
+
+  <p>
+    <a href="/">Accueil</a>
+    |
+    <a href="/mentions-legales.html">Mentions légales</a>
+    |
+    <a href="/cgu.html">CGU</a>
+    |
+    <a href="/confidentialite.html">Confidentialité</a>
+    |
+    <a href="/cookies.html">Cookies</a>
+  </p>
+
+  <p>© 2026 Proxigo Benelux</p>
+
+</footer>
+
+</body>
+</html>
