@@ -1,0 +1,3124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Proxigo Benelux — Trouvez un professionnel près de chez vous</title>
+<meta name="description" content="Proxigo Benelux vous aide à trouver rapidement un professionnel près de chez vous en Belgique, au Luxembourg et aux Pays-Bas : plombier, électricien, nettoyage, déménagement, jardinage, peinture et autres services.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://proxigo.eu/">
+
+<meta property="og:title" content="Proxigo Benelux – Trouvez un professionnel près de chez vous">
+<meta property="og:description" content="Trouvez gratuitement des professionnels et services près de chez vous avec Proxigo Benelux.">
+<meta property="og:url" content="https://proxigo.eu/">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary">
+  
+  <style>
+    :root{
+      --bg:#07101f;
+      --bg2:#0b1729;
+      --card:#101d31;
+      --line:#22324a;
+      --text:#ffffff;
+      --muted:#a9b5c6;
+      --blue:#2f66ff;
+      --green:#22d6a3;
+      --white:#ffffff;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(1180px,90%);
+      margin:auto;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(7,16,31,.96);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    .logo{
+      font-size:26px;
+      font-weight:900;
+      color:white;
+      letter-spacing:.5px;
+    }
+
+    .logo span{
+      color:var(--green);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:25px;
+    }
+
+    nav a{
+      color:#d8dfeb;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    nav a:hover{
+      color:white;
+    }
+
+    .nav-btn{
+      background:var(--blue);
+      color:white;
+      padding:11px 17px;
+      border-radius:8px;
+    }
+
+    .hero{
+      padding:90px 0 70px;
+      background:
+        radial-gradient(circle at 80% 25%,rgba(34,100,255,.28),transparent 38%),
+        var(--bg);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 13px;
+      border:1px solid var(--green);
+      color:var(--green);
+      border-radius:50px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:22px;
+    }
+
+    h1{
+      font-size:clamp(45px,6vw,72px);
+      line-height:1.04;
+      letter-spacing:-2px;
+      margin-bottom:22px;
+    }
+
+    h1 span{
+      color:var(--green);
+    }
+
+    .hero-text{
+      color:var(--muted);
+      max-width:670px;
+      font-size:19px;
+      margin-bottom:30px;
+    }
+
+    .hero-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 22px;
+      color:#dfe6ef;
+      margin-top:25px;
+      font-size:14px;
+    }
+
+    .hero-points span::before{
+      content:"✓";
+      color:var(--green);
+      margin-right:7px;
+      font-weight:bold;
+    }
+
+    .request-box{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:30px;
+      box-shadow:0 25px 80px rgba(0,0,0,.25);
+    }
+
+    .request-box h2{
+      font-size:25px;
+      margin-bottom:6px;
+    }
+
+    .request-box > p{
+      color:var(--muted);
+      margin-bottom:22px;
+      font-size:14px;
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:bold;
+      margin:13px 0 6px;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      background:#081322;
+      color:white;
+      border:1px solid #314159;
+      padding:14px;
+      border-radius:9px;
+      outline:none;
+      font-size:15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus{
+      border-color:var(--blue);
+    }
+
+    textarea{
+      min-height:105px;
+      resize:vertical;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:15px 22px;
+      border-radius:9px;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .btn-primary{
+      color:white;
+      background:var(--blue);
+    }
+
+    .btn-green{
+      color:#021510;
+      background:var(--green);
+    }
+
+    .btn-outline{
+      color:white;
+      border:1px solid #40506a;
+      background:transparent;
+    }
+
+    .full{
+      width:100%;
+      margin-top:18px;
+    }
+
+    section{
+      padding:80px 0;
+    }
+
+    .section-dark{
+      background:var(--bg2);
+    }
+
+    .eyebrow{
+      color:var(--green);
+      text-transform:uppercase;
+      font-size:12px;
+      letter-spacing:1.5px;
+      font-weight:800;
+      text-align:center;
+      margin-bottom:8px;
+    }
+
+    .section-title{
+      font-size:clamp(31px,4vw,44px);
+      text-align:center;
+      line-height:1.15;
+      margin-bottom:12px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      color:var(--muted);
+      max-width:700px;
+      margin:0 auto 42px;
+    }
+
+    .services{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+
+    .service{
+      padding:24px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:13px;
+      transition:.2s;
+    }
+
+    .service:hover{
+      transform:translateY(-4px);
+      border-color:#40577b;
+    }
+
+    .service-icon{
+      font-size:28px;
+      margin-bottom:13px;
+    }
+
+    .service h3{
+      font-size:17px;
+      margin-bottom:5px;
+    }
+
+    .service p{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .step{
+      padding:30px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .step-number{
+      width:43px;
+      height:43px;
+      background:var(--blue);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      margin-bottom:19px;
+    }
+
+    .step h3{
+      margin-bottom:8px;
+    }
+
+    .step p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .pro-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:45px;
+      align-items:center;
+    }
+
+    .pro-copy h2{
+      font-size:42px;
+      line-height:1.15;
+      margin-bottom:18px;
+    }
+
+    .pro-copy p{
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .checklist{
+      list-style:none;
+      margin:20px 0 30px;
+    }
+
+    .checklist li{
+      margin:11px 0;
+      color:#dce4ef;
+    }
+
+    .checklist li::before{
+      content:"✓";
+      color:var(--green);
+      font-weight:bold;
+      margin-right:10px;
+    }
+
+    .pro-card{
+      background:linear-gradient(145deg,#12213a,#0c1728);
+      border:1px solid #30415d;
+      padding:35px;
+      border-radius:18px;
+    }
+
+    .pro-card h3{
+      font-size:26px;
+      margin-bottom:9px;
+    }
+
+    .pro-card p{
+      color:var(--muted);
+      margin-bottom:24px;
+    }
+
+    .cities{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+    }
+
+    .city{
+      padding:11px 16px;
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:50px;
+      color:#dfe6ef;
+      font-size:14px;
+    }
+
+    .tenders{
+      background:
+        linear-gradient(120deg,rgba(47,102,255,.17),rgba(34,214,163,.08)),
+        var(--bg2);
+    }
+
+    .tender-box{
+      border:1px solid #315178;
+      border-radius:18px;
+      padding:45px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+    }
+
+    .tender-box h2{
+      font-size:35px;
+      margin-bottom:8px;
+    }
+
+    .tender-box p{
+      color:var(--muted);
+      max-width:700px;
+    }
+
+    .faq{
+      max-width:850px;
+      margin:auto;
+    }
+
+    details{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:10px;
+      margin-bottom:10px;
+      padding:18px 20px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    details p{
+      color:var(--muted);
+      padding-top:12px;
+      font-size:14px;
+    }
+
+    .cta{
+      text-align:center;
+    }
+
+    .cta-box{
+      padding:55px 30px;
+      border:1px solid #2a4163;
+      background:linear-gradient(140deg,#102344,#0b192d);
+      border-radius:20px;
+    }
+
+    .cta-box h2{
+      font-size:40px;
+      margin-bottom:10px;
+    }
+
+    .cta-box p{
+      color:var(--muted);
+      max-width:650px;
+      margin:0 auto 25px;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:40px 0;
+      color:#7f8da2;
+      font-size:13px;
+    }
+
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:25px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      color:#98a5b8;
+    }
+
+    .success{
+      display:none;
+      background:rgba(34,214,163,.12);
+      border:1px solid var(--green);
+      color:#aaffdf;
+      padding:13px;
+      border-radius:8px;
+      margin-top:15px;
+      font-size:14px;
+    }
+
+    @media(max-width:900px){
+      .hero-grid,
+      .pro-grid{
+        grid-template-columns:1fr;
+      }
+
+      .services{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .tender-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media(max-width:650px){
+      nav a:not(.nav-btn){
+        display:none;
+      }
+
+      h1{
+        letter-spacing:-1px;
+      }
+
+      .services,
+      .steps{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:60px;
+      }
+
+      .request-box{
+        padding:22px;
+      }
+    }
+    .service-photo {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    display: block;
+}
+    .org-chart {
+  width: 100%;
+  max-width: 1400px;
+  height: auto;
+  display: block;
+  margin: 40px auto 0;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+}
+    .org-link {
+  display: block;
+  cursor: zoom-in;
+}
+
+.org-chart {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.org-chart:hover {
+  transform: scale(1.01);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.35);
+}
+    .org-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto 0;
+}
+
+.org-wrapper .org-chart {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.didi-click {
+  position: absolute;
+  left: 32.3%;
+  top: 2%;
+  width: 34.7%;
+  height: 21%;
+  cursor: pointer;
+  border-radius: 18px;
+}
+
+.didi-click:hover {
+  outline: 3px solid rgba(47, 102, 255, 0.75);
+  background: rgba(47, 102, 255, 0.06);
+}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a class="logo" href="#">
+      PROXI<span>GO</span>
+    </a>
+
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#comment">Comment ça marche ?</a>
+      <a href="#professionnels">Professionnels</a>
+      <a href="#appels">Appels d'offres</a>
+      <a href="#demande" class="nav-btn">Déposer une demande</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="demande">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="badge">PROXIGO BENELUX</div>
+
+      <h1>
+        Trouvez le bon professionnel
+        <span>près de chez vous</span>
+      </h1>
+
+      <p class="hero-text">
+        Proxigo Benelux est une plateforme de mise en relation entre
+        particuliers, entreprises et professionnels locaux.
+        Vous recherchez un plombier, un électricien, un professionnel du nettoyage,
+        un déménageur, un jardinier, un peintre ou un autre prestataire ?
+        Décrivez gratuitement votre besoin et trouvez des professionnels
+        correspondant à votre demande.
+      </p>
+
+      <div class="hero-points">
+        <span>Demande gratuite</span>
+        <span>Professionnels locaux</span>
+        <span>Vous restez libre de choisir</span>
+      </div>
+    </div>
+
+    <div class="request-box">
+
+      <h2>De quel service avez-vous besoin ?</h2>
+
+      <p>
+        Envoyez votre demande en quelques instants.
+      </p>
+
+      <form id="clientForm">
+
+        <label for="service">Service recherché</label>
+
+        <select id="service" required>
+          <option value="">Choisissez un service</option>
+          <option>Plomberie</option>
+          <option>Électricité</option>
+          <option>Nettoyage</option>
+          <option>Petits travaux</option>
+          <option>Déménagement</option>
+          <option>Peinture</option>
+          <option>Maçonnerie</option>
+          <option>Jardinage</option>
+          <option>Lavage automobile</option>
+          <option>Nettoyage de poubelles</option>
+          <option>Panneaux solaires</option>
+          <option>Autre</option>
+        </select>
+
+        <label for="city">Votre ville</label>
+        <input id="city" type="text"
+               placeholder="Ex. La Louvière, Bruxelles..."
+               required>
+
+        <label for="description">Décrivez votre besoin</label>
+<textarea
+  id="description"
+  placeholder="Ex. : Je cherche un plombier pour réparer une fuite sous mon évier..."
+  required
+></textarea>
+
+<label for="contact">Téléphone ou e-mail</label>
+<input
+  id="contact"
+  type="text"
+  placeholder="Pour permettre au professionnel de vous contacter"
+  required
+>
+
+<button class="btn btn-primary full" type="submit">
+  Envoyer ma demande gratuitement
+</button>
+
+<div class="success" id="successMessage">
+  Votre demande a bien été envoyée à Proxigo. Notre système recherche maintenant les professionnels correspondant à votre besoin.
+</div>
+
+</form>
+
+<div id="clientInterestsBox" style="display:none; margin-top:25px;">
+  <h3>👷 Professionnels intéressés par ma demande</h3>
+
+  <p id="clientInterestsStatus">
+    Chargement...
+  </p>
+
+  <div id="clientInterestsList"></div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+
+<section class="section-dark" id="services">
+
+  <div class="container">
+
+    <div class="eyebrow">Services populaires</div>
+
+    <h2 class="section-title">
+      De quel service avez-vous besoin ?
+    </h2>
+
+    <p class="section-subtitle">
+      Proxigo rassemble des professionnels de différents métiers
+      afin de faciliter votre recherche.
+    </p>
+
+    <div class="services">
+
+      <div class="service">
+        <img src="plombier proxigo.jpg" alt="Plombier Proxigo" class="service-photo">
+        <h3>Plomberie</h3>
+        <p>Fuites, installations, sanitaires et débouchage.</p>
+      </div>
+
+      <div class="service">
+        <img src="electricien proxigo.jpg" alt="Électricien Proxigo" class="service-photo">
+        <h3>Électricité</h3>
+        <p>Dépannage, installations et petits travaux électriques.</p>
+      </div>
+
+      <div class="service">
+        <img src="nettoyage proxigo.jpg" alt="Nettoyage Proxigo" class="service-photo">
+        <h3>Nettoyage</h3>
+        <p>Maisons, bureaux, immeubles et nettoyage après chantier.</p>
+      </div>
+
+      <div class="service">
+        <img src="homme-a-tout-faire-proxigo.jpg" alt="Homme à tout faire Proxigo" class="service-photo">
+        <h3>Petits travaux</h3>
+        <p>Montage, réparations et travaux d'entretien.</p>
+      </div>
+
+      <div class="service">
+        <img src="demenagement proxigo.jpg" alt="Déménagement Proxigo" class="service-photo">
+        <h3>Déménagement</h3>
+        <p>Aide au déménagement et transport.</p>
+      </div>
+
+      <div class="service">
+        <img src="peintre proxigo.jpg" alt="Peintre Proxigo" class="service-photo">
+        <h3>Peinture</h3>
+        <p>Travaux de peinture intérieure et extérieure.</p>
+      </div>
+
+      <div class="service">
+        <img src="jardinier proxigo.jpg-.jpg" alt="Jardinier Proxigo" class="service-photo">
+        <h3>Jardinage</h3>
+        <p>Entretien, taille et aménagement extérieur.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">✨</div>
+        <h3>Autres services</h3>
+        <p>Expliquez votre besoin et laissez Proxigo vous orienter vers le professionnel adapté.</p>
+      </div>
+
+      <div class="service">
+        <img src="lavage voiture proxigo.jpg" alt="Lavage automobile Proxigo" class="service-photo">
+        <h3>Lavage automobile</h3>
+        <p>Nettoyage intérieur et extérieur de votre véhicule.</p>
+      </div>
+
+      <div class="service">
+        <img src="poubelle proxigo.jpg" alt="Nettoyage de poubelles Proxigo" class="service-photo">
+        <h3>Nettoyage de poubelles</h3>
+        <p>Lavage et désinfection de vos poubelles.</p>
+      </div>
+
+      <div class="service">
+        <img src="panneau solaire proxigo.jpg" alt="Nettoyage de panneaux solaires Proxigo" class="service-photo">
+        <h3>Nettoyage de panneaux solaires</h3>
+        <p>Entretien et nettoyage professionnel de vos panneaux solaires.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section id="comment">
+
+  <div class="container">
+
+    <div class="eyebrow">Simple et rapide</div>
+
+    <h2 class="section-title">
+      Comment fonctionne Proxigo ?
+    </h2>
+
+    <p class="section-subtitle">
+      Décrivez votre besoin, trouvez des professionnels adaptés et choisissez librement.
+    </p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+
+        <h3>Décrivez votre besoin</h3>
+
+        <p>
+          Indiquez le service recherché, votre ville
+          et les informations utiles.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+
+        <h3>Trouvez des professionnels</h3>
+
+        <p>
+          Votre demande peut être mise en relation avec
+          des professionnels correspondant à votre besoin.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+
+        <h3>Vous choisissez</h3>
+
+        <p>
+          Comparez les réponses et choisissez librement
+          le professionnel avec lequel vous souhaitez travailler.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section id="equipe">
+
+  <div class="container">
+
+    <div class="eyebrow">Notre organisation</div>
+
+    <h2 class="section-title">
+      L'équipe Proxigo Benelux
+    </h2>
+
+    <p class="section-subtitle">
+      Découvrez l'organisation de Proxigo Benelux.
+    </p>
+
+    <div class="org-wrapper">
+
+      <img
+        src="organigramme-proxigo.png"
+        alt="Organigramme Proxigo Benelux"
+        class="org-chart"
+      >
+
+      <a
+        href="didi-luvuezo-nsimba.html"
+        class="didi-click"
+        aria-label="Voir le profil et le CV de Didi Luvuezo Nsimba"
+      ></a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section-dark" id="professionnels">
+
+  <div class="container pro-grid">
+
+    <div class="pro-copy">
+
+      <div class="eyebrow" style="text-align:left">
+        Pour les professionnels
+      </div>
+
+      <h2>
+        Développez votre activité avec Proxigo
+      </h2>
+
+      <p>
+        Artisan, indépendant ou entreprise :
+        Proxigo vous aide à accéder à de nouvelles demandes
+        correspondant à votre métier et à votre zone d'intervention.
+      </p>
+
+      <ul class="checklist">
+        <li>Présentez vos services</li>
+        <li>Choisissez votre zone d'intervention</li>
+        <li>Recevez des opportunités pertinentes</li>
+        <li>Développez votre visibilité locale</li>
+      </ul>
+
+      <a href="#inscription-pro" class="btn btn-primary">
+        Rejoindre Proxigo
+      </a>
+
+    </div>
+
+
+    <div class="pro-card" id="inscription-pro">
+
+      <h3>Je suis professionnel</h3>
+
+      <p>
+        Renseignez vos coordonnées pour créer votre espace professionnel.
+      </p>
+
+      <form id="proForm">
+
+        <label for="proCompanyName">Nom / entreprise</label>
+        <input
+          type="text"
+          id="proCompanyName"
+          required
+        >
+
+        <label for="proCategory">Métier</label>
+        <input
+          type="text"
+          id="proCategory"
+          placeholder="Ex. : plombier, nettoyage..."
+          required
+        >
+
+        <label for="proCity">Ville / zone d'intervention</label>
+        <input
+          type="text"
+          id="proCity"
+          required
+        >
+
+        <label for="proPhone">Téléphone</label>
+        <input
+          type="text"
+          id="proPhone"
+          required
+        >
+
+        <label for="proEmail">E-mail</label>
+        <input
+          type="email"
+          id="proEmail"
+          placeholder="vous@entreprise.be"
+          required
+        >
+
+        <label for="proPassword">Mot de passe</label>
+        <input
+          type="password"
+          id="proPassword"
+          placeholder="Minimum 8 caractères"
+          minlength="8"
+          required
+        >
+
+        <label for="proPasswordConfirm">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="proPasswordConfirm"
+          placeholder="Retapez votre mot de passe"
+          minlength="8"
+          required
+        >
+
+        <button type="submit" class="btn btn-green full">
+          Demander mon inscription
+        </button>
+
+        <div class="success" id="proSuccess">
+          Votre demande d'inscription a bien été enregistrée.
+        </div>
+      </form>
+      <div style="margin-top:20px; text-align:center;">
+  <p>Déjà inscrit comme professionnel ?</p>
+  <button type="button" class="btn btn-green full" id="showProLogin">
+    Se connecter à mon espace Pro
+  </button>
+</div>
+
+<div id="proLoginBox" style="display:none; margin-top:20px;">
+  <h3>Connexion professionnel</h3>
+
+  <label>E-mail</label>
+  <input
+    type="email"
+    id="proLoginEmail"
+    placeholder="vous@entreprise.be"
+    required
+  >
+
+  <label>Mot de passe</label>
+  <input
+    type="password"
+    id="proLoginPassword"
+    placeholder="Votre mot de passe"
+    required
+  >
+
+  <button type="button" class="btn btn-green full" id="proLoginButton">
+    Se connecter
+  </button>
+
+  <p id="proLoginMessage"></p>
+</div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+
+  <div class="container">
+
+    <div class="eyebrow">Zones desservies</div>
+
+    <h2 class="section-title">
+      Proxigo se développe près de chez vous
+    </h2>
+
+    <p class="section-subtitle">
+      Lancement progressif en Belgique et dans le Benelux.
+    </p>
+
+    <div class="cities">
+      <span class="city">Bruxelles</span>
+      <span class="city">La Louvière</span>
+      <span class="city">Charleroi</span>
+      <span class="city">Mons</span>
+      <span class="city">Liège</span>
+      <span class="city">Namur</span>
+      <span class="city">Anvers</span>
+      <span class="city">Gand</span>
+      <span class="city">Luxembourg</span>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="tenders" id="appels">
+
+  <div class="container">
+
+    <div class="tender-box" style="display:block;">
+
+      <div class="eyebrow" style="text-align:left;">
+        PROXIGO BUSINESS
+      </div>
+
+      <h2>
+        Trouvez des appels d'offres adaptés à votre activité
+      </h2>
+
+      <p>
+        Proxigo aide les professionnels à identifier des marchés
+        et opportunités correspondant à leur métier et à leur zone
+        d'intervention.
+      </p>
+
+      <div style="margin-top:25px; display:grid; gap:15px;">
+
+        <div>
+          <label for="tenderJob">
+            Votre métier ou activité
+          </label>
+
+          <input
+            id="tenderJob"
+            type="text"
+            placeholder="Ex. Nettoyage, plomberie, construction..."
+          >
+        </div>
+
+        <div>
+          <label for="tenderCountry">
+            Pays
+          </label>
+
+          <select id="tenderCountry">
+            <option value="">Tous les pays</option>
+            <option value="BE">Belgique</option>
+            <option value="LU">Luxembourg</option>
+            <option value="NL">Pays-Bas</option>
+            <option value="FR">France</option>
+            <option value="EU">Europe</option>
+          </select>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="searchTendersButton"
+        >
+          Rechercher des appels d'offres
+        </button>
+
+      </div>
+
+      <div
+        id="tenderResults"
+        style="margin-top:25px; display:none;"
+      >
+        <h3>Opportunités trouvées</h3>
+
+        <p id="tenderStatus">
+          Recherche des appels d'offres correspondant à votre activité...
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="faq">
+
+  <div class="container">
+
+    <div class="eyebrow">Questions fréquentes</div>
+
+    <h2 class="section-title">
+      Tout savoir sur Proxigo
+    </h2>
+
+    <div class="faq">
+
+      <details>
+        <summary>Est-ce gratuit pour déposer une demande ?</summary>
+        <p>
+          Oui. Le particulier peut déposer sa demande gratuitement.
+        </p>
+      </details>
+
+      <details>
+        <summary>Suis-je obligé de choisir un professionnel ?</summary>
+        <p>
+          Non. Vous restez libre d'accepter ou non les propositions reçues.
+        </p>
+      </details>
+
+      <details>
+        <summary>Comment les professionnels sont-ils sélectionnés ?</summary>
+        <p>
+          Les professionnels créent un profil sur Proxigo. Des vérifications peuvent être effectuées afin d'améliorer la fiabilité des informations présentées.
+        </p>
+      </details>
+
+      <details>
+        <summary>Proxigo est-il disponible partout ?</summary>
+        <p>
+          Le déploiement est progressif, en commençant par
+          plusieurs zones de Belgique et du Benelux.
+        </p>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <h2>
+        Un travail à faire ?
+      </h2>
+
+      <p>
+        Décrivez votre besoin dès maintenant.
+        La demande est gratuite et sans engagement.
+      </p>
+
+      <a href="#demande" class="btn btn-green">
+        Déposer ma demande
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      <strong>PROXIGO BENELUX</strong><br>
+      © 2026 Proxigo — Tous droits réservés
+    </div>
+
+    <div>
+      <div class="footer-links">
+        <a href="mentions-legales.html">Mentions légales</a>
+<a href="cgu.html">CGU</a>
+<a href="cgv-abonnements.html">CGV abonnements</a>
+<a href="confidentialite.html">Confidentialité</a>
+<a href="cookies.html">Cookies</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="footer-links" style="margin-top:15px;">
+        <a href="https://www.facebook.com/profile.php?id=61588790893216" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/proxigo_benelux/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/@proxigobenelux" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@proxigobenelux" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://wa.me/32466186651?text=Bonjour%20Proxigo%20Benelux%2C%20je%20souhaite%20obtenir%20des%20informations." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+<script>
+const PROXIGO_API = "https://web-production-3704e7.up.railway.app";
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const clientForm = document.getElementById("clientForm");
+
+    if (!clientForm) {
+        console.error("Proxigo : formulaire client introuvable.");
+        return;
+    }
+
+    clientForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const serviceElement = document.getElementById("service");
+        const cityElement = document.getElementById("city");
+        const descriptionElement = document.getElementById("description");
+        const contactElement = document.getElementById("contact");
+
+        const service = serviceElement
+            ? serviceElement.value.trim()
+            : "";
+
+        const city = cityElement
+            ? cityElement.value.trim()
+            : "";
+
+        const description = descriptionElement
+            ? descriptionElement.value.trim()
+            : "";
+
+        const contact = contactElement
+            ? contactElement.value.trim()
+            : "";
+
+        if (!service || !city || !description) {
+            alert(
+                "Veuillez compléter le service, la ville et la description."
+            );
+            return;
+        }
+
+        const submitButton =
+            clientForm.querySelector('button[type="submit"]');
+
+        const originalButtonText =
+            submitButton ? submitButton.textContent : "";
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent =
+                "Proxigo recherche des professionnels...";
+        }
+
+        const message =
+            "Je recherche un professionnel. " +
+            "Service : " + service + ". " +
+            "Ville : " + city + ". " +
+            "Description : " + description + ". " +
+            (contact
+                ? "Contact client : " + contact + "."
+                : "");
+const {
+  data: { user },
+  error: userError
+} = await supabaseClient.auth.getUser();
+
+if (userError || !user) {
+  alert("Vous devez être connecté pour envoyer une demande.");
+  return;
+}
+        const requestData = {
+            message: message,
+            user_id: user.id,
+            language: "fr",
+            client_latitude: 0,
+            client_longitude: 0,
+            dispatch_limit: 3,
+            generate_quote: true,
+            booking_action: "",
+            booking_payload: {}
+        };
+
+        try {
+
+            const response = await fetch(
+                PROXIGO_API + "/agent/workflow",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Erreur API Proxigo : " + response.status
+                );
+            }
+
+            const result = await response.json();
+
+            console.log("Réponse Proxigo AI :", result);
+const currentRequestId = result?.request?.id;
+
+if (currentRequestId) {
+  localStorage.setItem("proxigo_last_request_id", currentRequestId);
+}
+          const savedRequestId =
+  localStorage.getItem("proxigo_last_request_id");
+
+const requestIdToLoad =
+  currentRequestId || savedRequestId;
+          const clientInterestsBox = document.getElementById("clientInterestsBox");
+const clientInterestsStatus = document.getElementById("clientInterestsStatus");
+const clientInterestsList = document.getElementById("clientInterestsList");
+
+if (requestIdToLoad && clientInterestsBox) {
+  clientInterestsBox.style.display = "block";
+}
+
+if (clientInterestsStatus) {
+  clientInterestsStatus.textContent =
+    "Votre demande est enregistrée. Les professionnels intéressés apparaîtront ici.";
+}
+
+if (clientInterestsList) {
+  clientInterestsList.innerHTML = "";
+}
+          // Charger les professionnels intéressés par cette demande
+if (requestIdToLoad && clientInterestsList) {
+
+    const { data: interests, error: interestsError } = await supabaseClient
+        .from("service_request_interests")
+        .select("professional_user_id, status, created_at")
+        .eq("service_request_id", requestIdToLoad)
+        .eq("status", "interested");
+
+    if (interestsError) {
+        console.error("Erreur chargement intérêts :", interestsError);
+        clientInterestsStatus.textContent =
+            "Impossible de charger les professionnels intéressés.";
+    } else if (!interests || interests.length === 0) {
+
+        clientInterestsStatus.textContent =
+            "Votre demande est enregistrée. Aucun professionnel ne s'est encore déclaré intéressé.";
+
+    } else {
+
+        clientInterestsStatus.textContent =
+            interests.length + " professionnel(s) intéressé(s) par votre demande.";
+
+        for (const interest of interests) {
+
+            const { data: pro, error: proError } = await supabaseClient
+                .from("professionals")
+                .select("company_name, contact_name, category, city, phone, email")
+                .eq("user_id", interest.professional_user_id)
+                .maybeSingle();
+
+            if (proError) {
+                console.error("Erreur chargement professionnel :", proError);
+                continue;
+            }
+
+            if (!pro) continue;
+
+            const proCard = document.createElement("div");
+
+            proCard.style.marginTop = "12px";
+            proCard.style.padding = "15px";
+            proCard.style.border = "1px solid #334155";
+            proCard.style.borderRadius = "12px";
+
+            const company = document.createElement("strong");
+            company.textContent =
+                "👷 " + (pro.company_name || pro.contact_name || "Professionnel Proxigo");
+
+            const details = document.createElement("div");
+            details.style.marginTop = "8px";
+
+            details.innerHTML =
+                "🔧 " + (pro.category || "Professionnel") + "<br>" +
+                "📍 " + (pro.city || "Ville non précisée");
+
+            proCard.appendChild(company);
+            proCard.appendChild(details);
+
+            if (pro.phone) {
+                const contactButton = document.createElement("a");
+
+                contactButton.href = "tel:" + pro.phone;
+                contactButton.textContent = "📞 Contacter";
+                contactButton.className = "btn btn-green";
+                contactButton.style.display = "inline-block";
+                contactButton.style.marginTop = "12px";
+
+                proCard.appendChild(contactButton);
+            }
+
+            clientInterestsList.appendChild(proCard);
+        }
+    }
+}
+            const successMessage =
+                document.getElementById("successMessage");
+
+            if (successMessage) {
+
+                successMessage.style.display = "block";
+
+                successMessage.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            } else {
+
+                alert(
+                    "Votre demande a bien été envoyée à Proxigo."
+                );
+            }
+
+            clientForm.reset();
+
+        } catch (error) {
+
+            console.error("Erreur Proxigo :", error);
+
+            alert(
+                "Une erreur est survenue pendant l'envoi. " +
+                "Veuillez réessayer."
+            );
+
+        } finally {
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        }
+    });
+// Recharger automatiquement les professionnels intéressés
+// lorsque le client revient ou actualise la page
+(async function loadSavedClientInterests() {
+
+  const savedRequestId =
+    localStorage.getItem("proxigo_last_request_id");
+
+  if (!savedRequestId) {
+    return;
+  }
+
+  const clientInterestsBox =
+    document.getElementById("clientInterestsBox");
+
+  const clientInterestsStatus =
+    document.getElementById("clientInterestsStatus");
+
+  const clientInterestsList =
+    document.getElementById("clientInterestsList");
+
+  if (!clientInterestsBox || !clientInterestsList) {
+    return;
+  }
+
+  clientInterestsBox.style.display = "block";
+  clientInterestsList.innerHTML = "";
+
+  if (clientInterestsStatus) {
+    clientInterestsStatus.textContent =
+      "Recherche des professionnels intéressés...";
+  }
+
+  const { data: interests, error: interestsError } =
+    await supabaseClient
+      .from("service_request_interests")
+      .select("professional_user_id, status, created_at")
+      .eq("service_request_id", savedRequestId)
+      .eq("status", "interested");
+
+  if (interestsError) {
+    console.error(
+      "Erreur chargement intérêts client :",
+      interestsError
+    );
+
+    if (clientInterestsStatus) {
+      clientInterestsStatus.textContent =
+        "Impossible de charger les professionnels intéressés.";
+    }
+
+    return;
+  }
+
+  if (!interests || interests.length === 0) {
+    if (clientInterestsStatus) {
+      clientInterestsStatus.textContent =
+        "Aucun professionnel ne s'est encore déclaré intéressé.";
+    }
+
+    return;
+  }
+
+  if (clientInterestsStatus) {
+    clientInterestsStatus.textContent =
+      interests.length +
+      " professionnel(s) intéressé(s) par votre demande.";
+  }
+
+  for (const interest of interests) {
+
+    const { data: pros, error: proError } =
+      await supabaseClient
+        .from("professionals")
+        .select(
+          "company_name, contact_name, category, city, phone, email"
+        )
+        .eq("user_id", interest.professional_user_id)
+        .limit(1);
+
+    if (proError) {
+      console.error(
+        "Erreur chargement professionnel :",
+        proError
+      );
+      continue;
+    }
+
+    const pro = pros?.[0];
+
+    if (!pro) {
+      continue;
+    }
+
+    const proCard = document.createElement("div");
+
+    proCard.style.marginTop = "12px";
+    proCard.style.padding = "15px";
+    proCard.style.border = "1px solid #334155";
+    proCard.style.borderRadius = "12px";
+
+    proCard.innerHTML =
+      "<strong>👷 " +
+      (pro.company_name ||
+        pro.contact_name ||
+        "Professionnel Proxigo") +
+      "</strong><br><br>" +
+      "🔧 " +
+      (pro.category || "Professionnel") +
+      "<br>" +
+      "📍 " +
+      (pro.city || "Ville non précisée");
+
+    if (pro.phone) {
+      const contactButton =
+        document.createElement("a");
+
+      contactButton.href = "tel:" + pro.phone;
+      contactButton.textContent = "📞 Contacter";
+      contactButton.className = "btn btn-green";
+      contactButton.style.display = "inline-block";
+      contactButton.style.marginTop = "12px";
+
+      proCard.appendChild(
+        document.createElement("br")
+      );
+
+      proCard.appendChild(contactButton);
+    }
+
+    clientInterestsList.appendChild(proCard);
+  }
+
+})();
+});
+</script>
+<script>
+/* =========================================================
+   PROXIGO — RECHERCHE APPELS D'OFFRES
+   ========================================================= */
+
+const PROXIGO_AI_API = "https://web-production-3704e7.up.railway.app";
+
+async function rechercherAppelsOffres(job, country = "BE", limit = 20) {
+    try {
+        const url =
+            `${PROXIGO_AI_API}/opportunities/search` +
+            `?job=${encodeURIComponent(job)}` +
+            `&country=${encodeURIComponent(country)}` +
+            `&limit=${limit}`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Erreur API : ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log("Proxigo AI - Appels d'offres :", data);
+
+        return data;
+
+    } catch (error) {
+        console.error("Erreur Proxigo AI :", error);
+
+        return {
+            status: "error",
+            count: 0,
+            opportunities: [],
+            error: error.message
+        };
+    }
+}
+
+/* Test rapide depuis la console du navigateur :
+   rechercherAppelsOffres("nettoyage", "BE", 10)
+*/// =========================================================
+// AFFICHAGE DES APPELS D'OFFRES SUR PROXIGO
+// =========================================================
+
+const searchTendersButton = document.getElementById("searchTendersButton");
+const tenderJob = document.getElementById("tenderJob");
+const tenderCountry = document.getElementById("tenderCountry");
+const tenderResults = document.getElementById("tenderResults");
+
+if (searchTendersButton) {
+    searchTendersButton.addEventListener("click", async () => {
+
+        const job = tenderJob.value.trim();
+        const country = tenderCountry.value;
+
+        if (!job) {
+            alert("Veuillez indiquer un métier ou un mot-clé.");
+            return;
+        }
+
+        searchTendersButton.disabled = true;
+        searchTendersButton.textContent = "Recherche en cours...";
+
+        tenderResults.style.display = "block";
+        tenderResults.innerHTML = "<p>Recherche des appels d'offres en cours...</p>";
+
+        const data = await rechercherAppelsOffres(job, country, 20);
+
+        searchTendersButton.disabled = false;
+        searchTendersButton.textContent = "Rechercher des appels d'offres";
+
+        if (data.status !== "ok") {
+            tenderResults.innerHTML =
+                "<p>Une erreur est survenue pendant la recherche.</p>";
+            return;
+        }
+
+        if (!data.opportunities || data.opportunities.length === 0) {
+            tenderResults.innerHTML =
+                "<p>Aucun appel d'offres trouvé pour cette recherche.</p>";
+            return;
+        }
+
+        tenderResults.innerHTML = `
+            <h3>${data.count} appel(s) d'offres trouvé(s)</h3>
+            <div class="proxigo-tender-list">
+              ${data.opportunities.map((item, index) => `
+                    <div
+    class="proxigo-tender-card"
+    data-tender-index="${index}"
+    style="
+        display:${index < 5 ? "block" : "none"};
+                        padding:18px;
+                        margin:15px 0;
+                        border:1px solid rgba(255,255,255,.15);
+                        border-radius:12px;
+                        background:rgba(255,255,255,.04);
+                    ">
+                        <div style="
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-start;
+    margin-bottom:12px;
+">
+    <span style="
+        display:inline-block;
+        padding:5px 10px;
+        border-radius:999px;
+        background:rgba(34,214,163,.12);
+        border:1px solid rgba(34,214,163,.35);
+        font-size:12px;
+        font-weight:700;
+    ">
+        ${escapeTenderHtml(
+            tenderCountry.options[tenderCountry.selectedIndex]?.text ||
+            "Europe"
+        )}
+    </span>
+
+    <span style="
+        font-size:12px;
+        opacity:.75;
+    ">
+        ${escapeTenderHtml(item.source_name || "Source publique")}
+    </span>
+</div>
+
+<h3 style="
+    font-size:18px;
+    line-height:1.4;
+    margin:0 0 12px 0;
+">
+    ${escapeTenderHtml(item.title || "Appel d'offres")}
+</h3>
+
+${item.relevance_score !== undefined ? `
+    <div style="
+        margin:6px 0 10px 0;
+        font-size:14px;
+        font-weight:700;
+    ">
+        🎯 Pertinence : ${escapeTenderHtml(item.relevance_score)} / 100
+        — ${escapeTenderHtml(item.relevance_label || "À vérifier")}
+    </div>
+` : ""}
+
+${item.organism ? `
+    <p style="margin:8px 0;">
+        <strong>🏢 Organisme :</strong>
+        ${escapeTenderHtml(item.organism)}
+    </p>
+` : ""}
+
+<p style="
+    margin:8px 0 16px 0;
+    opacity:.8;
+    font-size:14px;
+">
+    <strong>📡 Source :</strong>
+    ${escapeTenderHtml(item.source_name || "Non précisée")}
+</p>
+
+${item.source_url ? `
+    <a
+        href="${escapeTenderUrl(item.source_url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        style="
+            display:inline-block;
+            margin-top:6px;
+        "
+    >
+        Voir l'appel d'offres ↗
+    </a>
+` : ""}
+                    </div>
+                `).join("")}
+            </div>
+            ${data.opportunities.length > 5 ? `
+    <div style="text-align:center; margin-top:22px;">
+        <button
+            type="button"
+            id="showMoreTenders"
+            class="btn btn-primary"
+        >
+            Voir plus d'appels d'offres
+        </button>
+    </div>
+` : ""}
+        `;
+    });
+}
+if (tenderResults) {
+    tenderResults.addEventListener("click", (event) => {
+        const showMoreTenders = event.target.closest("#showMoreTenders");
+
+        if (!showMoreTenders) {
+            return;
+        }
+
+        const cards = tenderResults.querySelectorAll(".proxigo-tender-card");
+
+        cards.forEach(card => {
+            card.style.display = "block";
+        });
+
+        showMoreTenders.style.display = "none";
+    });
+}
+function escapeTenderHtml(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function escapeTenderUrl(value) {
+    try {
+        const url = new URL(value);
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+            return url.href;
+        }
+
+        return "#";
+    } catch {
+        return "#";
+    }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://iyexxyhfuclwzftknynk.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY ="sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+  const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+  const proForm = document.getElementById("proForm");
+
+if (proForm) {
+  proForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+const companyName = document.getElementById("proCompanyName").value.trim();
+const category = document.getElementById("proCategory").value.trim();
+const city = document.getElementById("proCity").value.trim();
+const phone = document.getElementById("proPhone").value.trim();
+    const email = document.getElementById("proEmail").value.trim();
+    const password = document.getElementById("proPassword").value;
+    const passwordConfirm = document.getElementById("proPasswordConfirm").value;
+
+    if (password !== passwordConfirm) {
+      alert("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+     options: {
+    emailRedirectTo: "https://proxigobenelux.github.io/proxigo-web/",
+    data: {
+        company_name: companyName,
+        category: category,
+        city: city,
+        phone: phone
+    }
+}
+    });
+
+    if (error) {
+      console.error("Erreur inscription Proxigo :", error);
+      alert("Impossible de créer le compte : " + error.message);
+      return;
+    }
+
+    console.log("Compte professionnel créé :", data);
+
+    alert(
+      "Votre compte a été créé. Vérifiez votre e-mail pour confirmer votre inscription."
+    );
+  });
+}
+const showProLogin = document.getElementById("showProLogin");
+const proLoginBox = document.getElementById("proLoginBox");
+const proLoginButton = document.getElementById("proLoginButton");
+const proLoginMessage = document.getElementById("proLoginMessage");
+
+if (showProLogin && proLoginBox) {
+  showProLogin.addEventListener("click", function () {
+    proLoginBox.style.display = "block";
+  });
+}
+
+if (proLoginButton) {
+  proLoginButton.addEventListener("click", async function () {
+    const email = document.getElementById("proLoginEmail").value.trim();
+    const password = document.getElementById("proLoginPassword").value;
+
+    if (!email || !password) {
+      proLoginMessage.textContent = "Veuillez saisir votre e-mail et votre mot de passe.";
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      console.error("Erreur connexion Proxigo :", error);
+      proLoginMessage.textContent = "Connexion impossible : " + error.message;
+      return;
+    }
+
+    console.log("Professionnel connecté :", data);
+
+    proLoginMessage.textContent = "Connexion réussie.";
+    await loadProfessionalDashboard();
+    alert("Bienvenue dans votre espace professionnel Proxigo.");
+  });
+}  
+async function loadProfessionalDashboard() {
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    return;
+  }
+
+  const { data: professional, error: profileError } = await supabaseClient
+  .from("professionals")
+  .select("company_name, category, city, subscription, is_verified, is_active")
+  .eq("user_id", user.id)
+  .single();
+
+if (profileError) {
+  console.error("Erreur profil professionnel :", profileError);
+  return;
+}
+
+const dashboard = document.getElementById("proDashboard");
+const loginBox = document.getElementById("proLoginBox");
+
+if (dashboard) {
+  dashboard.style.display = "block";
+}
+
+if (loginBox) {
+  loginBox.style.display = "none";
+}
+
+const proWelcome = document.getElementById("proWelcome");
+const dashboardCompany = document.getElementById("dashboardCompany");
+const dashboardCategory = document.getElementById("dashboardCategory");
+const dashboardCity = document.getElementById("dashboardCity");
+const dashboardSubscription = document.getElementById("dashboardSubscription");
+
+if (proWelcome) {
+  proWelcome.textContent =
+    "Bienvenue " + (professional.company_name || "professionnel") + " 👋";
+}
+
+if (dashboardCompany) {
+  dashboardCompany.textContent =
+    professional.company_name || "Entreprise non renseignée";
+}
+
+if (dashboardCategory) {
+  dashboardCategory.textContent =
+    "Métier : " + (professional.category || "Non renseigné");
+}
+
+if (dashboardCity) {
+  dashboardCity.textContent =
+    "Ville : " + (professional.city || "Non renseignée");
+}
+
+if (dashboardSubscription) {
+  dashboardSubscription.textContent =
+    (professional.subscription || "free").toUpperCase();
+}
+}
+
+
+const proLogoutButton = document.getElementById("proLogoutButton");
+
+if (proLogoutButton) {
+  proLogoutButton.addEventListener("click", async function () {
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      console.error("Erreur déconnexion Proxigo :", error);
+      alert("Impossible de vous déconnecter. Veuillez réessayer.");
+      return;
+    }
+
+    const dashboard = document.getElementById("proDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "none";
+    }
+
+    alert("Vous êtes déconnecté de votre espace Proxigo.");
+  });
+}
+
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+
+  if (event === "SIGNED_IN" && session) {
+    loadProfessionalDashboard();
+  }
+
+  if (event === "SIGNED_OUT") {
+
+    const dashboard = document.getElementById("proDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "none";
+    }
+  }
+});
+
+
+loadProfessionalDashboard();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const editProfileButton =
+    document.getElementById("editProfileButton");
+
+  const editProfileBox =
+    document.getElementById("editProfileBox");
+
+  const saveProfileButton =
+    document.getElementById("saveProfileButton");
+
+  const profileSaveMessage =
+    document.getElementById("profileSaveMessage");
+
+
+  if (editProfileButton && editProfileBox) {
+
+    editProfileButton.addEventListener("click", async function () {
+
+      const {
+        data: { user },
+        error: userError
+      } = await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+        return;
+      }
+
+      const { data: professional, error } = await supabaseClient
+        .from("professionals")
+        .select("company_name, category, city, phone")
+        .eq("user_id", user.id)
+        .single();
+
+      if (error) {
+        console.error("Erreur chargement profil :", error);
+
+        if (profileSaveMessage) {
+          profileSaveMessage.textContent =
+            "Impossible de charger votre profil.";
+        }
+
+        return;
+      }
+
+      const companyInput =
+        document.getElementById("editCompanyName");
+
+      const categoryInput =
+        document.getElementById("editCategory");
+
+      const cityInput =
+        document.getElementById("editCity");
+
+      const phoneInput =
+        document.getElementById("editPhone");
+
+      if (companyInput) {
+        companyInput.value = professional.company_name || "";
+      }
+
+      if (categoryInput) {
+        categoryInput.value = professional.category || "";
+      }
+
+      if (cityInput) {
+        cityInput.value = professional.city || "";
+      }
+
+      if (phoneInput) {
+        phoneInput.value = professional.phone || "";
+      }
+
+      editProfileBox.style.display = "block";
+    });
+  }
+
+
+  if (saveProfileButton) {
+
+    saveProfileButton.addEventListener("click", async function () {
+
+      const {
+        data: { user },
+        error: userError
+      } = await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+
+        if (profileSaveMessage) {
+          profileSaveMessage.textContent =
+            "Vous devez être connecté.";
+        }
+
+        return;
+      }
+
+      const companyName =
+        document.getElementById("editCompanyName")?.value.trim() || "";
+
+      const category =
+        document.getElementById("editCategory")?.value.trim() || "";
+
+      const city =
+        document.getElementById("editCity")?.value.trim() || "";
+
+      const phone =
+        document.getElementById("editPhone")?.value.trim() || "";
+
+      const { error } = await supabaseClient
+        .from("professionals")
+        .update({
+          company_name: companyName,
+          category: category,
+          city: city,
+          phone: phone
+        })
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.error("Erreur sauvegarde profil :", error);
+
+        if (profileSaveMessage) {
+          profileSaveMessage.textContent =
+            "Impossible d'enregistrer : " + error.message;
+        }
+
+        return;
+      }
+
+      if (profileSaveMessage) {
+        profileSaveMessage.textContent =
+          "✅ Profil enregistré avec succès.";
+      }
+
+      await loadProfessionalDashboard();
+    });
+  }
+
+});
+
+</script>
+
+
+<!-- ============================= -->
+<!-- PROXIGO - ESPACE PROFESSIONNEL -->
+<!-- ============================= -->
+
+<section id="proDashboard" style="display:none; padding:40px 20px;">
+
+  <div style="max-width:1100px; margin:auto;">
+
+    <h2>🚀 Mon espace professionnel Proxigo</h2>
+
+    <p id="proWelcome">
+      Bienvenue dans votre tableau de bord.
+    </p>
+
+    <hr>
+
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-top:30px;
+    ">
+
+      <div class="card">
+
+        <h3>🏢 Mon entreprise</h3>
+
+        <p id="dashboardCompany">
+          Chargement...
+        </p>
+
+        <p id="dashboardCategory"></p>
+
+        <p id="dashboardCity"></p>
+
+        <button
+          type="button"
+          class="btn btn-green"
+          id="editProfileButton"
+        >
+          Modifier mon profil
+        </button>
+<div id="editProfileBox" style="display:none; margin-top:20px;">
+
+  <label>Nom / entreprise</label>
+  <input type="text" id="editCompanyName">
+
+  <label>Métier</label>
+  <input type="text" id="editCategory">
+
+  <label>Ville</label>
+  <input type="text" id="editCity">
+
+  <label>Téléphone</label>
+  <input type="text" id="editPhone">
+
+  <button type="button" class="btn btn-green full" id="saveProfileButton">
+    Enregistrer mon profil
+  </button>
+
+  <p id="profileSaveMessage"></p>
+</div>
+      </div>
+
+      <div class="card" id="subscriptionCard">
+  <h3>💼 Mon abonnement</h3>
+
+  <p>
+    Formule actuelle :
+    <strong id="dashboardSubscription">Chargement...</strong>
+  </p>
+
+  <div style="margin-top:16px;">
+    <strong>🆓 FREE — 0 €</strong>
+    <p style="margin-top:5px;">
+      ✓ Profil professionnel<br>
+      ✓ Accès limité aux demandes clients<br>
+      ✕ Accès complet aux appels d'offres
+    </p>
+  </div>
+
+  <div style="margin-top:18px;">
+    <strong>⭐ PRO — 29 €/mois</strong>
+    <p style="margin-top:5px;">
+      ✓ Demandes clients<br>
+      ✓ Accès aux appels d'offres<br>
+      ✓ Alertes Proxigo<br>
+      ✓ Profil professionnel amélioré
+    </p>
+
+    <button
+      type="button"
+      class="btn btn-primary full"
+      id="upgradeProButton">
+      Passer à PRO — 29 €/mois
+    </button>
+  </div>
+
+  <div style="margin-top:18px;">
+    <strong>🚀 BUSINESS — 59 €/mois</strong>
+    <p style="margin-top:5px;">
+      ✓ Accès complet aux appels d'offres<br>
+      ✓ Priorité sur les demandes clients<br>
+      ✓ Alertes prioritaires<br>
+      ✓ Visibilité renforcée<br>
+      ✓ Fonctionnalités premium
+    </p>
+
+    <button
+      type="button"
+      class="btn btn-green full"
+      id="upgradeBusinessButton">
+      Passer à BUSINESS — 59 €/mois
+    </button>
+  </div>
+</div>
+
+      <div class="card">
+        <h3>📩 Demandes clients</h3>
+        <p>Consultez les nouvelles demandes correspondant à votre métier.</p>
+        <button type="button" class="btn btn-green full"id="viewRequestsButton">
+          Voir les demandes
+        </button>
+      <div id="requestsBox" style="display:none; margin-top:15px;">
+  <p id="requestsStatus">Chargement des demandes...</p>
+  <div id="requestsList"></div>
+</div>
+      </div>
+
+      <div class="card">
+        <h3>📑 Appels d'offres</h3>
+        <p>Découvrez les opportunités détectées par Proxigo.</p>
+        <button type="button" class="btn btn-green full">
+          Voir les appels d'offres
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>💰 Mes devis</h3>
+        <p>Préparez et suivez vos devis clients.</p>
+        <button type="button" class="btn btn-green full">
+          Mes devis
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>🔔 Notifications</h3>
+        <p>Retrouvez vos nouvelles opportunités et alertes.</p>
+        <button type="button" class="btn btn-green full">
+          Mes notifications
+        </button>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      id="proLogoutButton"
+      class="btn full"
+      style="margin-top:30px;"
+    >
+      Se déconnecter
+    </button>
+
+  </div>
+
+</section>
+<script>
+  const editBtnFinal = document.getElementById("editProfileButton");
+  const editBoxFinal = document.getElementById("editProfileBox");
+
+  if (editBtnFinal && editBoxFinal) {
+    editBtnFinal.onclick = function () {
+      editBoxFinal.style.display = "block";
+    };
+  }
+
+const saveBtnFinal = document.getElementById("saveProfileButton");
+const saveMessageFinal = document.getElementById("profileSaveMessage");
+
+if (saveBtnFinal) {
+  saveBtnFinal.onclick = async function () {
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      saveMessageFinal.textContent = "Vous devez être connecté.";
+      return;
+    }
+
+    const companyName =
+      document.getElementById("editCompanyName").value.trim();
+
+    const category =
+      document.getElementById("editCategory").value.trim();
+
+    const city =
+      document.getElementById("editCity").value.trim();
+
+    const phone =
+      document.getElementById("editPhone").value.trim();
+
+    const { error } = await supabaseClient
+      .from("professionals")
+      .update({
+        company_name: companyName,
+        category: category,
+        city: city,
+        phone: phone
+      })
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.error("Erreur sauvegarde profil :", error);
+      saveMessageFinal.textContent =
+        "Impossible d'enregistrer : " + error.message;
+      return;
+    }
+
+    saveMessageFinal.textContent = "✅ Profil enregistré avec succès.";
+
+    document.getElementById("dashboardCompany").textContent =
+      companyName || "Entreprise non renseignée";
+
+    document.getElementById("dashboardCategory").textContent =
+      "Métier : " + (category || "Non renseigné");
+
+    document.getElementById("dashboardCity").textContent =
+      "Ville : " + (city || "Non renseignée");
+  };
+}
+</script>
+
+  
+
+
+
+
+
+<script>
+const viewRequestsButton = document.getElementById("viewRequestsButton");
+const requestsBox = document.getElementById("requestsBox");
+const requestsStatus = document.getElementById("requestsStatus");
+const requestsList = document.getElementById("requestsList");
+
+if (viewRequestsButton && requestsBox) {
+  viewRequestsButton.onclick = async function () {
+    requestsBox.style.display = "block";
+    requestsStatus.textContent = "Chargement des demandes...";
+    requestsList.innerHTML = "";
+
+   const {
+  data: { user },
+  error: userError
+} = await supabaseClient.auth.getUser();
+
+if (userError || !user) {
+  if (requestsStatus) {
+    requestsStatus.textContent = "Vous devez être connecté.";
+  }
+  return;
+}
+
+const { data: professional, error: profileError } = await supabaseClient
+  .from("professionals")
+  .select("category, city")
+  .eq("user_id", user.id)
+  .single();
+
+if (profileError || !professional) {
+  console.error("Erreur profil :", profileError);
+
+  if (requestsStatus) {
+    requestsStatus.textContent =
+      "Impossible de charger votre profil professionnel.";
+  }
+
+  return;
+}
+
+if (!professional.category) {
+  if (requestsStatus) {
+    requestsStatus.textContent =
+      "Veuillez d'abord renseigner votre métier dans votre profil.";
+  }
+  return;
+}
+
+let requestsQuery = supabaseClient
+  .from("service_requests")
+  .select(
+    "id, category, description, city, country, budget_text, requested_date_text, status"
+  )
+  .ilike("category", "%" + professional.category + "%")
+  .limit(20);
+
+const { data: requests, error: requestsError } =
+  await requestsQuery;
+
+if (requestsError) {
+  console.error("Erreur demandes :", requestsError);
+
+  if (requestsStatus) {
+    requestsStatus.textContent =
+      "Impossible de charger les demandes : " +
+      requestsError.message;
+  }
+
+  return;
+}
+
+if (!requests || requests.length === 0) {
+  if (requestsStatus) {
+    requestsStatus.textContent =
+      "Aucune demande correspondant à votre métier n'est disponible pour le moment.";
+  }
+
+  return;
+}
+
+if (requestsStatus) {
+  requestsStatus.textContent =
+    requests.length +
+    (requests.length > 1
+      ? " demandes trouvées."
+      : " demande trouvée.");
+}
+
+if (requestsList) {
+  requestsList.innerHTML = "";
+}
+
+for (const request of requests) {
+
+  const card = document.createElement("div");
+
+  card.style.cssText =
+    "padding:12px; margin-top:10px; border:1px solid #334155; border-radius:10px;";
+
+  const title = document.createElement("strong");
+  title.textContent =
+    request.category || "Service";
+
+  const description = document.createElement("p");
+  description.style.margin = "8px 0";
+  description.textContent =
+    request.description || "Sans description";
+
+  const city = document.createElement("p");
+  city.style.margin = "4px 0";
+  city.textContent =
+    "📍 " + (request.city || "Ville non précisée");
+
+  const budget = document.createElement("p");
+  budget.style.margin = "4px 0";
+  budget.textContent =
+    "💰 " + (request.budget_text || "Budget non précisé");
+
+  const requestedDate = document.createElement("p");
+  requestedDate.style.margin = "4px 0";
+  requestedDate.textContent =
+    "📅 " + (request.requested_date_text || "Date non précisée");
+
+  card.appendChild(title);
+  card.appendChild(description);
+  card.appendChild(city);
+  card.appendChild(budget);
+  card.appendChild(requestedDate);
+
+  const interestedButton =
+    document.createElement("button");
+
+  interestedButton.type = "button";
+  interestedButton.className = "btn btn-green";
+  interestedButton.style.marginTop = "12px";
+  interestedButton.textContent = "Je suis intéressé";
+
+  interestedButton.addEventListener(
+    "click",
+    async function () {
+
+      const {
+        data: { user },
+        error: currentUserError
+      } = await supabaseClient.auth.getUser();
+
+      if (currentUserError || !user) {
+        alert(
+          "Vous devez être connecté pour répondre à cette demande."
+        );
+        return;
+      }
+
+      interestedButton.disabled = true;
+      interestedButton.textContent =
+        "Vérification...";
+
+      const {
+        data: existingInterest,
+        error: existingError
+      } = await supabaseClient
+        .from("service_request_interests")
+        .select("id")
+        .eq("service_request_id", request.id)
+        .eq("professional_user_id", user.id)
+        .maybeSingle();
+
+      if (existingError) {
+        console.error(
+          "Erreur vérification intérêt :",
+          existingError
+        );
+
+        interestedButton.disabled = false;
+        interestedButton.textContent =
+          "Je suis intéressé";
+
+        alert(
+          "Impossible de vérifier votre intérêt. Veuillez réessayer."
+        );
+
+        return;
+      }
+
+      if (existingInterest) {
+        interestedButton.textContent =
+          "✓ Déjà intéressé";
+        interestedButton.disabled = true;
+        return;
+      }
+
+      const { error: insertError } =
+        await supabaseClient
+          .from("service_request_interests")
+          .insert({
+            service_request_id: request.id,
+            professional_user_id: user.id,
+            status: "interested"
+          });
+
+      if (insertError) {
+        console.error(
+          "Erreur enregistrement intérêt :",
+          insertError
+        );
+
+        interestedButton.disabled = false;
+        interestedButton.textContent =
+          "Je suis intéressé";
+
+        alert(
+          "Impossible d'enregistrer votre intérêt : " +
+          insertError.message
+        );
+
+        return;
+      }
+
+      interestedButton.textContent =
+        "✓ Intérêt enregistré";
+
+      interestedButton.disabled = true;
+
+      alert(
+        "Votre intérêt a bien été enregistré. Le client pourra consulter votre profil."
+      );
+    }
+  );
+
+  card.appendChild(interestedButton);
+
+  if (requestsList) {
+    requestsList.appendChild(card);
+  }
+}
+};
+}
+
+</script>
+
+
+<script>
+
+window.addEventListener("load", async function () {
+
+  const savedRequestId =
+    localStorage.getItem("proxigo_last_request_id");
+
+  if (!savedRequestId) {
+    return;
+  }
+
+  const box =
+    document.getElementById("clientInterestsBox");
+
+  const status =
+    document.getElementById("clientInterestsStatus");
+
+  const list =
+    document.getElementById("clientInterestsList");
+
+  if (!box || !status || !list) {
+    return;
+  }
+
+  box.style.display = "block";
+
+  status.textContent =
+    "Recherche des professionnels intéressés...";
+
+  list.innerHTML = "";
+
+  const {
+    data: interests,
+    error: interestsError
+  } = await supabaseClient
+    .from("service_request_interests")
+    .select("professional_user_id")
+    .eq("service_request_id", savedRequestId)
+    .eq("status", "interested");
+
+  if (interestsError) {
+    console.error(
+      "Erreur chargement des intérêts :",
+      interestsError
+    );
+
+    status.textContent =
+      "Impossible de charger les professionnels intéressés.";
+
+    return;
+  }
+
+  if (!interests || interests.length === 0) {
+    status.textContent =
+      "Aucun professionnel ne s'est encore déclaré intéressé.";
+
+    return;
+  }
+
+  status.textContent =
+    interests.length +
+    (interests.length > 1
+      ? " professionnels intéressés par votre demande."
+      : " professionnel intéressé par votre demande.");
+
+  for (const interest of interests) {
+
+    const {
+      data: pros,
+      error: proError
+    } = await supabaseClient
+      .from("professionals")
+      .select(
+        "company_name, contact_name, category, city, phone, email"
+      )
+      .eq(
+        "user_id",
+        interest.professional_user_id
+      )
+      .limit(1);
+
+    if (proError) {
+      console.error(
+        "Erreur chargement professionnel :",
+        proError
+      );
+      continue;
+    }
+
+    const pro = pros?.[0];
+
+    if (!pro) {
+      continue;
+    }
+
+    const card =
+      document.createElement("div");
+
+    card.style.marginTop = "12px";
+    card.style.padding = "15px";
+    card.style.border =
+      "1px solid #334155";
+    card.style.borderRadius = "12px";
+
+    const company =
+      document.createElement("strong");
+
+    company.textContent =
+      "👷 " +
+      (
+        pro.company_name ||
+        pro.contact_name ||
+        "Professionnel Proxigo"
+      );
+
+    const category =
+      document.createElement("p");
+
+    category.style.margin =
+      "10px 0 4px";
+
+    category.textContent =
+      "🔧 " +
+      (pro.category || "Professionnel");
+
+    const city =
+      document.createElement("p");
+
+    city.style.margin =
+      "4px 0";
+
+    city.textContent =
+      "📍 " +
+      (pro.city || "Ville non précisée");
+
+    card.appendChild(company);
+    card.appendChild(category);
+    card.appendChild(city);
+
+
+    const profileButton =
+      document.createElement("button");
+
+    profileButton.type = "button";
+    profileButton.textContent =
+      "👤 Voir le profil";
+
+    profileButton.className =
+      "btn btn-green";
+
+    profileButton.style.marginTop =
+      "12px";
+
+    profileButton.style.marginRight =
+      "8px";
+
+
+    profileButton.addEventListener(
+      "click",
+      function () {
+
+        const modal =
+          document.getElementById(
+            "professionalProfileModal"
+          );
+
+        if (!modal) {
+          return;
+        }
+
+        const profileCompanyName =
+          document.getElementById(
+            "profileCompanyName"
+          );
+
+        const profileCategory =
+          document.getElementById(
+            "profileCategory"
+          );
+
+        const profileCity =
+          document.getElementById(
+            "profileCity"
+          );
+
+        const profilePhone =
+          document.getElementById(
+            "profilePhone"
+          );
+
+        const profileEmail =
+          document.getElementById(
+            "profileEmail"
+          );
+
+        if (profileCompanyName) {
+          profileCompanyName.textContent =
+            pro.company_name ||
+            pro.contact_name ||
+            "Professionnel Proxigo";
+        }
+
+        if (profileCategory) {
+          profileCategory.textContent =
+            "🔧 Métier : " +
+            (pro.category || "Non renseigné");
+        }
+
+        if (profileCity) {
+          profileCity.textContent =
+            "📍 Ville : " +
+            (pro.city || "Non renseignée");
+        }
+
+        if (profilePhone) {
+          profilePhone.textContent =
+            "📞 Téléphone : " +
+            (pro.phone || "Non renseigné");
+        }
+
+        if (profileEmail) {
+          profileEmail.textContent =
+            "✉️ E-mail : " +
+            (pro.email || "Non renseigné");
+        }
+
+        modal.style.display = "flex";
+      }
+    );
+
+    card.appendChild(profileButton);
+
+
+    if (pro.phone) {
+
+      const contactButton =
+        document.createElement("a");
+
+      contactButton.href =
+        "tel:" + pro.phone;
+
+      contactButton.textContent =
+        "📞 Contacter";
+
+      contactButton.className =
+        "btn btn-green";
+
+      contactButton.style.display =
+        "inline-block";
+
+      contactButton.style.marginTop =
+        "12px";
+
+      card.appendChild(contactButton);
+    }
+
+    list.appendChild(card);
+  }
+});
+
+</script>
+
+
+<div
+  id="professionalProfileModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  "
+>
+
+  <div
+    style="
+      background:#0f1b2d;
+      border:1px solid #334155;
+      border-radius:16px;
+      padding:24px;
+      width:100%;
+      max-width:520px;
+      color:white;
+    "
+  >
+
+    <h2 id="profileCompanyName">
+      Professionnel
+    </h2>
+
+    <p id="profileCategory"></p>
+    <p id="profileCity"></p>
+    <p id="profilePhone"></p>
+    <p id="profileEmail"></p>
+
+    <button
+      id="closeProfessionalProfile"
+      type="button"
+      class="btn btn-green"
+      style="margin-top:15px;"
+    >
+      Fermer
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const professionalProfileModal =
+  document.getElementById(
+    "professionalProfileModal"
+  );
+
+const closeProfessionalProfile =
+  document.getElementById(
+    "closeProfessionalProfile"
+  );
+
+if (
+  professionalProfileModal &&
+  closeProfessionalProfile
+) {
+
+  closeProfessionalProfile.addEventListener(
+    "click",
+    function () {
+      professionalProfileModal.style.display =
+        "none";
+    }
+  );
+
+  professionalProfileModal.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target ===
+        professionalProfileModal
+      ) {
+        professionalProfileModal.style.display =
+          "none";
+      }
+    }
+  );
+}
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+
+    if (
+      event.key === "Escape" &&
+      professionalProfileModal
+    ) {
+      professionalProfileModal.style.display =
+        "none";
+    }
+  }
+);
+
+</script>
+
+
+<script>
+
+document
+  .getElementById("upgradeProButton")
+  ?.addEventListener(
+    "click",
+    function () {
+      window.location.href =
+        "https://buy.stripe.com/00wbIU2jr1OfdrzdzSfbq04";
+    }
+  );
+
+document
+  .getElementById("upgradeBusinessButton")
+  ?.addEventListener(
+    "click",
+    function () {
+      window.location.href =
+        "https://buy.stripe.com/14A14gcY564v1IRanGfbq05";
+    }
+  );
+
+</script>
+
+</body>
+</html>

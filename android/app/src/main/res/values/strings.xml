@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Proxigo</string>
+    <string name="title_activity_main">Proxigo</string>
+    <string name="package_name">eu.proxigo.app</string>
+    <string name="custom_url_scheme">eu.proxigo.app</string>
+</resources>
