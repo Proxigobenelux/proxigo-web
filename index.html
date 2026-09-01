@@ -3187,6 +3187,445 @@ document
   );
 
 </script>
+<script>
+/* =========================================================
+   PROXIGO — PROFESSIONNELS INTÉRESSÉS PAR LES DEMANDES CLIENT
+========================================================= */
 
+async function loadClientInterests() {
+ 
+
+  const box = document.getElementById("clientInterestsBox");
+  const status = document.getElementById("clientInterestsStatus");
+  const list = document.getElementById("clientInterestsList");
+
+  if (!box || !status || !list) {
+    return;
+  }
+
+  box.style.display = "block";
+  status.textContent = "Recherche des professionnels intéressés...";
+  list.innerHTML = "";
+
+
+  /* ---------------------------------------------------------
+     1. Récupérer les demandes du client
+  --------------------------------------------------------- */
+
+  const contactField =
+    document.getElementById("contact");
+
+  if (!contactField) {
+    return;
+  }
+
+  const clientContact =
+    contactField.value.trim();
+
+  if (!clientContact) {
+    status.textContent =
+      "Veuillez renseigner votre téléphone ou votre e-mail.";
+
+    return;
+  }
+
+
+  const {
+    data: requests,
+    error: requestsError
+  } = await supabaseClient
+    .from("service_requests")
+    .select(`
+      id,
+      category,
+      city,
+      description,
+      contact
+    `)
+    .eq("contact", clientContact)
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (requestsError) {
+
+    console.error(
+      "Erreur chargement demandes client :",
+      requestsError
+    );
+
+    status.textContent =
+      "Impossible de charger vos demandes.";
+
+    return;
+  }
+
+
+  if (!requests || requests.length === 0) {
+
+    status.textContent =
+      "Aucune demande trouvée.";
+
+    return;
+  }
+
+
+  let totalInterests = 0;
+
+
+  /* ---------------------------------------------------------
+     2. Parcourir les demandes du client
+  --------------------------------------------------------- */
+
+  for (const request of requests) {
+
+    const {
+      data: interests,
+      error: interestsError
+    } = await supabaseClient
+      .from("request_interests")
+      .select("id, professional_user_id, created_at")
+      .eq("request_id", request.id)
+      .order("created_at", {
+        ascending: false
+      });
+
+
+    if (interestsError) {
+
+      console.error(
+        "Erreur chargement intérêts :",
+        interestsError
+      );
+
+      continue;
+    }
+
+
+    if (!interests || interests.length === 0) {
+      continue;
+    }
+
+
+    /* -------------------------------------------------------
+       Titre de la demande
+    ------------------------------------------------------- */
+
+    const requestTitle =
+      document.createElement("div");
+
+    requestTitle.style.marginTop = "20px";
+    requestTitle.style.marginBottom = "10px";
+    requestTitle.style.padding = "12px";
+    requestTitle.style.background = "#10233d";
+    requestTitle.style.borderRadius = "10px";
+
+    requestTitle.innerHTML = `
+      <strong>📋 ${escapeClientInterestHtml(
+        request.category || "Demande"
+      )}</strong>
+      <br>
+      <span style="font-size:14px;color:#94a3b8;">
+        📍 ${escapeClientInterestHtml(
+          request.city || "Ville non précisée"
+        )}
+      </span>
+    `;
+
+    list.appendChild(requestTitle);
+
+
+    /* -------------------------------------------------------
+       3. Charger les professionnels intéressés
+    ------------------------------------------------------- */
+
+    for (const interest of interests) {
+
+      const {
+        data: pros,
+        error: proError
+      } = await supabaseClient
+        .from("professionals")
+        .select(`
+          company_name,
+          contact_name,
+          category,
+          city,
+          phone,
+          email
+        `)
+        .eq(
+          "user_id",
+          interest.professional_user_id
+        )
+        .limit(1);
+
+
+      if (proError) {
+
+        console.error(
+          "Erreur chargement professionnel :",
+          proError
+        );
+
+        continue;
+      }
+
+
+      const pro = pros?.[0];
+
+      if (!pro) {
+        continue;
+      }
+
+
+      totalInterests++;
+
+
+      /* -----------------------------------------------------
+         Carte professionnel
+      ----------------------------------------------------- */
+
+      const card =
+        document.createElement("div");
+
+      card.style.marginTop = "12px";
+      card.style.padding = "16px";
+      card.style.border = "1px solid #334155";
+      card.style.borderRadius = "12px";
+      card.style.background = "#0d1b2e";
+
+
+      const company =
+        document.createElement("strong");
+
+      company.textContent =
+        "👷 " +
+        (
+          pro.company_name ||
+          pro.contact_name ||
+          "Professionnel Proxigo"
+        );
+
+
+      const category =
+        document.createElement("p");
+
+      category.style.margin = "10px 0 4px";
+
+      category.textContent =
+        "🔧 " +
+        (
+          pro.category ||
+          "Professionnel"
+        );
+
+
+      const city =
+        document.createElement("p");
+
+      city.style.margin = "4px 0";
+
+      city.textContent =
+        "📍 " +
+        (
+          pro.city ||
+          "Ville non précisée"
+        );
+
+
+      card.appendChild(company);
+      card.appendChild(category);
+      card.appendChild(city);
+
+
+      /* -----------------------------------------------------
+         Bouton voir profil
+      ----------------------------------------------------- */
+
+      const profileButton =
+        document.createElement("button");
+
+      profileButton.type = "button";
+      profileButton.className = "btn btn-green";
+      profileButton.textContent =
+        "👤 Voir le profil";
+
+      profileButton.style.marginTop = "10px";
+      profileButton.style.marginRight = "8px";
+
+
+      profileButton.addEventListener(
+        "click",
+        function () {
+
+          const modal =
+            document.getElementById(
+              "professionalProfileModal"
+            );
+
+          if (!modal) {
+            return;
+          }
+
+
+          const profileCompanyName =
+            document.getElementById(
+              "profileCompanyName"
+            );
+
+          const profileCategory =
+            document.getElementById(
+              "profileCategory"
+            );
+
+          const profileCity =
+            document.getElementById(
+              "profileCity"
+            );
+
+          const profilePhone =
+            document.getElementById(
+              "profilePhone"
+            );
+
+          const profileEmail =
+            document.getElementById(
+              "profileEmail"
+            );
+
+
+          if (profileCompanyName) {
+            profileCompanyName.textContent =
+              pro.company_name ||
+              pro.contact_name ||
+              "Professionnel Proxigo";
+          }
+
+
+          if (profileCategory) {
+            profileCategory.textContent =
+              "🔧 Métier : " +
+              (
+                pro.category ||
+                "Non renseigné"
+              );
+          }
+
+
+          if (profileCity) {
+            profileCity.textContent =
+              "📍 Ville : " +
+              (
+                pro.city ||
+                "Non renseignée"
+              );
+          }
+
+
+          if (profilePhone) {
+            profilePhone.textContent =
+              "📞 Téléphone : " +
+              (
+                pro.phone ||
+                "Non renseigné"
+              );
+          }
+
+
+          if (profileEmail) {
+            profileEmail.textContent =
+              "✉️ E-mail : " +
+              (
+                pro.email ||
+                "Non renseigné"
+              );
+          }
+
+
+          modal.style.display = "flex";
+        }
+      );
+
+
+      card.appendChild(profileButton);
+
+
+      /* -----------------------------------------------------
+         Bouton téléphone
+      ----------------------------------------------------- */
+
+      if (pro.phone) {
+
+        const contactButton =
+          document.createElement("a");
+
+        contactButton.href =
+          "tel:" + pro.phone;
+
+        contactButton.textContent =
+          "📞 Contacter";
+
+        contactButton.className =
+          "btn btn-green";
+
+        contactButton.style.display =
+          "inline-block";
+
+        contactButton.style.marginTop =
+          "10px";
+
+        card.appendChild(contactButton);
+      }
+
+
+      list.appendChild(card);
+    }
+  }
+
+
+  /* ---------------------------------------------------------
+     4. Résultat final
+  --------------------------------------------------------- */
+
+  if (totalInterests === 0) {
+
+    status.innerHTML = `
+      <span style="color:#94a3b8;">
+        ⏳ Aucun professionnel ne s'est encore déclaré intéressé.
+      </span>
+    `;
+
+    return;
+  }
+
+
+  status.innerHTML = `
+    <span style="color:#22d6a3;">
+      ✅ ${totalInterests}
+      professionnel(s) intéressé(s) par vos demandes.
+    </span>
+  `;
+}
+
+
+/* =========================================================
+   PROTECTION HTML
+========================================================= */
+
+  setTimeout(() => {
+  loadClientInterests();
+}, 500);
+function escapeClientInterestHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+</script>
 </body>
 </html>
