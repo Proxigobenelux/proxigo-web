@@ -618,6 +618,74 @@
   outline: 3px solid rgba(47, 102, 255, 0.75);
   background: rgba(47, 102, 255, 0.06);
 }
+ /* =========================
+   AMELIORATION INTERFACE PROXIGO
+========================= */
+
+.btn{
+  transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.btn-primary:hover{
+  opacity:.92;
+}
+
+.btn-green:hover{
+  opacity:.92;
+}
+
+.service{
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.service:hover{
+  transform:translateY(-5px);
+  border-color:var(--green);
+  box-shadow:0 12px 35px rgba(0,0,0,.22);
+}
+
+.request-box{
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.request-box:hover{
+  box-shadow:0 30px 90px rgba(0,0,0,.32);
+}
+
+.step{
+  transition:transform .2s ease, border-color .2s ease;
+}
+
+.step:hover{
+  transform:translateY(-4px);
+  border-color:var(--blue);
+}
+
+.city{
+  transition:.2s ease;
+}
+
+.city:hover{
+  border-color:var(--green);
+  color:var(--green);
+}
+
+input,
+select,
+textarea{
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  box-shadow:0 0 0 3px rgba(47,102,255,.12);
+}   
   </style>
 </head>
 
