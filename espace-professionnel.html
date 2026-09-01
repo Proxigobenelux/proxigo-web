@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Espace professionnel — Proxigo Benelux</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+:root{
+  --bg:#06101f;
+  --bg2:#09182a;
+  --card:#0d1b2e;
+  --card2:#10233d;
+  --line:#243852;
+  --blue:#2563eb;
+  --blue2:#3b82f6;
+  --green:#22d6a3;
+  --white:#ffffff;
+  --muted:#9aa9bd;
+  --danger:#ef4444;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  min-height:100vh;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* HEADER */
+
+.header{
+  height:72px;
+  background:#050d19;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 35px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.user-mini{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.logout-top{
+  border:1px solid var(--line);
+  background:transparent;
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+}
+
+/* LOGIN */
+
+#loginPage{
+  min-height:calc(100vh - 72px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  background:
+    radial-gradient(circle at top right,rgba(37,99,235,.18),transparent 35%),
+    radial-gradient(circle at bottom left,rgba(34,214,163,.08),transparent 35%);
+}
+
+.login-card{
+  width:100%;
+  max-width:460px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:35px;
+  box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.login-icon{
+  width:60px;
+  height:60px;
+  border-radius:15px;
+  background:rgba(34,214,163,.1);
+  border:1px solid rgba(34,214,163,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.login-card h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.login-card>p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin:16px 0 7px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  background:#071322;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:13px 14px;
+  outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--blue2);
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:13px 18px;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-blue{
+  background:var(--blue);
+  color:white;
+}
+
+.btn-green{
+  background:var(--green);
+  color:#03120f;
+}
+
+.full{
+  width:100%;
+  margin-top:20px;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  display:none;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.message.error{
+  display:block;
+  background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.35);
+  color:#fecaca;
+}
+
+.message.success{
+  display:block;
+  background:rgba(34,214,163,.1);
+  border:1px solid rgba(34,214,163,.35);
+  color:#a7f3d0;
+}
+
+.login-footer{
+  margin-top:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* DASHBOARD */
+
+#dashboardPage{
+  display:none;
+}
+
+.dashboard{
+  max-width:1400px;
+  margin:auto;
+  padding:35px;
+}
+
+.welcome{
+  margin-bottom:30px;
+}
+
+.welcome small{
+  color:var(--green);
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.welcome h1{
+  font-size:36px;
+  margin-top:8px;
+}
+
+.welcome p{
+  color:var(--muted);
+  margin-top:8px;
+}
+
+/* PROFILE */
+
+.profile-banner{
+  background:
+    linear-gradient(135deg,rgba(37,99,235,.25),rgba(34,214,163,.08)),
+    var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.profile-info{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.avatar{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  font-weight:bold;
+}
+
+.profile-info h2{
+  font-size:22px;
+}
+
+.profile-info p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.status{
+  display:inline-block;
+  margin-top:8px;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  background:rgba(34,214,163,.12);
+  color:var(--green);
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px;
+}
+
+.stat-icon{
+  font-size:25px;
+  margin-bottom:12px;
+}
+
+.stat-number{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.stat-label{
+  color:var(--muted);
+  margin-top:5px;
+  font-size:14px;
+}
+
+/* GRID */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:22px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:24px;
+  margin-bottom:22px;
+}
+
+.card h2{
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+/* REQUESTS */
+
+.request-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:18px;
+  margin-top:12px;
+  background:rgba(255,255,255,.015);
+}
+
+.request-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.request-title{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.badge{
+  padding:5px 9px;
+  border-radius:20px;
+  background:rgba(37,99,235,.15);
+  color:#93c5fd;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.request-meta{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+  line-height:1.7;
+}
+
+.request-description{
+  margin-top:12px;
+  line-height:1.5;
+  color:#d8e1ed;
+}
+
+.request-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+/* QUICK ACTIONS */
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.action{
+  background:var(--card2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.action:hover{
+  border-color:var(--blue2);
+  transform:translateY(-2px);
+}
+
+.action strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.action span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* SUBSCRIPTION */
+
+.plan{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:18px;
+  margin-top:12px;
+  background:var(--card2);
+}
+
+.plan.pro{
+  border-color:rgba(37,99,235,.6);
+}
+
+.plan.business{
+  border-color:rgba(34,214,163,.6);
+}
+
+.plan h3{
+  margin-bottom:6px;
+}
+
+.price{
+  font-size:25px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.plan p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* PROFILE EDIT */
+
+#editProfileBox{
+  display:none;
+  margin-top:20px;
+  border-top:1px solid var(--line);
+  padding-top:20px;
+}
+
+/* EMPTY */
+
+.empty{
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.loading{
+  color:var(--muted);
+  padding:20px 0;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px 20px;
+  font-size:13px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .header{
+    padding:0 15px;
+  }
+
+  .user-mini{
+    display:none;
+  }
+
+  .dashboard{
+    padding:20px 15px;
+  }
+
+  .welcome h1{
+    font-size:28px;
+  }
+
+  .profile-banner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stats .stat{
+    padding:15px;
+  }
+
+  .stat-number{
+    font-size:23px;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .login-card{
+    padding:25px 20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <a href="index.html" class="logo">
+    PROXI<span>GO</span>
+  </a>
+
+  <div class="header-right">
+
+    <span id="headerUser" class="user-mini">
+      Espace professionnel
+    </span>
+
+    <button
+      id="topLogout"
+      class="logout-top"
+      style="display:none;"
+      type="button"
+    >
+      Déconnexion
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- ========================= -->
+<!-- CONNEXION -->
+<!-- ========================= -->
+
+<section id="loginPage">
+
+  <div class="login-card">
+
+    <div class="login-icon">
+      👷
+    </div>
+
+    <h1>Espace professionnel</h1>
+
+    <p>
+      Connectez-vous pour retrouver vos demandes clients,
+      vos opportunités et votre espace Proxigo.
+    </p>
+
+    <form id="loginForm">
+
+      <label for="loginEmail">
+        E-mail
+      </label>
+
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="votre@email.com"
+        required
+      >
+
+      <label for="loginPassword">
+        Mot de passe
+      </label>
+
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Votre mot de passe"
+        required
+      >
+
+      <button
+        type="submit"
+        class="btn btn-blue full"
+        id="loginButton"
+      >
+        🔐 Se connecter
+      </button>
+
+    </form>
+
+    <div id="loginMessage" class="message"></div>
+
+    <div class="login-footer">
+      Vous n'avez pas encore de compte professionnel ?
+      <br><br>
+      <a
+        href="index.html#inscription-pro"
+        style="color:var(--green);font-weight:bold;"
+      >
+        Créer mon compte Proxigo →
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- TABLEAU DE BORD -->
+<!-- ========================= -->
+
+<section id="dashboardPage">
+
+  <div class="dashboard">
+
+    <div class="welcome">
+
+      <small>
+        ESPACE PROFESSIONNEL PROXIGO
+      </small>
+
+      <h1 id="welcomeTitle">
+        Bienvenue 👋
+      </h1>
+
+      <p>
+        Retrouvez ici vos opportunités et les demandes
+        correspondant à votre activité.
+      </p>
+
+    </div>
+
+
+    <!-- PROFIL -->
+
+    <div class="profile-banner">
+
+      <div class="profile-info">
+
+        <div class="avatar" id="avatar">
+          P
+        </div>
+
+        <div>
+
+          <h2 id="companyName">
+            Professionnel Proxigo
+          </h2>
+
+          <p id="companyDetails">
+            Chargement...
+          </p>
+
+          <span class="status" id="accountStatus">
+            ● Compte actif
+          </span>
+
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-blue"
+        id="editProfileButton"
+      >
+        ✏️ Modifier mon profil
+      </button>
+
+    </div>
+
+
+    <!-- STATISTIQUES -->
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          📩
+        </div>
+
+        <div
+          class="stat-number"
+          id="requestsCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Demandes disponibles
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          📑
+        </div>
+
+        <div
+          class="stat-number"
+          id="tendersCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Appels d'offres
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          ⭐
+        </div>
+
+        <div
+          class="stat-number"
+          id="interestCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Mes intérêts
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          💎
+        </div>
+
+        <div
+          class="stat-number"
+          id="subscriptionName"
+        >
+          FREE
+        </div>
+
+        <div class="stat-label">
+          Mon abonnement
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="main-grid">
+
+      <!-- ===================== -->
+      <!-- COLONNE PRINCIPALE -->
+      <!-- ===================== -->
+
+      <div>
+
+
+        <!-- DEMANDES CLIENTS -->
+
+        <div class="card">
+
+          <h2>
+            📩 Nouvelles demandes clients
+          </h2>
+
+          <p class="card-subtitle">
+            Les demandes correspondant à votre métier
+            et à votre zone d'intervention.
+          </p>
+
+          <div id="requestsStatus" class="loading">
+            Chargement des demandes...
+          </div>
+
+          <div id="requestsList"></div>
+
+        </div>
+
+
+        <!-- MES INTÉRÊTS -->
+
+        <div class="card">
+
+          <h2>
+            ⭐ Mes intérêts
+          </h2>
+
+          <p class="card-subtitle">
+            Les demandes pour lesquelles vous avez manifesté
+            votre intérêt.
+          </p>
+
+          <div id="interestsStatus" class="loading">
+            Chargement...
+          </div>
+
+          <div id="interestsList"></div>
+
+        </div>
+
+
+        <!-- MODIFIER PROFIL -->
+
+        <div class="card" id="editProfileBox">
+
+          <h2>
+            ✏️ Modifier mon profil
+          </h2>
+
+          <p class="card-subtitle">
+            Mettez à jour les informations de votre entreprise.
+          </p>
+
+          <label for="editCompanyName">
+            Nom / entreprise
+          </label>
+
+          <input id="editCompanyName">
+
+          <label for="editCategory">
+            Métier
+          </label>
+
+          <input id="editCategory">
+
+          <label for="editCity">
+            Ville / zone d'intervention
+          </label>
+
+          <input id="editCity">
+
+          <label for="editPhone">
+            Téléphone
+          </label>
+
+          <input id="editPhone">
+
+          <button
+            type="button"
+            class="btn btn-green full"
+            id="saveProfileButton"
+          >
+            💾 Enregistrer mon profil
+          </button>
+
+          <div
+            id="profileSaveMessage"
+            class="message"
+          ></div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- ===================== -->
+      <!-- COLONNE DROITE -->
+      <!-- ===================== -->
+
+      <div>
+
+
+        <!-- ACTIONS RAPIDES -->
+
+        <div class="card">
+
+          <h2>
+            ⚡ Actions rapides
+          </h2>
+
+          <p class="card-subtitle">
+            Accédez rapidement à vos fonctionnalités.
+          </p>
+
+          <div class="actions">
+
+            <div
+              class="action"
+              id="actionRequests"
+            >
+              <strong>
+                📩 Demandes
+              </strong>
+              <span>
+                Voir les demandes clients
+              </span>
+            </div>
+
+            <div
+              class="action"
+              id="actionTenders"
+            >
+              <strong>
+                📑 Appels d'offres
+              </strong>
+              <span>
+                Voir les opportunités
+              </span>
+            </div>
+
+            <div
+              class="action"
+              id="actionProfile"
+            >
+              <strong>
+                👤 Mon profil
+              </strong>
+              <span>
+                Modifier mes informations
+              </span>
+            </div>
+
+            <div
+              class="action"
+              id="actionHome"
+            >
+              <strong>
+                🏠 Proxigo
+              </strong>
+              <span>
+                Retour au site
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ABONNEMENT -->
+
+        <div class="card">
+
+          <h2>
+            💎 Mon abonnement
+          </h2>
+
+          <p class="card-subtitle">
+            Développez votre activité avec Proxigo.
+          </p>
+
+
+          <div class="plan">
+
+            <h3>
+              🆓 FREE
+            </h3>
+
+            <div class="price">
+              Gratuit
+            </div>
+
+            <p>
+              ✓ Profil professionnel<br>
+              ✓ Présence sur Proxigo<br>
+              ✓ Accès aux fonctionnalités de base
+            </p>
+
+          </div>
+
+
+          <div class="plan pro">
+
+            <h3>
+              🔵 PRO
+            </h3>
+
+            <div class="price">
+              29 €/mois
+            </div>
+
+            <p>
+              ✓ Accès complet aux opportunités<br>
+              ✓ Demandes clients<br>
+              ✓ Alertes<br>
+              ✓ Visibilité renforcée
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-blue full"
+              id="upgradeProButton"
+            >
+              Passer à PRO
+            </button>
+
+          </div>
+
+
+          <div class="plan business">
+
+            <h3>
+              🚀 BUSINESS
+            </h3>
+
+            <div class="price">
+              59 €/mois
+            </div>
+
+            <p>
+              ✓ Toutes les fonctions PRO<br>
+              ✓ Appels d'offres<br>
+              ✓ Priorité sur les demandes<br>
+              ✓ Alertes prioritaires<br>
+              ✓ Visibilité renforcée
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-green full"
+              id="upgradeBusinessButton"
+            >
+              Passer à BUSINESS
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- INFORMATIONS -->
+
+        <div class="card">
+
+          <h2>
+            🔔 Informations
+          </h2>
+
+          <p class="card-subtitle">
+            Quelques conseils pour développer votre activité.
+          </p>
+
+          <div class="request-item">
+
+            <strong>
+              💡 Complétez votre profil
+            </strong>
+
+            <p class="request-meta">
+              Un profil complet permet aux clients de mieux
+              comprendre vos services.
+            </p>
+
+          </div>
+
+          <div class="request-item">
+
+            <strong>
+              📍 Indiquez votre zone
+            </strong>
+
+            <p class="request-meta">
+              Vous recevrez ainsi des demandes plus pertinentes.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer">
+      © 2026 Proxigo Benelux — Tous droits réservés.
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+  "https://iyexxyhfuclwzftknynk.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const loginPage =
+  document.getElementById("loginPage");
+
+const dashboardPage =
+  document.getElementById("dashboardPage");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const topLogout =
+  document.getElementById("topLogout");
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showLoginMessage(text,type){
+
+  loginMessage.textContent = text;
+
+  loginMessage.className =
+    "message " + type;
+
+}
+
+
+/* ==========================================
+   AFFICHER DASHBOARD
+========================================== */
+
+function showDashboard(){
+
+  loginPage.style.display = "none";
+
+  dashboardPage.style.display = "block";
+
+  topLogout.style.display = "block";
+
+}
+
+
+/* ==========================================
+   AFFICHER LOGIN
+========================================== */
+
+function showLogin(){
+
+  dashboardPage.style.display = "none";
+
+  loginPage.style.display = "flex";
+
+  topLogout.style.display = "none";
+
+}
+
+
+/* ==========================================
+   CONNEXION
+========================================== */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    const email =
+      document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("loginPassword")
+        .value;
+
+    if(!email || !password){
+
+      showLoginMessage(
+        "Veuillez saisir votre e-mail et votre mot de passe.",
+        "error"
+      );
+
+      return;
+    }
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+      "Connexion...";
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
+
+
+    loginButton.disabled = false;
+
+    loginButton.textContent =
+      "🔐 Se connecter";
+
+
+    if(error){
+
+      console.error(error);
+
+      showLoginMessage(
+        "Connexion impossible : " +
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(data.user){
+
+      await loadDashboard();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   CHARGER DASHBOARD
+========================================== */
+
+async function loadDashboard(){
+
+  const {
+    data:{user},
+    error:userError
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if(userError || !user){
+
+    showLogin();
+
+    return;
+  }
+
+
+  showDashboard();
+
+
+  const {
+    data:professional,
+    error:profileError
+  } =
+    await supabaseClient
+
+      .from("professionals")
+
+      .select(
+        "company_name,contact_name,category,city,phone,email,subscription,is_verified,is_active"
+      )
+
+      .eq("user_id",user.id)
+
+      .single();
+
+
+  if(profileError){
+
+    console.error(
+      "Erreur chargement profil :",
+      profileError
+    );
+
+    document.getElementById(
+      "companyName"
+    ).textContent =
+      "Professionnel Proxigo";
+
+    document.getElementById(
+      "companyDetails"
+    ).textContent =
+      user.email || "";
+
+  }else{
+
+    displayProfessional(
+      professional,
+      user
+    );
+
+  }
+
+
+  await loadRequests();
+
+  await loadInterests();
+
+}
+
+
+/* ==========================================
+   AFFICHER PROFIL
+========================================== */
+
+function displayProfessional(
+  professional,
+  user
+){
+
+  const name =
+    professional.company_name ||
+    professional.contact_name ||
+    "Professionnel Proxigo";
+
+
+  document.getElementById(
+    "welcomeTitle"
+  ).textContent =
+    "Bienvenue " + name + " 👋";
+
+
+  document.getElementById(
+    "companyName"
+  ).textContent =
+    name;
+
+
+  document.getElementById(
+    "companyDetails"
+  ).textContent =
+    "🔧 " +
+    (professional.category || "Métier non renseigné") +
+    "  •  📍 " +
+    (professional.city || "Zone non renseignée");
+
+
+  const subscription =
+    professional.subscription ||
+    "free";
+
+
+  document.getElementById(
+    "subscriptionName"
+  ).textContent =
+    subscription.toUpperCase();
+
+
+  document.getElementById(
+    "avatar"
+  ).textContent =
+    name.charAt(0).toUpperCase();
+
+
+  const status =
+    document.getElementById(
+      "accountStatus"
+    );
+
+
+  if(
+    professional.is_active === false
+  ){
+
+    status.textContent =
+      "● Compte inactif";
+
+    status.style.color =
+      "#fca5a5";
+
+  }else if(
+    professional.is_verified === true
+  ){
+
+    status.textContent =
+      "● Professionnel vérifié";
+
+  }else{
+
+    status.textContent =
+      "● Compte actif";
+
+  }
+
+
+  /* formulaire */
+
+  document.getElementById(
+    "editCompanyName"
+  ).value =
+    professional.company_name || "";
+
+
+  document.getElementById(
+    "editCategory"
+  ).value =
+    professional.category || "";
+
+
+  document.getElementById(
+    "editCity"
+  ).value =
+    professional.city || "";
+
+
+  document.getElementById(
+    "editPhone"
+  ).value =
+    professional.phone || "";
+
+
+  document.getElementById(
+    "headerUser"
+  ).textContent =
+    user.email || "";
+
+}
+
+
+/* ==========================================
+   DEMANDES CLIENTS
+========================================== */
+
+async function loadRequests(){
+
+  const status =
+    document.getElementById(
+      "requestsStatus"
+    );
+
+  const list =
+    document.getElementById(
+      "requestsList"
+    );
+
+
+  status.textContent =
+    "Chargement des demandes...";
+
+  list.innerHTML = "";
+
+
+  const {
+    data:{user}
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if(!user){
+
+    return;
+  }
+
+
+  const {
+    data:professional
+  } =
+    await supabaseClient
+
+      .from("professionals")
+
+      .select(
+        "category,city"
+      )
+
+      .eq(
+        "user_id",
+        user.id
+      )
+
+      .single();
+
+
+  if(!professional){
+
+    status.textContent =
+      "Profil professionnel introuvable.";
+
+    return;
+  }
+
+
+  /*
+    On récupère les demandes.
+
+    Le filtrage métier/ville est effectué
+    côté navigateur afin de rester compatible
+    avec ta structure actuelle.
+  */
+
+  const {
+    data:requests,
+    error
+  } =
+    await supabaseClient
+
+      .from("requests")
+
+      .select("*")
+
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      )
+
+      .limit(50);
+
+
+  if(error){
+
+    console.error(
+      "Erreur demandes :",
+      error
+    );
+
+    status.textContent =
+      "Impossible de charger les demandes pour le moment.";
+
+    return;
+  }
+
+
+  const category =
+    (professional.category || "")
+      .toLowerCase();
+
+  const city =
+    (professional.city || "")
+      .toLowerCase();
+
+
+  const filtered =
+    (requests || []).filter(
+      request => {
+
+        const requestCategory =
+          String(
+            request.category ||
+            request.service ||
+            ""
+          ).toLowerCase();
+
+
+        const requestCity =
+          String(
+            request.city ||
+            ""
+          ).toLowerCase();
+
+
+        const categoryMatch =
+          !requestCategory ||
+          !category ||
+          requestCategory.includes(category) ||
+          category.includes(requestCategory);
+
+
+        const cityMatch =
+          !requestCity ||
+          !city ||
+          requestCity.includes(city) ||
+          city.includes(requestCity);
+
+
+        return categoryMatch &&
+               cityMatch;
+
+      }
+    );
+
+
+  document.getElementById(
+    "requestsCount"
+  ).textContent =
+    filtered.length;
+
+
+  if(filtered.length === 0){
+
+    status.textContent = "";
+
+    list.innerHTML = `
+      <div class="empty">
+        📭 Aucune demande correspondant actuellement
+        à votre activité et votre zone.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  status.textContent =
+    filtered.length +
+    " demande(s) disponible(s).";
+
+
+  filtered.forEach(
+    request => {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "request-item";
+
+
+      const title =
+        request.title ||
+        request.service ||
+        request.category ||
+        "Demande client";
+
+
+      const description =
+        request.description ||
+        request.details ||
+        "Aucune description disponible.";
+
+
+      const requestCity =
+        request.city ||
+        "Ville non précisée";
+
+
+      const service =
+        request.service ||
+        request.category ||
+        "Service";
+
+
+      item.innerHTML = `
+
+        <div class="request-top">
+
+          <div class="request-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <div class="badge">
+            ${escapeHtml(service)}
+          </div>
+
+        </div>
+
+        <div class="request-meta">
+          📍 ${escapeHtml(requestCity)}
+        </div>
+
+        <div class="request-description">
+          ${escapeHtml(description)}
+        </div>
+
+        <div class="request-actions">
+
+          <button
+            type="button"
+            class="btn btn-green interest-button"
+            data-request-id="${escapeHtml(
+              request.id || ""
+            )}"
+          >
+            ⭐ Je suis intéressé
+          </button>
+
+        </div>
+
+      `;
+
+
+      list.appendChild(item);
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(".interest-button")
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            submitInterest(
+              button.dataset.requestId,
+              button
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* ==========================================
+   MANIFESTER SON INTÉRÊT
+========================================== */
+
+async function submitInterest(
+  requestId,
+  button
+){
+
+  if(!requestId){
+
+    alert(
+      "Identifiant de demande introuvable."
+    );
+
+    return;
+  }
+
+
+  const {
+    data:{user}
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if(!user){
+
+    alert(
+      "Vous devez être connecté."
+    );
+
+    return;
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Enregistrement...";
+
+
+  /*
+    Table interests utilisée par
+    ton interface actuelle.
+  */
+
+  const {
+    error
+  } =
+    await supabaseClient
+
+      .from("interests")
+
+      .insert({
+
+        request_id:requestId,
+
+        professional_user_id:user.id
+
+      });
+
+
+  if(error){
+
+    console.error(
+      "Erreur intérêt :",
+      error
+    );
+
+
+    /*
+      Si l'intérêt existe déjà,
+      on affiche simplement un message
+      compréhensible.
+    */
+
+    if(
+      error.code === "23505"
+    ){
+
+      button.textContent =
+        "✅ Déjà intéressé";
+
+    }else{
+
+      button.disabled = false;
+
+      button.textContent =
+        "⭐ Je suis intéressé";
+
+      alert(
+        "Impossible d'enregistrer votre intérêt : " +
+        error.message
+      );
+
+    }
+
+    return;
+  }
+
+
+  button.textContent =
+    "✅ Intérêt envoyé";
+
+
+  button.style.opacity =
+    ".65";
+
+
+  await loadInterests();
+
+}
+
+
+/* ==========================================
+   MES INTÉRÊTS
+========================================== */
+
+async function loadInterests(){
+
+  const status =
+    document.getElementById(
+      "interestsStatus"
+    );
+
+  const list =
+    document.getElementById(
+      "interestsList"
+    );
+
+
+  status.textContent =
+    "Chargement...";
+
+  list.innerHTML = "";
+
+
+  const {
+    data:{user}
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if(!user){
+
+    return;
+  }
+
+
+  const {
+    data:interests,
+    error
+  } =
+    await supabaseClient
+
+      .from("interests")
+
+      .select("*")
+
+      .eq(
+        "professional_user_id",
+        user.id
+      )
+
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(
+      "Erreur intérêts :",
+      error
+    );
+
+    status.textContent =
+      "Impossible de charger vos intérêts.";
+
+    return;
+  }
+
+
+  const count =
+    (interests || []).length;
+
+
+  document.getElementById(
+    "interestCount"
+  ).textContent =
+    count;
+
+
+  if(count === 0){
+
+    status.textContent = "";
+
+    list.innerHTML = `
+      <div class="empty">
+        ⭐ Vous n'avez encore manifesté
+        votre intérêt pour aucune demande.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  status.textContent =
+    count +
+    " intérêt(s) enregistré(s).";
+
+
+  /*
+    On affiche les identifiants ici.
+    Les détails complets peuvent être reliés
+    ensuite directement aux demandes clients.
+  */
+
+  interests.forEach(
+    interest => {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "request-item";
+
+
+      item.innerHTML = `
+
+        <strong>
+          ⭐ Demande client
+        </strong>
+
+        <div class="request-meta">
+          ID de la demande :
+          ${escapeHtml(
+            interest.request_id || "—"
+          )}
+        </div>
+
+        <div class="request-meta">
+          Statut :
+          Intérêt envoyé
+        </div>
+
+      `;
+
+
+      list.appendChild(item);
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   MODIFIER PROFIL
+========================================== */
+
+document
+  .getElementById(
+    "editProfileButton"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      const box =
+        document.getElementById(
+          "editProfileBox"
+        );
+
+
+      box.style.display =
+        box.style.display === "none"
+          ? "block"
+          : "none";
+
+
+      box.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }
+  );
+
+
+/* ==========================================
+   SAUVEGARDER PROFIL
+========================================== */
+
+document
+  .getElementById(
+    "saveProfileButton"
+  )
+  .addEventListener(
+    "click",
+    async function(){
+
+      const message =
+        document.getElementById(
+          "profileSaveMessage"
+        );
+
+
+      const {
+        data:{user}
+      } =
+        await supabaseClient.auth.getUser();
+
+
+      if(!user){
+
+        message.textContent =
+          "Vous devez être connecté.";
+
+        message.className =
+          "message error";
+
+        return;
+      }
+
+
+      const companyName =
+        document.getElementById(
+          "editCompanyName"
+        ).value.trim();
+
+
+      const category =
+        document.getElementById(
+          "editCategory"
+        ).value.trim();
+
+
+      const city =
+        document.getElementById(
+          "editCity"
+        ).value.trim();
+
+
+      const phone =
+        document.getElementById(
+          "editPhone"
+        ).value.trim();
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+
+          .from("professionals")
+
+          .update({
+
+            company_name:companyName,
+
+            category:category,
+
+            city:city,
+
+            phone:phone
+
+          })
+
+          .eq(
+            "user_id",
+            user.id
+          );
+
+
+      if(error){
+
+        console.error(error);
+
+        message.textContent =
+          "Impossible d'enregistrer : " +
+          error.message;
+
+        message.className =
+          "message error";
+
+        return;
+      }
+
+
+      message.textContent =
+        "✅ Profil enregistré avec succès.";
+
+      message.className =
+        "message success";
+
+
+      document.getElementById(
+        "companyName"
+      ).textContent =
+        companyName ||
+        "Professionnel Proxigo";
+
+
+      document.getElementById(
+        "companyDetails"
+      ).textContent =
+        "🔧 " +
+        (category || "Métier non renseigné") +
+        "  •  📍 " +
+        (city || "Zone non renseignée");
+
+
+      document.getElementById(
+        "welcomeTitle"
+      ).textContent =
+        "Bienvenue " +
+        (companyName || "professionnel") +
+        " 👋";
+
+
+      document.getElementById(
+        "avatar"
+      ).textContent =
+        (
+          companyName ||
+          "P"
+        ).charAt(0).toUpperCase();
+
+
+      await loadRequests();
+
+    }
+  );
+
+
+/* ==========================================
+   ACTIONS RAPIDES
+========================================== */
+
+document
+  .getElementById(
+    "actionRequests"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      document
+        .getElementById("requestsList")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "actionProfile"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      document
+        .getElementById(
+          "editProfileButton"
+        )
+        .click();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "actionHome"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      window.location.href =
+        "index.html";
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "actionTenders"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      alert(
+        "La rubrique Appels d'offres sera reliée au système AI Hunter de Proxigo."
+      );
+
+    }
+  );
+
+
+/* ==========================================
+   STRIPE
+========================================== */
+
+document
+  .getElementById(
+    "upgradeProButton"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      window.location.href =
+        "https://buy.stripe.com/00wbIU2jr1OfdrzdzSfbq04";
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "upgradeBusinessButton"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      window.location.href =
+        "https://buy.stripe.com/14A14gcY564v1IRanGfbq05";
+
+    }
+  );
+
+
+/* ==========================================
+   DÉCONNEXION
+========================================== */
+
+topLogout.addEventListener(
+  "click",
+  async function(){
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+      alert(
+        "Impossible de vous déconnecter : " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    showLogin();
+
+    document.getElementById(
+      "loginPassword"
+    ).value = "";
+
+  }
+);
+
+
+/* ==========================================
+   AUTH STATE
+========================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  async function(event,session){
+
+    if(
+      event === "SIGNED_IN" &&
+      session
+    ){
+
+      await loadDashboard();
+
+    }
+
+
+    if(
+      event === "SIGNED_OUT"
+    ){
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   VÉRIFIER SESSION AU DÉMARRAGE
+========================================== */
+
+(async function(){
+
+  const {
+    data:{session}
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if(session){
+
+    await loadDashboard();
+
+  }else{
+
+    showLogin();
+
+  }
+
+})();
+
+
+/* ==========================================
+   SÉCURITÉ AFFICHAGE HTML
+========================================== */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+
+    .replaceAll("&","&amp;")
+
+    .replaceAll("<","&lt;")
+
+    .replaceAll(">","&gt;")
+
+    .replaceAll('"',"&quot;")
+
+    .replaceAll("'","&#039;");
+
+}
+
+</script>
+<!-- =========================================================
+     PROXIGO — INTERFACE PROFESSIONNEL
+     DEMANDES CLIENTS
+========================================================= -->
+
+<style>
+  .worker-requests-section {
+    margin-top: 30px;
+  }
+
+  .worker-requests-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .worker-requests-header h3 {
+    margin: 0;
+  }
+
+  .worker-request-card {
+    background: #10233d;
+    border: 1px solid #243852;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: .2s ease;
+  }
+
+  .worker-request-card:hover {
+    transform: translateY(-2px);
+    border-color: #22d6a3;
+    box-shadow: 0 8px 25px rgba(0,0,0,.20);
+  }
+
+  .worker-request-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .worker-request-service {
+    color: #22d6a3;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .worker-request-city {
+    color: #fff;
+    margin-top: 7px;
+  }
+
+  .worker-request-description {
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin: 15px 0;
+  }
+
+  .worker-request-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: rgba(34,214,163,.12);
+    color: #22d6a3;
+    font-size: 13px;
+  }
+
+  .worker-request-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .worker-request-message {
+    margin-top: 15px;
+    color: #22d6a3;
+    font-size: 14px;
+  }
+
+  .worker-empty {
+    padding: 25px;
+    text-align: center;
+    background: #0d1b2e;
+    border: 1px solid #243852;
+    border-radius: 14px;
+    color: #94a3b8;
+  }
+</style>
+
+
+<section
+  id="workerRequestsSection"
+  class="worker-requests-section"
+  style="display:none;"
+>
+
+  <div class="worker-requests-header">
+
+    <div>
+      <div class="eyebrow">ESPACE PROFESSIONNEL</div>
+
+      <h3>
+        📩 Demandes clients
+      </h3>
+
+      <p style="color:#94a3b8; margin-top:6px;">
+        Découvrez les demandes correspondant à votre métier et votre zone.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      id="reloadWorkerRequests"
+      class="btn btn-green"
+    >
+      🔄 Actualiser
+    </button>
+
+  </div>
+
+
+  <div id="workerRequestsStatus">
+    Chargement des demandes...
+  </div>
+
+
+  <div id="workerRequestsList"></div>
+
+</section>
+
+
+<script>
+/* =========================================================
+   PROXIGO — CHARGEMENT DES DEMANDES POUR LE PROFESSIONNEL
+========================================================= */
+
+const workerRequestsSection =
+  document.getElementById("workerRequestsSection");
+
+const workerRequestsStatus =
+  document.getElementById("workerRequestsStatus");
+
+const workerRequestsList =
+  document.getElementById("workerRequestsList");
+
+const reloadWorkerRequests =
+  document.getElementById("reloadWorkerRequests");
+
+
+async function loadWorkerRequests() {
+
+  if (!workerRequestsSection ||
+      !workerRequestsStatus ||
+      !workerRequestsList) {
+    return;
+  }
+
+
+  workerRequestsSection.style.display = "block";
+
+  workerRequestsStatus.textContent =
+    "Chargement des demandes...";
+
+  workerRequestsList.innerHTML = "";
+
+
+  /* ---------------------------------------------------------
+     1. Vérifier le professionnel connecté
+  --------------------------------------------------------- */
+
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+
+  if (userError || !user) {
+
+    workerRequestsStatus.innerHTML = `
+      <div class="worker-empty">
+        🔐 Vous devez être connecté pour voir les demandes.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* ---------------------------------------------------------
+     2. Récupérer le profil professionnel
+  --------------------------------------------------------- */
+
+  const {
+    data: professional,
+    error: professionalError
+  } = await supabaseClient
+    .from("professionals")
+    .select("user_id, company_name, category, city")
+    .eq("user_id", user.id)
+    .single();
+
+
+  if (professionalError || !professional) {
+
+    console.error(
+      "Erreur profil professionnel :",
+      professionalError
+    );
+
+    workerRequestsStatus.innerHTML = `
+      <div class="worker-empty">
+        Impossible de charger votre profil professionnel.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const professionalCategory =
+    (professional.category || "").trim().toLowerCase();
+
+  const professionalCity =
+    (professional.city || "").trim().toLowerCase();
+
+
+  /* ---------------------------------------------------------
+     3. Charger les demandes clients
+  --------------------------------------------------------- */
+
+  const {
+    data: requests,
+    error: requestsError
+  } = await supabaseClient
+    .from("service_requests")
+    .select(`
+      id,
+      category,
+      description,
+      city,
+      country,
+      status,
+      created_at
+    `)
+    .eq("status", "new")
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (requestsError) {
+
+    console.error(
+      "Erreur chargement demandes :",
+      requestsError
+    );
+
+    workerRequestsStatus.innerHTML = `
+      <div class="worker-empty">
+        ❌ Impossible de charger les demandes.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* ---------------------------------------------------------
+     4. Filtrer métier + ville
+  --------------------------------------------------------- */
+
+  const matchingRequests =
+    (requests || []).filter(request => {
+
+      const requestCategory =
+        (request.category || "").trim().toLowerCase();
+
+      const requestCity =
+        (request.city || "").trim().toLowerCase();
+
+
+      const categoryMatches =
+        !professionalCategory ||
+        requestCategory === professionalCategory ||
+        requestCategory.includes(professionalCategory) ||
+        professionalCategory.includes(requestCategory);
+
+
+      const cityMatches =
+        !professionalCity ||
+        !requestCity ||
+        requestCity.includes(professionalCity) ||
+        professionalCity.includes(requestCity);
+
+
+      return categoryMatches && cityMatches;
+    });
+
+
+  /* ---------------------------------------------------------
+     5. Aucun résultat
+  --------------------------------------------------------- */
+
+  if (matchingRequests.length === 0) {
+
+    workerRequestsStatus.innerHTML = `
+      <div class="worker-empty">
+        📭 Aucune nouvelle demande ne correspond actuellement
+        à votre métier et votre zone.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  workerRequestsStatus.innerHTML = `
+    <p style="color:#22d6a3; margin-bottom:15px;">
+      ✅ ${matchingRequests.length}
+      demande(s) correspondant à votre activité.
+    </p>
+  `;
+
+
+  /* ---------------------------------------------------------
+     6. Afficher les demandes
+  --------------------------------------------------------- */
+
+  for (const request of matchingRequests) {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "worker-request-card";
+
+
+    const top =
+      document.createElement("div");
+
+    top.className =
+      "worker-request-top";
+
+
+    const information =
+      document.createElement("div");
+
+
+    const service =
+      document.createElement("div");
+
+    service.className =
+      "worker-request-service";
+
+    service.textContent =
+      "🔧 " +
+      (request.category || "Service");
+
+
+    const city =
+      document.createElement("div");
+
+    city.className =
+      "worker-request-city";
+
+    city.textContent =
+      "📍 " +
+      (request.city || "Ville non précisée");
+
+
+    information.appendChild(service);
+    information.appendChild(city);
+
+
+    const status =
+      document.createElement("span");
+
+    status.className =
+      "worker-request-status";
+
+    status.textContent =
+      "Nouvelle demande";
+
+
+    top.appendChild(information);
+    top.appendChild(status);
+
+
+    const description =
+      document.createElement("div");
+
+    description.className =
+      "worker-request-description";
+
+    description.textContent =
+      request.description ||
+      "Aucune description fournie.";
+
+
+    const actions =
+      document.createElement("div");
+
+    actions.className =
+      "worker-request-actions";
+
+
+    /* -------------------------------------------------------
+       Bouton : Je suis intéressé
+    ------------------------------------------------------- */
+
+    const interestButton =
+      document.createElement("button");
+
+    interestButton.type =
+      "button";
+
+    interestButton.className =
+      "btn btn-green";
+
+    interestButton.textContent =
+      "✅ Je suis intéressé";
+
+
+    interestButton.addEventListener(
+      "click",
+      async function () {
+
+        interestButton.disabled =
+          true;
+
+        interestButton.textContent =
+          "⏳ Enregistrement...";
+
+
+        const {
+          error: interestError
+        } = await supabaseClient
+          .from("request_interests")
+          .insert({
+            request_id: request.id,
+            professional_user_id: user.id
+          });
+
+
+        if (interestError) {
+
+          console.error(
+            "Erreur intérêt :",
+            interestError
+          );
+
+
+          if (
+            interestError.code === "23505"
+          ) {
+
+            interestButton.textContent =
+              "✅ Déjà intéressé";
+
+          } else {
+
+            interestButton.disabled =
+              false;
+
+            interestButton.textContent =
+              "✅ Je suis intéressé";
+
+            alert(
+              "Impossible d'enregistrer votre intérêt : " +
+              interestError.message
+            );
+          }
+
+          return;
+        }
+
+
+        interestButton.textContent =
+          "✅ Intérêt envoyé";
+
+
+        const message =
+          document.createElement("div");
+
+        message.className =
+          "worker-request-message";
+
+        message.textContent =
+          "Votre intérêt a été transmis au client.";
+
+        card.appendChild(message);
+      }
+    );
+
+
+    actions.appendChild(
+      interestButton
+    );
+
+
+    card.appendChild(top);
+    card.appendChild(description);
+    card.appendChild(actions);
+
+
+    workerRequestsList.appendChild(card);
+  }
+}
+
+
+/* =========================================================
+   ACTUALISER
+========================================================= */
+
+if (reloadWorkerRequests) {
+
+  reloadWorkerRequests.addEventListener(
+    "click",
+    loadWorkerRequests
+  );
+}
+
+
+/* =========================================================
+   CHARGER APRÈS CONNEXION
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  (event, session) => {
+
+    if (
+      event === "SIGNED_IN" &&
+      session
+    ) {
+
+      setTimeout(
+        loadWorkerRequests,
+        300
+      );
+    }
+
+  }
+);
+
+</script>
+</body>
+</html>
