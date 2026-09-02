@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Électricien à La Louvière & Bruxelles | Proxigo Benelux</title>
+
+  <meta name="description" content="Trouvez un électricien qualifié à La Louvière ou Bruxelles. Décrivez votre besoin et recevez des propositions de professionnels locaux. Service gratuit et sans engagement.">
+
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://proxigo.eu/electricien.html">
+
+  <meta property="og:title" content="Trouvez un électricien à La Louvière & Bruxelles">
+  <meta property="og:description" content="Recevez des propositions de professionnels locaux sous 24h. Service gratuit et sans engagement.">
+  <meta property="og:url" content="https://proxigo.eu/electricien.html">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg: #07101f;
+      --bg2: #0c182b;
+      --card: #101d31;
+      --line: #263852;
+      --text: #ffffff;
+      --muted: #aebaca;
+      --blue: #2f66ff;
+      --green: #22d6a3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 16, 31, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .back {
+      color: #dce5f2;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .back:hover {
+      color: var(--green);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 75px 0 70px;
+      background:
+        radial-gradient(
+          circle at 80% 15%,
+          rgba(47, 102, 255, .30),
+          transparent 38%
+        ),
+        var(--bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--green);
+      color: var(--green);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 5vw, 65px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 22px;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 650px;
+      margin-bottom: 25px;
+    }
+
+    .promise {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 25px;
+      color: #e0e7f1;
+      font-size: 14px;
+    }
+
+    .promise span::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: bold;
+      margin-right: 7px;
+    }
+
+    /* FORM */
+
+    .form-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.30);
+    }
+
+    .form-box h2 {
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    .form-box > p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      margin: 13px 0 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: #081322;
+      color: white;
+      border: 1px solid #34455f;
+      border-radius: 9px;
+      padding: 14px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      padding: 15px 20px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 18px;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+    }
+
+    .small-note {
+      text-align: center;
+      color: #8190a5;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .success {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+      background: rgba(34,214,163,.12);
+      border: 1px solid var(--green);
+      color: #aaffdf;
+      font-size: 14px;
+    }
+
+    .error {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+      background: rgba(255,80,80,.10);
+      border: 1px solid #ff6060;
+      color: #ffb5b5;
+      font-size: 14px;
+    }
+
+    /* BENEFITS */
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-dark {
+      background: var(--bg2);
+    }
+
+    .eyebrow {
+      color: var(--green);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(31px, 4vw, 44px);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .benefit {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .benefit h3 {
+      margin-bottom: 7px;
+    }
+
+    .benefit p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* LOCAL SEO */
+
+    .cities {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .city {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 10px 17px;
+      border-radius: 50px;
+      color: #dce5ef;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 35px 0;
+      color: #8491a5;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-box {
+        max-width: 650px;
+        margin: auto;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 50px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .form-box {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a class="logo" href="index.html">
+      PROXI<span>GO</span>
+    </a>
+
+    <a class="back" href="index.html">
+      ← Retour à Proxigo
+    </a>
+
+  </div>
+</header>
+
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div>
+
+        <div class="badge">
+          ⚡ Électricien
+        </div>
+
+        <h1>
+          Trouvez un électricien qualifié et disponible
+          <span>à La Louvière & Bruxelles.</span>
+        </h1>
+
+        <p class="hero-text">
+          Besoin d'un électricien pour un dépannage,
+          une installation ou une mise en conformité ?
+          Décrivez simplement votre besoin et Proxigo vous met
+          en relation avec des professionnels locaux.
+        </p>
+
+        <div class="promise">
+
+          <span>Service 100% gratuit</span>
+
+          <span>Sans engagement</span>
+
+          <span>Professionnels locaux</span>
+
+          <span>Réponse rapide</span>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORMULAIRE -->
+
+      <div class="form-box">
+
+        <h2>Votre besoin en électricité</h2>
+
+        <p>
+          Recevez des propositions de professionnels locaux
+          sous 24h.
+        </p>
+
+        <form id="electricianForm">
+
+          <label for="projectType">
+            Type de projet
+          </label>
+
+          <select id="projectType" required>
+
+            <option value="">
+              Choisissez votre besoin
+            </option>
+
+            <option value="Panne / Dépannage">
+              ⚡ Panne / Dépannage
+            </option>
+
+            <option value="Nouvelle installation">
+              🏠 Nouvelle installation
+            </option>
+
+            <option value="Mise en conformité">
+              ✅ Mise en conformité
+            </option>
+
+            <option value="Autre">
+              🔧 Autre
+            </option>
+
+          </select>
+
+
+          <label for="postalCode">
+            Code postal
+          </label>
+
+          <input
+            id="postalCode"
+            type="text"
+            inputmode="numeric"
+            placeholder="Ex. 7100 ou 1000"
+            required
+          >
+
+
+          <label for="description">
+            Décrivez simplement votre besoin
+          </label>
+
+          <textarea
+            id="description"
+            placeholder="Ex. : Je n'ai plus d'électricité dans une partie de ma maison..."
+            required
+          ></textarea>
+
+
+          <div class="two-columns">
+
+            <div>
+
+              <label for="clientName">
+                Nom
+              </label>
+
+              <input
+                id="clientName"
+                type="text"
+                placeholder="Votre nom"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label for="clientPhone">
+                Téléphone
+              </label>
+
+              <input
+                id="clientPhone"
+                type="tel"
+                placeholder="Votre téléphone"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <label for="clientEmail">
+            E-mail
+          </label>
+
+          <input
+            id="clientEmail"
+            type="email"
+            placeholder="vous@email.com"
+            required
+          >
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Recevoir des propositions gratuitement
+          </button>
+
+
+          <p class="small-note">
+            🔒 Vos coordonnées sont utilisées uniquement
+            pour traiter votre demande.
+          </p>
+
+
+          <div
+            id="successMessage"
+            class="success"
+          >
+            ✅ Votre demande a bien été enregistrée.
+            Des professionnels correspondant à votre besoin
+            pourront vous contacter.
+          </div>
+
+
+          <div
+            id="errorMessage"
+            class="error"
+          ></div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- AVANTAGES -->
+
+  <section class="section-dark">
+
+    <div class="container">
+
+      <div class="eyebrow">
+        Pourquoi utiliser Proxigo ?
+      </div>
+
+      <h2 class="section-title">
+        Un électricien adapté à votre besoin
+      </h2>
+
+      <p class="section-subtitle">
+        Une demande simple, des professionnels locaux,
+        et vous restez libre de choisir.
+      </p>
+
+
+      <div class="benefits">
+
+        <div class="benefit">
+
+          <div class="icon">⚡</div>
+
+          <h3>
+            Dépannage électrique
+          </h3>
+
+          <p>
+            Panne, coupure, problème électrique ou
+            dépannage urgent.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="icon">🏠</div>
+
+          <h3>
+            Installation
+          </h3>
+
+          <p>
+            Nouvelle installation, rénovation ou ajout
+            de prises et équipements électriques.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="icon">✅</div>
+
+          <h3>
+            Mise en conformité
+          </h3>
+
+          <p>
+            Faites appel à un professionnel pour vos
+            travaux de mise en conformité électrique.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ZONES -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="eyebrow">
+        Recherche locale
+      </div>
+
+      <h2 class="section-title">
+        Des électriciens près de chez vous
+      </h2>
+
+      <p class="section-subtitle">
+        Proxigo développe son réseau de professionnels
+        dans le Hainaut, Bruxelles et progressivement
+        dans tout le Benelux.
+      </p>
+
+      <div class="cities">
+
+        <div class="city">
+          📍 La Louvière
+        </div>
+
+        <div class="city">
+          📍 Bruxelles
+        </div>
+
+        <div class="city">
+          📍 Mons
+        </div>
+
+        <div class="city">
+          📍 Charleroi
+        </div>
+
+        <div class="city">
+          📍 Namur
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="section-dark">
+
+    <div class="container">
+
+      <div style="
+        text-align:center;
+        max-width:750px;
+        margin:auto;
+      ">
+
+        <div class="eyebrow">
+          Besoin d'un électricien ?
+        </div>
+
+        <h2 class="section-title">
+          Décrivez votre besoin maintenant
+        </h2>
+
+        <p class="section-subtitle">
+          C'est gratuit, sans engagement et vous restez
+          libre de choisir le professionnel qui vous convient.
+        </p>
+
+        <a
+          href="#electricianForm"
+          class="btn btn-primary"
+          style="
+            display:inline-block;
+            width:auto;
+            padding-left:30px;
+            padding-right:30px;
+          "
+        >
+          Trouver un électricien
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      © 2026 Proxigo Benelux — Tous droits réservés.
+    </div>
+
+    <div class="footer-links">
+
+      <a href="cgu.html">
+        Conditions générales
+      </a>
+
+      <a href="confidentialite.html">
+        Confidentialité
+      </a>
+
+      <a href="mentions-legales.html">
+        Mentions légales
+      </a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://iyexxyhfuclwzftknynk.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+const electricianForm =
+  document.getElementById(
+    "electricianForm"
+  );
+
+
+electricianForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const projectType =
+      document
+        .getElementById("projectType")
+        .value
+        .trim();
+
+
+    const postalCode =
+      document
+        .getElementById("postalCode")
+        .value
+        .trim();
+
+
+    const description =
+      document
+        .getElementById("description")
+        .value
+        .trim();
+
+
+    const clientName =
+      document
+        .getElementById("clientName")
+        .value
+        .trim();
+
+
+    const clientPhone =
+      document
+        .getElementById("clientPhone")
+        .value
+        .trim();
+
+
+    const clientEmail =
+      document
+        .getElementById("clientEmail")
+        .value
+        .trim();
+
+
+    const successMessage =
+      document.getElementById(
+        "successMessage"
+      );
+
+
+    const errorMessage =
+      document.getElementById(
+        "errorMessage"
+      );
+
+
+    successMessage.style.display =
+      "none";
+
+    errorMessage.style.display =
+      "none";
+
+
+    /*
+      Pour correspondre au fonctionnement
+      actuel de Proxigo, nous enregistrons
+      la demande dans service_requests.
+    */
+
+    const { data, error } =
+      await supabaseClient
+        .from("service_requests")
+        .insert({
+
+          category:
+            "Électricité",
+
+          description:
+            "[" + projectType + "] " +
+            description,
+
+          city:
+            postalCode,
+
+          contact:
+            clientPhone +
+            " / " +
+            clientEmail,
+
+          budget_text:
+            "",
+
+          requested_date_text:
+            ""
+
+        })
+        .select()
+        .single();
+
+
+    if (error) {
+
+      console.error(
+        "Erreur demande électricien :",
+        error
+      );
+
+      errorMessage.textContent =
+        "Impossible d'envoyer votre demande pour le moment. Veuillez réessayer.";
+
+      errorMessage.style.display =
+        "block";
+
+      return;
+    }
+
+
+    console.log(
+      "Demande électricien créée :",
+      data
+    );
+
+
+    successMessage.style.display =
+      "block";
+
+
+    electricianForm.reset();
+
+
+    successMessage.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
