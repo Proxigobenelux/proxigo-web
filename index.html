@@ -786,7 +786,13 @@ textarea:focus{
     required
 >
 >
-
+<label for="clientEmail">Votre adresse e-mail</label>
+<input
+    id="clientEmail"
+    type="email"
+    placeholder="Ex. vous@gmail.com"
+    required
+>
 <button class="btn btn-primary full" type="submit">
   Envoyer ma demande gratuitement
 </button>
@@ -1428,6 +1434,7 @@ if (userError || !user) {
             message: message,
             user_id: user.id,
             phone: contact,
+            email: document.getElementById("clientEmail").value,
             language: "fr",
             client_latitude: 0,
             client_longitude: 0,
