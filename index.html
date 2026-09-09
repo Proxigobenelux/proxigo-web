@@ -783,7 +783,6 @@ textarea:focus{
     id="contact"
     type="tel"
     placeholder="Ex. +32 470 12 34 56"
-    required
 >
 >
 <label for="clientEmail">Votre adresse e-mail</label>
@@ -791,7 +790,6 @@ textarea:focus{
     id="clientEmail"
     type="email"
     placeholder="Ex. vous@gmail.com"
-    required
 >
 <button class="btn btn-primary full" type="submit">
   Envoyer ma demande gratuitement
@@ -1394,9 +1392,24 @@ document.addEventListener("DOMContentLoaded", function () {
             ? contactElement.value.trim()
             : "";
 
+        const emailElement =
+            document.getElementById("clientEmail");
+
+        const clientEmail =
+            emailElement
+                ? emailElement.value.trim()
+                : "";
+
         if (!service || !city || !description) {
             alert(
                 "Veuillez compléter le service, la ville et la description."
+            );
+            return;
+        }
+
+        if (!contact && !clientEmail) {
+            alert(
+                "Veuillez renseigner votre téléphone ou votre e-mail."
             );
             return;
         }
@@ -1419,22 +1432,35 @@ document.addEventListener("DOMContentLoaded", function () {
             "Ville : " + city + ". " +
             "Description : " + description + ". " +
             (contact
-                ? "Contact client : " + contact + "."
+                ? "Téléphone client : " + contact + "."
+                : "") +
+            (clientEmail
+                ? " E-mail client : " + clientEmail + "."
                 : "");
-const {
-  data: { user },
-  error: userError
-} = await supabaseClient.auth.getUser();
 
-if (userError || !user) {
-  alert("Vous devez être connecté pour envoyer une demande.");
-  return;
-}
+        let user = null;
+
+        try {
+            const {
+                data: { user: authenticatedUser },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+            if (!userError && authenticatedUser) {
+                user = authenticatedUser;
+            }
+        } catch (authError) {
+            console.warn(
+                "Proxigo : aucun compte client connecté, envoi public autorisé.",
+                authError
+            );
+        }
+
         const requestData = {
             message: message,
-            user_id: user.id,
-            phone: contact,
-            email: document.getElementById("clientEmail").value,
+            user_id: user?.id || null,
+            phone: contact || null,
+            email: clientEmail || null,
             language: "fr",
             client_latitude: 0,
             client_longitude: 0,
