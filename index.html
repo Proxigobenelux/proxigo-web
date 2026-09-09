@@ -2812,13 +2812,49 @@ for (const request of requests) {
       }
 
       interestedButton.textContent =
-        "✓ Intérêt enregistré";
+  "✓ Intérêt enregistré";
 
-      interestedButton.disabled = true;
+interestedButton.disabled = true;
 
-      alert(
-        "Votre intérêt a bien été enregistré. Le client pourra consulter votre profil."
-      );
+// Informer le particulier que ce professionnel est intéressé
+try {
+  const response = await fetch(
+    `${PROXIGO_API}/agent/professional-interest`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        request_id: request.id,
+        professional_user_id: user.id
+      })
+    }
+  );
+
+  const notificationResult = await response.json();
+
+  if (!response.ok) {
+    console.error(
+      "Erreur notification particulier :",
+      notificationResult
+    );
+  } else {
+    console.log(
+      "Notification particulier envoyée :",
+      notificationResult
+    );
+  }
+} catch (notificationError) {
+  console.error(
+    "Erreur connexion notification particulier :",
+    notificationError
+  );
+}
+
+alert(
+  "Votre intérêt a bien été enregistré. Le particulier sera informé avec votre profil."
+);
     }
   );
 
