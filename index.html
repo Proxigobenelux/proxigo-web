@@ -802,7 +802,7 @@ textarea:focus{
 </form>
 
 <div id="clientInterestsBox" style="display:none; margin-top:25px;">
-  <h3>👷 Professionnels intéressés par ma demande</h3>
+  <h3>👷 Professionnels correspondant à ma demande</h3>
 
   <p id="clientInterestsStatus">
     Chargement...
@@ -1518,35 +1518,38 @@ if (clientInterestsStatus) {
 if (clientInterestsList) {
   clientInterestsList.innerHTML = "";
 }
-          // Charger les professionnels intéressés par cette demande
+          // Charger les professionnels correspondant à cette demande
 if (requestIdToLoad && clientInterestsList) {
 
-    const { data: interests, error: interestsError } = await supabaseClient
-        .from("service_request_interests")
-        .select("professional_user_id, status, created_at")
-        .eq("service_request_id", requestIdToLoad)
-        .eq("status", "interested");
+    const { data: matches, error: matchesError } = await supabaseClient
+        .from("service_request_matches")
+        .select("professional_id")
+        .eq("demande_id", requestIdToLoad);
 
-    if (interestsError) {
-        console.error("Erreur chargement intérêts :", interestsError);
-        clientInterestsStatus.textContent =
-            "Impossible de charger les professionnels intéressés.";
-    } else if (!interests || interests.length === 0) {
-
-        clientInterestsStatus.textContent =
-            "Votre demande est enregistrée. Aucun professionnel ne s'est encore déclaré intéressé.";
-
+    if (matchesError) {
+        console.error("Erreur chargement des correspondances :", matchesError);
+        if (clientInterestsStatus) {
+            clientInterestsStatus.textContent =
+                "Impossible de charger les professionnels correspondant à votre demande.";
+        }
+    } else if (!matches || matches.length === 0) {
+        if (clientInterestsStatus) {
+            clientInterestsStatus.textContent =
+                "Votre demande est enregistrée. Aucun professionnel correspondant n'a encore été trouvé.";
+        }
     } else {
+        if (clientInterestsStatus) {
+            clientInterestsStatus.textContent =
+                matches.length + " professionnel(s) correspondant à votre demande.";
+        }
 
-        clientInterestsStatus.textContent =
-            interests.length + " professionnel(s) intéressé(s) par votre demande.";
-
-        for (const interest of interests) {
+        for (const match of matches) {
+            if (!match.professional_id) continue;
 
             const { data: pro, error: proError } = await supabaseClient
                 .from("professionals")
-                .select("company_name, contact_name, category, city, phone, email")
-                .eq("user_id", interest.professional_user_id)
+                .select("company_name, contact_name, category, city, phone, email, subscription, is_active")
+                .eq("id", match.professional_id)
                 .maybeSingle();
 
             if (proError) {
@@ -1554,10 +1557,9 @@ if (requestIdToLoad && clientInterestsList) {
                 continue;
             }
 
-            if (!pro) continue;
+            if (!pro || pro.is_active === false) continue;
 
             const proCard = document.createElement("div");
-
             proCard.style.marginTop = "12px";
             proCard.style.padding = "15px";
             proCard.style.border = "1px solid #334155";
@@ -1569,7 +1571,6 @@ if (requestIdToLoad && clientInterestsList) {
 
             const details = document.createElement("div");
             details.style.marginTop = "8px";
-
             details.innerHTML =
                 "🔧 " + (pro.category || "Professionnel") + "<br>" +
                 "📍 " + (pro.city || "Ville non précisée");
@@ -1579,13 +1580,11 @@ if (requestIdToLoad && clientInterestsList) {
 
             if (pro.phone) {
                 const contactButton = document.createElement("a");
-
                 contactButton.href = "tel:" + pro.phone;
                 contactButton.textContent = "📞 Contacter";
                 contactButton.className = "btn btn-green";
                 contactButton.style.display = "inline-block";
                 contactButton.style.marginTop = "12px";
-
                 proCard.appendChild(contactButton);
             }
 
@@ -1631,9 +1630,9 @@ if (requestIdToLoad && clientInterestsList) {
             }
         }
     });
-// Recharger automatiquement les professionnels intéressés
+// Recharger automatiquement les professionnels correspondant à la demande
 // lorsque le client revient ou actualise la page
-(async function loadSavedClientInterests() {
+(async function loadSavedClientMatches() {
 
   const savedRequestId =
     localStorage.getItem("proxigo_last_request_id");
@@ -1660,34 +1659,33 @@ if (requestIdToLoad && clientInterestsList) {
 
   if (clientInterestsStatus) {
     clientInterestsStatus.textContent =
-      "Recherche des professionnels intéressés...";
+      "Recherche des professionnels correspondant à votre demande...";
   }
 
-  const { data: interests, error: interestsError } =
+  const { data: matches, error: matchesError } =
     await supabaseClient
-      .from("service_request_interests")
-      .select("professional_user_id, status, created_at")
-      .eq("service_request_id", savedRequestId)
-      .eq("status", "interested");
+      .from("service_request_matches")
+      .select("professional_id")
+      .eq("demande_id", savedRequestId);
 
-  if (interestsError) {
+  if (matchesError) {
     console.error(
-      "Erreur chargement intérêts client :",
-      interestsError
+      "Erreur chargement des correspondances client :",
+      matchesError
     );
 
     if (clientInterestsStatus) {
       clientInterestsStatus.textContent =
-        "Impossible de charger les professionnels intéressés.";
+        "Impossible de charger les professionnels correspondant à votre demande.";
     }
 
     return;
   }
 
-  if (!interests || interests.length === 0) {
+  if (!matches || matches.length === 0) {
     if (clientInterestsStatus) {
       clientInterestsStatus.textContent =
-        "Aucun professionnel ne s'est encore déclaré intéressé.";
+        "Aucun professionnel correspondant n'a encore été trouvé.";
     }
 
     return;
@@ -1695,20 +1693,28 @@ if (requestIdToLoad && clientInterestsList) {
 
   if (clientInterestsStatus) {
     clientInterestsStatus.textContent =
-      interests.length +
-      " professionnel(s) intéressé(s) par votre demande.";
+      matches.length +
+      (matches.length > 1
+        ? " professionnels correspondent à votre demande."
+        : " professionnel correspond à votre demande.");
   }
 
-  for (const interest of interests) {
+  for (const match of matches) {
 
-    const { data: pros, error: proError } =
-      await supabaseClient
-        .from("professionals")
-        .select(
-          "company_name, contact_name, category, city, phone, email"
-        )
-        .eq("user_id", interest.professional_user_id)
-        .limit(1);
+    if (!match.professional_id) {
+      continue;
+    }
+
+    const {
+      data: pro,
+      error: proError
+    } = await supabaseClient
+      .from("professionals")
+      .select(
+        "company_name, contact_name, category, city, phone, email, subscription, is_active"
+      )
+      .eq("id", match.professional_id)
+      .maybeSingle();
 
     if (proError) {
       console.error(
@@ -1718,9 +1724,7 @@ if (requestIdToLoad && clientInterestsList) {
       continue;
     }
 
-    const pro = pros?.[0];
-
-    if (!pro) {
+    if (!pro || pro.is_active === false) {
       continue;
     }
 
