@@ -1523,7 +1523,7 @@ if (requestIdToLoad && clientInterestsList) {
 
     const { data: matches, error: matchesError } = await supabaseClient
         .from("service_request_matches")
-        .select("professional_id")
+        .select("professionnel_id")
         .eq("demande_id", requestIdToLoad);
 
     if (matchesError) {
@@ -1544,12 +1544,12 @@ if (requestIdToLoad && clientInterestsList) {
         }
 
         for (const match of matches) {
-            if (!match.professional_id) continue;
+            if (!match.professionnel_id) continue;
 
             const { data: pro, error: proError } = await supabaseClient
                 .from("professionals")
                 .select("company_name, contact_name, category, city, phone, email, subscription, is_active")
-                .eq("id", match.professional_id)
+                .eq("id", match.professionnel_id)
                 .maybeSingle();
 
             if (proError) {
@@ -1665,7 +1665,7 @@ if (requestIdToLoad && clientInterestsList) {
   const { data: matches, error: matchesError } =
     await supabaseClient
       .from("service_request_matches")
-      .select("professional_id")
+      .select("professionnel_id")
       .eq("demande_id", savedRequestId);
 
   if (matchesError) {
@@ -1701,7 +1701,7 @@ if (requestIdToLoad && clientInterestsList) {
 
   for (const match of matches) {
 
-    if (!match.professional_id) {
+    if (!match.professionnel_id) {
       continue;
     }
 
@@ -1713,7 +1713,7 @@ if (requestIdToLoad && clientInterestsList) {
       .select(
         "company_name, contact_name, category, city, phone, email, subscription, is_active"
       )
-      .eq("id", match.professional_id)
+      .eq("id", match.professionnel_id)
       .maybeSingle();
 
     if (proError) {
