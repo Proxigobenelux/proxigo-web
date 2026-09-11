@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Proxigo Prompt Library — Prompts IA pour professionnels</title>
+  <meta name="description" content="Proxigo Prompt Library : des prompts IA prêts à l'emploi pour les professionnels du nettoyage et des services. Trouvez des clients, créez vos devis et développez votre activité.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07111f;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(7,17,31,.96);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .brand span {
+      color: #20d6a1;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      background: #20d6a1;
+      color: #06121d;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #2d65f5;
+      color: #fff;
+    }
+
+    .hero {
+      padding: 75px 0 45px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(32,214,161,.12);
+      color: #20d6a1;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.05;
+      margin: 0 auto 20px;
+      max-width: 900px;
+    }
+
+    .hero h1 span {
+      color: #20d6a1;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: auto;
+      color: #c8d1dd;
+      font-size: 19px;
+    }
+
+    .hero-buttons {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section {
+      padding: 35px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #aeb9c7;
+    }
+
+    .search-box {
+      max-width: 720px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 17px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: #101d2d;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #20d6a1;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 35px;
+    }
+
+    .category {
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: #101d2d;
+      color: #dbe4ee;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .category.active {
+      background: #20d6a1;
+      color: #06121d;
+      border-color: #20d6a1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #0d1a2a;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .tag {
+      white-space: nowrap;
+      font-size: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .free {
+      background: rgba(32,214,161,.14);
+      color: #20d6a1;
+    }
+
+    .premium {
+      background: rgba(45,101,245,.16);
+      color: #82a4ff;
+    }
+
+    .card p {
+      color: #b7c3d0;
+      font-size: 14px;
+      margin-top: 0;
+    }
+
+    .prompt {
+      background: #07111f;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 15px;
+      color: #dce5ee;
+      font-size: 14px;
+      white-space: pre-wrap;
+      flex: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .copy-btn {
+      background: #20d6a1;
+      color: #06121d;
+    }
+
+    .use-btn {
+      background: #2d65f5;
+      color: white;
+    }
+
+    .premium-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .premium-overlay {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(45,101,245,.10);
+      border: 1px solid rgba(45,101,245,.25);
+      color: #cdd9ff;
+    }
+
+    .cta {
+      margin: 55px 0;
+      padding: 45px 25px;
+      text-align: center;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #10243a, #0c1930);
+      border: 1px solid rgba(32,214,161,.20);
+    }
+
+    .cta h2 {
+      font-size: 34px;
+      margin-top: 0;
+    }
+
+    .cta p {
+      color: #c0cbd7;
+      max-width: 700px;
+      margin: 0 auto 25px;
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: #94a1af;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 30px;
+      color: #aeb9c7;
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-actions .btn-secondary {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      🚀 <span>Proxigo</span> Prompt Library
+    </a>
+
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-secondary">Proxigo</a>
+      <a href="index.html#inscription" class="btn btn-primary">Créer mon compte</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge">🤖 PROXIGO AI</div>
+
+      <h1>
+        Développez votre entreprise
+        <span>avec l'IA.</span>
+      </h1>
+
+      <p>
+        Des prompts professionnels prêts à l'emploi pour trouver des clients,
+        répondre aux demandes, préparer vos devis, communiquer et développer
+        votre activité.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#prompts" class="btn btn-primary">
+          🧠 Découvrir les prompts
+        </a>
+
+        <a href="index.html" class="btn btn-secondary">
+          🚀 Découvrir Proxigo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="prompts">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>🧹 Prompts pour les entreprises de nettoyage</h2>
+        <p>
+          Des outils simples pour gagner du temps et développer votre activité.
+        </p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="search"
+          id="search"
+          placeholder="🔎 Rechercher : clients, devis, Facebook, email..."
+        >
+      </div>
+
+      <div class="categories">
+        <button class="category active" data-filter="all">Tous</button>
+        <button class="category" data-filter="clients">💰 Clients</button>
+        <button class="category" data-filter="clients2">💬 Clients</button>
+        <button class="category" data-filter="devis">📄 Devis</button>
+        <button class="category" data-filter="social">📱 Réseaux sociaux</button>
+        <button class="category" data-filter="prospection">📧 Prospection</button>
+        <button class="category" data-filter="developpement">⭐ Développement</button>
+      </div>
+
+      <div class="grid" id="promptGrid">
+
+        <article class="card" data-category="clients" data-search="trouver clients entreprises nettoyage prospection">
+          <div class="card-top">
+            <h3>🔎 Trouver des entreprises clientes</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Identifiez les prospects à cibler et préparez votre approche commerciale.</p>
+
+          <div class="prompt">Agis comme un commercial spécialisé dans les services de nettoyage B2B.
+
+Je dirige une entreprise de nettoyage située à [VILLE] et j'interviens dans un rayon de [X] km.
+
+Mes services sont : [SERVICES].
+
+Je souhaite trouver des entreprises susceptibles d'avoir besoin de mes services.
+
+Donne-moi :
+1. les types d'entreprises à cibler ;
+2. les arguments commerciaux adaptés ;
+3. un message WhatsApp ;
+4. un email de prospection ;
+5. un script téléphonique de 30 secondes.
+
+Le ton doit être professionnel, direct et humain.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="clients" data-search="client idéal nettoyage clients">
+          <div class="card-top">
+            <h3>🎯 Trouver mes clients idéaux</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Découvrez les types de clients les plus intéressants pour votre activité.</p>
+
+          <div class="prompt">Agis comme un expert en développement commercial pour une entreprise de nettoyage.
+
+Mon entreprise est située à [VILLE].
+
+Mes services : [SERVICES].
+
+Mes clients actuels sont principalement : [TYPE DE CLIENTS].
+
+Analyse mon activité et définis mon client idéal.
+
+Donne-moi :
+- 10 types de prospects à rechercher ;
+- leurs besoins probables ;
+- les problèmes auxquels mon entreprise peut répondre ;
+- les arguments qui pourraient les convaincre ;
+- une méthode simple pour les prospecter.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="clients2" data-search="répondre client demande message whatsapp">
+          <div class="card-top">
+            <h3>💬 Répondre à une demande client</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Transformez un message client en réponse professionnelle.</p>
+
+          <div class="prompt">Agis comme mon assistant commercial pour mon entreprise de nettoyage.
+
+Un client m'a écrit :
+
+"[MESSAGE DU CLIENT]"
+
+Prépare une réponse professionnelle, chaleureuse et concise.
+
+Je veux que la réponse :
+- montre que j'ai compris sa demande ;
+- pose uniquement les questions nécessaires ;
+- donne envie au client de poursuivre l'échange ;
+- ne promette rien que je ne peux pas garantir.
+
+Donne-moi une version WhatsApp et une version email.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="clients2" data-search="prix client tarif nettoyage">
+          <div class="card-top">
+            <h3>💰 Répondre à « Combien ça coûte ? »</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Répondez professionnellement sans annoncer un prix trop rapidement.</p>
+
+          <div class="prompt">Un client me demande :
+
+"Combien coûte votre service ?"
+
+Mon service est : [SERVICE]
+
+Les informations que j'ai : [INFORMATIONS]
+
+Prépare une réponse professionnelle expliquant que le prix peut dépendre de plusieurs éléments et pose les questions nécessaires avant de donner un prix définitif.
+
+Termine par une proposition de devis.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card premium-card" data-category="devis" data-search="devis nettoyage proposition commerciale">
+          <div class="card-top">
+            <h3>📄 Préparer un devis professionnel</h3>
+            <span class="tag premium">PRO</span>
+          </div>
+
+          <p>Préparez une structure de devis claire à partir des informations de votre client.</p>
+
+          <div class="prompt">🔒 Ce prompt fait partie de la bibliothèque Proxigo PRO.
+
+Passez à PRO pour accéder aux prompts professionnels avancés.</div>
+
+          <div class="premium-overlay">
+            🚀 Avec Proxigo PRO, développez votre activité et accédez également aux demandes de clients correspondant à votre métier.
+          </div>
+
+          <div class="card-actions">
+            <a href="index.html#inscription" class="btn use-btn">
+              🔓 Passer à PRO
+            </a>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="social" data-search="facebook publication nettoyage réseaux sociaux">
+          <div class="card-top">
+            <h3>📱 Créer une publication Facebook</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Créez une publication locale pour présenter vos services.</p>
+
+          <div class="prompt">Agis comme un expert en marketing local.
+
+Mon entreprise de nettoyage s'appelle [NOM] et se trouve à [VILLE].
+
+Services : [SERVICES]
+
+Rédige une publication Facebook destinée aux particuliers de ma région.
+
+Elle doit avoir :
+- une accroche forte ;
+- un problème concret ;
+- ma solution ;
+- un appel à l'action ;
+- un ton humain.
+
+Maximum 120 mots.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="social" data-search="instagram tiktok vidéo réseaux sociaux">
+          <div class="card-top">
+            <h3>🎥 Créer une vidéo courte</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Générez un scénario de 20 secondes pour TikTok, Reels ou Shorts.</p>
+
+          <div class="prompt">Écris un scénario de vidéo de 20 secondes pour promouvoir mon entreprise de nettoyage.
+
+Public : [TYPE DE CLIENT]
+
+Ville : [VILLE]
+
+Problème : [PROBLÈME]
+
+Service : [SERVICE]
+
+Structure :
+1. accroche dans les 3 premières secondes ;
+2. problème ;
+3. solution ;
+4. appel à l'action.
+
+Le scénario doit être naturel et adapté à une vidéo courte.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card premium-card" data-category="prospection" data-search="email prospection entreprises nettoyage">
+          <div class="card-top">
+            <h3>📧 Email de prospection B2B</h3>
+            <span class="tag premium">PRO</span>
+          </div>
+
+          <p>Préparez un email professionnel pour prospecter des entreprises locales.</p>
+
+          <div class="prompt">🔒 Prompt PRO
+
+Accédez à la bibliothèque complète Proxigo pour utiliser ce modèle.</div>
+
+          <div class="premium-overlay">
+            💡 La version PRO donne accès à davantage de prompts spécialisés pour la prospection.
+          </div>
+
+          <div class="card-actions">
+            <a href="index.html#inscription" class="btn use-btn">
+              🔓 Découvrir PRO
+            </a>
+          </div>
+        </article>
+
+
+        <article class="card" data-category="prospection" data-search="relance devis prospect client">
+          <div class="card-top">
+            <h3>📞 Relancer un prospect</h3>
+            <span class="tag free">FREE</span>
+          </div>
+
+          <p>Relancez sans être insistant.</p>
+
+          <div class="prompt">J'ai contacté un prospect il y a [X] jours.
+
+Voici mon premier message :
+
+[MESSAGE]
+
+Le prospect n'a pas répondu.
+
+Rédige une relance courte, professionnelle et différente du premier message.
+
+Ne sois pas insistant et donne une raison simple au prospect de répondre.</div>
+
+          <div class="card-actions">
+            <button class="btn copy-btn">📋 Copier</button>
+          </div>
+        </article>
+
+
+        <article class="card premium-card" data-category="developpement" data-search="développement entreprise chiffre affaires">
+          <div class="card-top">
+            <h3>📈 Développer mon entreprise</h3>
+            <span class="tag premium">PRO</span>
+          </div>
+
+          <p>Construisez un plan commercial adapté à votre entreprise.</p>
+
+          <div class="prompt">🔒 Prompt PRO
+
+La bibliothèque complète Proxigo contient des prompts avancés pour le développement commercial.</div>
+
+          <div class="premium-overlay">
+            🚀 PRO = outils professionnels + opportunités clients Proxigo.
+          </div>
+
+          <div class="card-actions">
+            <a href="index.html#inscription" class="btn use-btn">
+              🔓 Passer à PRO
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="empty" id="empty">
+        Aucun prompt ne correspond à votre recherche.
+      </div>
+
+      <div class="cta">
+        <h2>🚀 Vous voulez aller plus loin ?</h2>
+
+        <p>
+          Proxigo ne vous donne pas seulement des outils IA.
+          La plateforme vous permet également de recevoir des demandes
+          de particuliers correspondant à votre activité et votre région.
+        </p>
+
+        <a href="index.html#inscription" class="btn btn-primary">
+          Créer mon compte Proxigo
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Proxigo Benelux — Prompt Library
+  · <a href="index.html">Proxigo</a>
+</footer>
+
+<script>
+  const searchInput = document.getElementById("search");
+  const cards = Array.from(document.querySelectorAll(".card"));
+  const categories = Array.from(document.querySelectorAll(".category"));
+  const empty = document.getElementById("empty");
+
+  let activeCategory = "all";
+
+  function filterCards() {
+    const query = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const category = card.dataset.category || "";
+      const searchText = (card.dataset.search || "").toLowerCase();
+
+      const categoryMatch =
+        activeCategory === "all" || category === activeCategory;
+
+      const searchMatch =
+        !query || searchText.includes(query);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = "flex";
+        visible++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    empty.style.display = visible === 0 ? "block" : "none";
+  }
+
+  categories.forEach(button => {
+    button.addEventListener("click", () => {
+      categories.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      activeCategory = button.dataset.filter;
+      filterCards();
+    });
+  });
+
+  searchInput.addEventListener("input", filterCards);
+
+  document.querySelectorAll(".copy-btn").forEach(button => {
+    button.addEventListener("click", async () => {
+      const card = button.closest(".card");
+      const prompt = card.querySelector(".prompt").innerText;
+
+      try {
+        await navigator.clipboard.writeText(prompt);
+
+        const original = button.innerText;
+        button.innerText = "✅ Copié !";
+
+        setTimeout(() => {
+          button.innerText = original;
+        }, 1800);
+      } catch (error) {
+        alert("Impossible de copier automatiquement. Sélectionnez le texte et copiez-le manuellement.");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
