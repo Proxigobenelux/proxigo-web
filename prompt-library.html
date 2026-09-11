@@ -101,8 +101,8 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:30px 0;text-align:cente
 <script>
 const professionNames={
 nettoyage:["🧹 Prompts pour le nettoyage","Développez votre entreprise de nettoyage avec l'aide de l'IA."],
-plomberie:["🔧 30 prompts pour les plombiers","Trouvez des clients, gérez vos demandes et développez votre entreprise de plomberie."],
-electricite:["⚡ Prompts pour l'électricité","Les prompts spécialisés électricité arrivent prochainement."],
+plomberie:["🔧 Prompts pour la plomberie","Les prompts spécialisés plomberie sont disponibles."],
+electricite:["⚡ 30 prompts pour les électriciens","Trouvez des clients, gérez vos demandes et développez votre entreprise d’électricité."],
 jardinage:["🌳 Prompts pour le jardinage","Les prompts spécialisés jardinage arrivent prochainement."],
 renovation:["🏗️ Prompts pour la rénovation","Les prompts spécialisés rénovation arrivent prochainement."],
 peinture:["🎨 Prompts pour la peinture","Les prompts spécialisés peinture arrivent prochainement."],
@@ -112,37 +112,187 @@ vitres:["🪟 Prompts pour les vitres","Les prompts spécialisés vitres arriven
 automobile:["🚗 Prompts pour l'automobile","Les prompts spécialisés automobile arrivent prochainement."]
 };
 
-const plumbingPrompts=[
-["clients","🔎 Trouver des clients locaux","Identifiez les meilleurs prospects pour votre activité.","Agis comme un expert en développement commercial pour une entreprise de plomberie.\n\nMon entreprise est située à [VILLE] et intervient dans un rayon de [X] km.\n\nMes services :\n[SERVICES]\n\nIdentifie les 15 types de clients les plus intéressants dans ma région.\n\nPour chaque type de client, indique :\n- son besoin principal ;\n- le problème de plomberie qu'il rencontre ;\n- pourquoi il pourrait avoir besoin de moi ;\n- comment le prospecter ;\n- le meilleur argument commercial à utiliser."],
-["clients","🎯 Trouver des propriétaires","Ciblez les propriétaires et bailleurs de votre région.","Je suis plombier à [VILLE].\n\nJe souhaite trouver des propriétaires qui peuvent avoir besoin de mes services.\n\nDonne-moi une stratégie locale pour atteindre :\n- propriétaires de maisons ;\n- propriétaires d'appartements ;\n- propriétaires bailleurs ;\n- investisseurs immobiliers.\n\nDonne-moi également 5 messages de prospection adaptés."],
-["clients","🏢 Trouver des syndics","Préparez une approche commerciale pour les copropriétés.","Agis comme un commercial spécialisé dans les services aux copropriétés.\n\nJe suis plombier à [VILLE].\n\nJe souhaite prospecter les syndics de copropriété.\n\nPrépare :\n- mon argumentaire ;\n- un email de premier contact ;\n- un message LinkedIn ;\n- un script téléphonique ;\n- une relance 5 jours plus tard."],
-["clients","🏠 Trouver des agences immobilières","Développez des partenariats avec les agences immobilières.","Je suis plombier professionnel à [VILLE].\n\nJe souhaite développer des partenariats avec des agences immobilières.\n\nExplique-moi comment proposer mes services pour leurs :\n- états des lieux ;\n- réparations ;\n- logements avant location ;\n- logements après départ d'un locataire ;\n- urgences.\n\nPrépare un message commercial court."],
-["clients","🏭 Trouver des entreprises","Identifiez les entreprises susceptibles d'avoir besoin d'un plombier.","Je suis plombier à [VILLE].\n\nDonne-moi les types d'entreprises locales qui peuvent régulièrement avoir besoin d'un plombier.\n\nClasse-les selon leur potentiel commercial.\n\nPour les 5 meilleurs prospects, prépare un argumentaire spécifique."],
-["client","🚰 Répondre à une fuite d'eau","Répondez rapidement à une demande concernant une fuite.","Un client m'écrit :\n\n\"[MESSAGE DU CLIENT]\"\n\nIl semble avoir une fuite d'eau.\n\nPrépare une réponse WhatsApp professionnelle et rassurante.\n\nIndique uniquement les précautions immédiates raisonnables à prendre en attendant mon intervention, sans faire de diagnostic à distance.\n\nTermine par les informations nécessaires pour organiser l'intervention."],
-["client","🚨 Intervention urgente","Gérez une demande de plomberie urgente.","Je suis plombier et je viens de recevoir une demande urgente.\n\nMessage du client :\n\"[MESSAGE]\"\n\nPrépare une réponse très rapide qui :\n- reconnaît l'urgence ;\n- rassure le client ;\n- demande les informations essentielles ;\n- explique que le prix définitif dépendra du diagnostic ;\n- propose une intervention."],
-["client","🔥 Chauffe-eau en panne","Répondez professionnellement à une panne de chauffe-eau.","Un client indique que son chauffe-eau ne fonctionne plus.\n\nVoici son message :\n\"[MESSAGE]\"\n\nPrépare une réponse professionnelle.\n\nPose les questions utiles pour comprendre la situation avant mon déplacement.\n\nNe fais pas de diagnostic définitif à distance."],
-["client","🪠 Canalisation bouchée","Structurez un appel pour une canalisation bouchée.","Un client m'appelle pour une canalisation bouchée.\n\nPrépare un script téléphonique permettant de :\n- comprendre rapidement la situation ;\n- déterminer le niveau d'urgence ;\n- recueillir les informations nécessaires ;\n- organiser l'intervention ;\n- expliquer clairement les conditions tarifaires."],
-["client","😰 Client stressé","Rassurez un client inquiet.","Un client est très stressé à cause d'un problème de plomberie.\n\nSon message :\n\"[MESSAGE]\"\n\nRédige une réponse courte, calme et professionnelle.\n\nJe veux que le client sente que sa demande est prise au sérieux et que je maîtrise l'organisation de l'intervention."],
-["devis","📄 Préparer un devis plomberie","Structurez un devis professionnel sans inventer de prix.","Agis comme un assistant commercial spécialisé dans la plomberie.\n\nClient : [NOM]\nVille : [VILLE]\nService : [SERVICE]\nDescription : [DESCRIPTION]\nMatériel prévu : [MATÉRIEL]\nMain-d'œuvre : [INFORMATIONS]\nDéplacement : [INFORMATIONS]\n\nPrépare la structure d'un devis professionnel, clair et facile à comprendre.\n\nNe crée aucun prix que je ne t'ai pas fourni."],
-["devis","💬 Expliquer un prix","Répondez à un client qui trouve le devis élevé.","Un client trouve mon devis trop élevé.\n\nVoici le devis :\n[DEVIS]\n\nPrépare une réponse professionnelle expliquant la valeur de mon intervention sans être agressif ni dénigrer les concurrents.\n\nObjectif : conserver la confiance du client et essayer de conclure la vente."],
-["devis","📞 Relancer un devis","Relancez un devis sans pression.","J'ai envoyé un devis de plomberie il y a [X] jours.\n\nVoici le contexte :\n[CONTEXTE]\n\nPrépare :\n1. une relance WhatsApp ;\n2. un SMS ;\n3. un email.\n\nLes messages doivent être courts, professionnels et non insistants."],
-["devis","⚖️ Client compare les prix","Répondez à un client qui a reçu une offre moins chère.","Mon client me dit qu'un concurrent propose un prix inférieur.\n\nPrépare une réponse professionnelle.\n\nJe veux mettre en avant :\n- la qualité du travail ;\n- l'expérience ;\n- la disponibilité ;\n- la garantie ;\n- la transparence ;\n- la qualité du matériel.\n\nNe critique pas le concurrent."],
-["devis","🏗️ Devis pour rénovation","Préparez une proposition pour une rénovation plomberie.","Je dois préparer une proposition pour des travaux de plomberie dans une rénovation.\n\nProjet : [DESCRIPTION]\nSurface : [SURFACE]\nTravaux prévus : [TRAVAUX]\n\nPrépare une structure professionnelle de proposition commerciale avec :\n- description des travaux ;\n- prestations incluses ;\n- prestations non incluses ;\n- organisation ;\n- délais à compléter ;\n- conditions ;\n- présentation commerciale."],
-["prospection","📧 Email aux entreprises","Prospectez les entreprises locales par email.","Je suis plombier professionnel à [VILLE].\n\nJe souhaite contacter des entreprises locales afin de proposer mes services.\n\nRédige un email de prospection B2B de moins de 150 mots.\n\nIl doit être :\n- professionnel ;\n- personnalisé ;\n- direct ;\n- sans spam ;\n- orienté vers un premier échange."],
-["prospection","📞 Script téléphonique","Obtenez un rendez-vous avec une entreprise.","Prépare-moi un script téléphonique de 30 secondes pour appeler une entreprise locale afin de proposer mes services de plomberie.\n\nJe veux obtenir un rendez-vous ou l'autorisation d'envoyer ma présentation.\n\nDonne-moi également 5 réponses aux objections les plus fréquentes."],
-["prospection","📱 Premier WhatsApp professionnel","Contactez un responsable d'entreprise efficacement.","Je souhaite contacter un responsable d'entreprise par WhatsApp.\n\nMon entreprise : [NOM]\nVille : [VILLE]\nServices : [SERVICES]\n\nPrépare un message très court pour présenter mon activité et proposer mes services.\n\nLe message doit donner envie de répondre."],
-["prospection","🔁 Relance commerciale","Relancez une entreprise qui ne répond pas.","J'ai contacté une entreprise il y a [X] jours.\n\nVoici mon premier message :\n[MESSAGE]\n\nJe n'ai reçu aucune réponse.\n\nPrépare une relance commerciale courte qui apporte une nouvelle raison de me répondre."],
-["prospection","📅 Plan de prospection 30 jours","Organisez votre prospection sur un mois.","Je suis plombier indépendant à [VILLE].\n\nJe veux obtenir davantage de contrats professionnels.\n\nConstruis-moi un plan de prospection de 30 jours.\n\nChaque jour indique :\n- combien de prospects contacter ;\n- qui contacter ;\n- quel canal utiliser ;\n- quel message envoyer ;\n- quelle action de suivi réaliser.\n\nObjectif : obtenir des rendez-vous et des demandes de devis."],
-["social","📘 Publication Facebook","Créez une publication locale pour votre entreprise.","Agis comme un expert en marketing local.\n\nMon entreprise de plomberie : [NOM]\nVille : [VILLE]\nServices : [SERVICES]\n\nCrée une publication Facebook destinée aux habitants de ma région.\n\nElle doit contenir :\n- une accroche forte ;\n- un problème courant ;\n- ma solution ;\n- un appel à l'action.\n\nMaximum 120 mots."],
-["social","📸 Avant / après","Mettez en valeur une intervention terminée.","Je viens de terminer une intervention de plomberie.\n\nAvant : [PROBLÈME]\nAprès : [RÉSULTAT]\n\nCrée une publication Facebook et Instagram présentant cette intervention.\n\nTon professionnel, rassurant et local.\n\nAjoute un appel à l'action."],
-["social","🎥 Vidéo TikTok / Reel","Créez un scénario vidéo de 30 secondes.","Je suis plombier.\n\nCrée un scénario de Reel/TikTok de 30 secondes sur le thème : [SUJET]\n\nStructure :\n- accroche dans les 3 premières secondes ;\n- problème ;\n- explication simple ;\n- conseil ;\n- appel à l'action.\n\nLe scénario doit être facile à filmer avec un smartphone."],
-["social","💡 20 idées de conseils plomberie","Trouvez des sujets qui intéressent les particuliers.","Donne-moi 20 idées de publications pour une entreprise de plomberie.\n\nLes sujets doivent répondre aux questions que se posent réellement les particuliers.\n\nPour chaque idée :\n- titre ;\n- accroche ;\n- conseil principal ;\n- appel à l'action."],
-["social","🗓️ Calendrier de contenu 30 jours","Planifiez votre communication sur un mois.","Crée un calendrier de contenu de 30 jours pour mon entreprise de plomberie.\n\nVille : [VILLE]\nServices : [SERVICES]\n\nAlterner :\n- conseils ;\n- interventions ;\n- avant/après ;\n- présentation de l'entreprise ;\n- avis clients ;\n- prévention ;\n- offres commerciales.\n\nDonne-moi une idée par jour."],
-["fidelisation","⭐ Demander un avis Google","Demandez un avis à un client satisfait.","Mon client est satisfait de mon intervention.\n\nPrépare un message WhatsApp lui demandant naturellement de laisser un avis Google.\n\nLe message doit être chaleureux, court et ne pas mettre de pression.\n\nAjoute une phrase expliquant que son avis aide mon entreprise locale."],
-["fidelisation","🤝 Fidéliser les clients","Transformez des clients ponctuels en clients réguliers.","Je suis plombier à [VILLE].\n\nDonne-moi une stratégie simple pour transformer mes clients ponctuels en clients réguliers.\n\nPropose :\n- messages de suivi ;\n- rappels ;\n- offres ;\n- entretien ;\n- recommandations ;\n- partenariats.\n\nJe veux une stratégie adaptée à une petite entreprise."],
-["fidelisation","📣 Obtenir des recommandations","Encouragez les recommandations naturelles.","Je souhaite obtenir davantage de recommandations de la part de mes clients satisfaits.\n\nCrée 5 messages différents que je peux envoyer après une intervention.\n\nLes messages doivent demander naturellement au client de me recommander à une personne de son entourage qui aurait besoin d'un plombier."],
-["developpement","📈 Augmenter mon chiffre d'affaires","Identifiez les leviers de croissance.","Agis comme un conseiller en développement d'entreprise spécialisé dans les plombiers indépendants.\n\nMon chiffre d'affaires actuel : [CA]\nMa ville : [VILLE]\nMes services : [SERVICES]\nMes tarifs moyens : [TARIFS]\n\nAnalyse les possibilités d'augmenter mon chiffre d'affaires.\n\nDonne-moi 10 actions classées par impact et facilité de mise en œuvre."],
-["developpement","🚀 Plan de développement annuel","Construisez une feuille de route sur 12 mois.","Agis comme le conseiller stratégique de mon entreprise de plomberie.\n\nEntreprise : [NOM]\nVille : [VILLE]\nÉquipe : [ÉQUIPE]\nServices : [SERVICES]\nChiffre d'affaires actuel : [CA]\nObjectif annuel : [OBJECTIF]\n\nConstruis un plan de développement sur 12 mois.\n\nLe plan doit couvrir :\n- acquisition de clients ;\n- prospection B2B ;\n- particuliers ;\n- partenariats ;\n- réseaux sociaux ;\n- fidélisation ;\n- augmentation du panier moyen ;\n- organisation ;\n- objectifs mensuels.\n\nPrésente le résultat sous forme de feuille de route concrète."]
+const electricityPrompts=[
+[
+"clients",
+"🔎 Trouver des clients locaux",
+"Identifiez les meilleurs prospects pour votre entreprise d'électricité.",
+"Agis comme un expert en développement commercial pour une entreprise d'électricité.\n\nMon entreprise est située à [VILLE] et intervient dans un rayon de [X] km.\n\nMes services : [SERVICES]\n\nIdentifie les 15 types de clients les plus intéressants dans ma région.\n\nPour chaque type : besoin principal, problème rencontré, raison de faire appel à moi, méthode de prospection et argument commercial."
+],
+[
+"clients",
+"🏠 Trouver des propriétaires",
+"Ciblez les propriétaires ayant des besoins électriques.",
+"Je suis électricien à [VILLE].\n\nJe souhaite trouver des propriétaires de maisons et appartements susceptibles d'avoir besoin de mes services.\n\nDonne-moi une stratégie locale pour les atteindre et 5 messages de prospection adaptés."
+],
+[
+"clients",
+"🏢 Trouver des syndics",
+"Développez des contrats avec les copropriétés.",
+"Agis comme un commercial spécialisé dans les services aux copropriétés.\n\nJe suis électricien à [VILLE].\n\nPrépare un argumentaire pour les syndics, un email de premier contact, un script téléphonique et une relance à 5 jours."
+],
+[
+"clients",
+"🏗️ Trouver des entreprises du bâtiment",
+"Créez des partenariats avec les autres métiers du bâtiment.",
+"Je suis électricien professionnel à [VILLE].\n\nJe souhaite développer des partenariats avec des plombiers, chauffagistes, entreprises générales, maçons et rénovateurs.\n\nExplique comment créer un réseau de partenaires et prépare un message de prise de contact."
+],
+[
+"clients",
+"🏭 Trouver des clients professionnels",
+"Identifiez les entreprises ayant des besoins électriques réguliers.",
+"Je suis électricien à [VILLE].\n\nDonne-moi les types d'entreprises locales qui peuvent régulièrement avoir besoin d'un électricien.\n\nClasse-les par potentiel commercial et donne-moi un argumentaire pour les 5 meilleures catégories."
+],
+[
+"client",
+"⚡ Répondre à une panne électrique",
+"Répondez rapidement à une demande de panne.",
+"Un client m'écrit :\n\"[MESSAGE DU CLIENT]\"\n\nPrépare une réponse professionnelle et rassurante.\n\nPose les questions nécessaires pour comprendre la situation et organiser une intervention. Ne fais pas de diagnostic définitif à distance."
+],
+[
+"client",
+"🚨 Intervention électrique urgente",
+"Gérez une demande urgente avec professionnalisme.",
+"Je suis électricien et je reçois une demande urgente.\n\nMessage du client : [MESSAGE]\n\nPrépare une réponse courte qui reconnaît l'urgence, demande les informations essentielles, rappelle les précautions de sécurité raisonnables et organise l'intervention."
+],
+[
+"client",
+"💡 Installation de luminaires",
+"Répondez à une demande d'installation.",
+"Un client souhaite faire installer ou remplacer des luminaires.\n\nSa demande : [MESSAGE]\n\nPrépare une réponse professionnelle avec les questions utiles, les informations à demander et une proposition de visite ou de devis."
+],
+[
+"client",
+"🔌 Prises et interrupteurs",
+"Répondez à une demande concernant des prises ou interrupteurs.",
+"Un client demande l'installation ou le remplacement de prises/interrupteurs.\n\nMessage : [MESSAGE]\n\nPrépare une réponse WhatsApp professionnelle et liste les informations nécessaires avant de proposer un prix."
+],
+[
+"client",
+"😰 Client inquiet face à un problème électrique",
+"Rassurez un client sans minimiser un risque.",
+"Un client est inquiet à cause d'un problème électrique.\n\nSon message : [MESSAGE]\n\nRédige une réponse calme et professionnelle. Ne donne pas de diagnostic à distance. Oriente le client vers des précautions de sécurité raisonnables et vers une intervention professionnelle si nécessaire."
+],
+[
+"devis",
+"📄 Préparer un devis électrique",
+"Structurez un devis clair sans inventer de prix.",
+"Agis comme un assistant commercial spécialisé en électricité.\n\nClient : [NOM]\nVille : [VILLE]\nTravaux : [TRAVAUX]\nMatériel : [MATÉRIEL]\nMain-d'œuvre : [INFORMATIONS]\n\nPrépare une structure de devis claire et professionnelle.\n\nNe crée aucun prix que je ne t'ai pas fourni."
+],
+[
+"devis",
+"🏠 Devis pour rénovation électrique",
+"Préparez une proposition de rénovation.",
+"Projet : [DESCRIPTION]\nMaison/appartement : [TYPE]\nSurface : [SURFACE]\nTravaux prévus : [TRAVAUX]\n\nPrépare une structure de proposition commerciale pour une rénovation électrique avec prestations incluses, exclusions, organisation, délais à compléter et conditions."
+],
+[
+"devis",
+"💰 Expliquer un devis",
+"Expliquez clairement le contenu d'un devis électrique.",
+"Voici mon devis : [DEVIS]\n\nLe client demande pourquoi le montant est élevé.\n\nPrépare une réponse simple expliquant les postes du devis, la qualité du travail, le matériel, le temps d'intervention et les garanties, sans dénigrer les concurrents."
+],
+[
+"devis",
+"📞 Relancer un devis",
+"Relancez un client après l'envoi d'un devis.",
+"J'ai envoyé un devis électrique il y a [X] jours.\n\nContexte : [CONTEXTE]\n\nPrépare une relance WhatsApp, un SMS et un email. Le ton doit être professionnel, cordial et non insistant."
+],
+[
+"devis",
+"⚖️ Client compare les prix",
+"Répondez à une comparaison de prix.",
+"Mon client a reçu une offre moins chère.\n\nPrépare une réponse professionnelle mettant en avant la qualité du travail, la sécurité, la transparence, l'expérience, le matériel et le suivi, sans critiquer le concurrent."
+],
+[
+"prospection",
+"📧 Email B2B",
+"Prospectez les entreprises de votre région.",
+"Je suis électricien professionnel à [VILLE].\n\nRédige un email de prospection B2B de moins de 150 mots pour proposer mes services aux entreprises locales.\n\nLe message doit être direct, personnalisé et orienté vers un premier échange."
+],
+[
+"prospection",
+"📞 Script d'appel",
+"Obtenez un rendez-vous avec un prospect professionnel.",
+"Prépare-moi un script téléphonique de 30 secondes pour appeler une entreprise afin de proposer mes services d'électricité.\n\nDonne-moi également 5 réponses aux objections fréquentes."
+],
+[
+"prospection",
+"📱 Premier message WhatsApp",
+"Contactez un responsable d'entreprise.",
+"Entreprise : [NOM]\nVille : [VILLE]\nServices : [SERVICES]\n\nPrépare un message WhatsApp très court pour présenter mon entreprise d'électricité et proposer mes services."
+],
+[
+"prospection",
+"🔁 Relancer une entreprise",
+"Relancez un prospect sans insister.",
+"J'ai contacté une entreprise il y a [X] jours sans réponse.\n\nPremier message : [MESSAGE]\n\nPrépare une relance courte qui apporte une nouvelle raison de répondre."
+],
+[
+"prospection",
+"📅 Plan de prospection 30 jours",
+"Organisez une prospection régulière.",
+"Je suis électricien indépendant à [VILLE].\n\nConstruis-moi un plan de prospection de 30 jours pour obtenir davantage de contrats.\n\nPour chaque jour : cible, nombre de prospects, canal, action et objectif."
+],
+[
+"social",
+"📘 Publication Facebook",
+"Attirez des clients locaux avec une publication.",
+"Mon entreprise d'électricité : [NOM]\nVille : [VILLE]\nServices : [SERVICES]\n\nCrée une publication Facebook destinée aux habitants de ma région avec une accroche, un problème courant, ma solution et un appel à l'action."
+],
+[
+"social",
+"📸 Avant / après",
+"Valorisez une installation terminée.",
+"Avant : [SITUATION]\nAprès : [RÉSULTAT]\n\nCrée une publication Facebook et Instagram présentant l'intervention.\n\nTon professionnel, rassurant et local. Ajoute un appel à l'action."
+],
+[
+"social",
+"🎥 Reel / TikTok électricité",
+"Créez une vidéo courte et éducative.",
+"Crée un scénario de Reel/TikTok de 30 secondes sur le thème [SUJET].\n\nStructure : accroche, problème, explication simple, conseil de sécurité général et appel à l'action.\n\nLe scénario doit être facile à filmer au smartphone."
+],
+[
+"social",
+"💡 20 idées de contenu",
+"Trouvez des sujets qui intéressent les clients.",
+"Donne-moi 20 idées de publications pour une entreprise d'électricité.\n\nLes sujets doivent répondre aux questions fréquentes des particuliers et entreprises.\n\nPour chaque idée : titre, accroche, conseil principal et appel à l'action."
+],
+[
+"social",
+"🗓️ Calendrier de contenu 30 jours",
+"Planifiez votre communication.",
+"Crée un calendrier de contenu de 30 jours pour mon entreprise d'électricité.\n\nVille : [VILLE]\nServices : [SERVICES]\n\nAlterne conseils, réalisations, avant/après, présentation, prévention, avis clients et offres."
+],
+[
+"fidelisation",
+"⭐ Demander un avis Google",
+"Obtenez des avis après une intervention réussie.",
+"Mon client est satisfait de mon intervention.\n\nPrépare un message WhatsApp court et chaleureux pour lui demander un avis Google, sans pression, en expliquant que son avis aide mon entreprise locale."
+],
+[
+"fidelisation",
+"🤝 Fidéliser les clients",
+"Transformez les interventions ponctuelles en relations durables.",
+"Je suis électricien à [VILLE].\n\nDonne-moi une stratégie simple pour fidéliser mes clients : suivi après intervention, rappels, entretien, recommandations, partenariats et offres."
+],
+[
+"fidelisation",
+"📣 Obtenir des recommandations",
+"Encouragez les recommandations naturelles.",
+"Crée 5 messages différents à envoyer après une intervention réussie pour demander naturellement au client de recommander mon entreprise à une personne qui aurait besoin d'un électricien."
+],
+[
+"developpement",
+"📈 Augmenter mon chiffre d'affaires",
+"Identifiez les leviers de croissance.",
+"Agis comme un conseiller en développement pour un électricien indépendant.\n\nCA actuel : [CA]\nVille : [VILLE]\nServices : [SERVICES]\nTarifs moyens : [TARIFS]\n\nDonne-moi 10 actions classées par impact et facilité pour augmenter mon chiffre d'affaires."
+],
+[
+"developpement",
+"🚀 Plan de développement annuel",
+"Construisez une feuille de route sur 12 mois.",
+"Entreprise : [NOM]\nVille : [VILLE]\nÉquipe : [ÉQUIPE]\nServices : [SERVICES]\nCA actuel : [CA]\nObjectif : [OBJECTIF]\n\nConstruis un plan sur 12 mois couvrant acquisition, B2B, particuliers, partenariats, réseaux sociaux, fidélisation, panier moyen, organisation et objectifs mensuels."
+]
 ];
 
 const genericCleaning=[
@@ -169,10 +319,10 @@ const empty=document.getElementById("empty");
 
 function renderPrompts(){
   grid.innerHTML="";
-  const data=currentProfession==="plomberie"?plumbingPrompts:currentProfession==="nettoyage"?genericCleaning:null;
+  const data=currentProfession==="electricite"?electricityPrompts:currentProfession==="nettoyage"?genericCleaning:null;
 
   if(!data){
-    grid.innerHTML='<div class="coming" style="grid-column:1/-1"><h3>🚀 Contenu en préparation</h3><p>Les prompts spécialisés pour ce métier arrivent prochainement. La plomberie est maintenant disponible avec 30 prompts spécialisés.</p></div>';
+    grid.innerHTML='<div class="coming" style="grid-column:1/-1"><h3>🚀 Contenu en préparation</h3><p>Les prompts spécialisés pour ce métier arrivent prochainement. La plomberie et l’électricité disposent maintenant de packs spécialisés.</p></div>';
     empty.style.display="none";
     return;
   }
@@ -187,7 +337,7 @@ function renderPrompts(){
     if(!matchCat||!matchSearch)return;
 
     count++;
-    const isPro=currentProfession==="plomberie" && ["devis","prospection","fidelisation","developpement"].includes(category);
+    const isPro=currentProfession==="electricite" && ["devis","prospection","fidelisation","developpement"].includes(category);
     const card=document.createElement("article");
     card.className="card";
     card.innerHTML=`
