@@ -929,21 +929,86 @@ function closeCustomizer(){
   customizeBackdrop.setAttribute("aria-hidden","true");
 }
 
-function personalizePrompt(){
+async function personalizePrompt(){
   if(!customizeBackdrop) initCustomizer();
-  const values={
-    "[ENTREPRISE]":document.getElementById("custBusiness").value.trim() || "[ENTREPRISE]",
-    "[VILLE]":document.getElementById("custCity").value.trim() || "[VILLE]",
-    "[X]":document.getElementById("custRadius").value.trim() || "[X]",
-    "[SERVICES]":document.getElementById("custServices").value.trim() || "[SERVICES]",
-    "[OBJECTIF]":document.getElementById("custObjective").value.trim() || "[OBJECTIF]",
-    "[MÉTIER]":document.getElementById("custProfession").value.trim() || "[MÉTIER]",
-    "[PROFESSION]":document.getElementById("custProfession").value.trim() || "[PROFESSION]"
-  };
-  let result=customizeSourceText;
-  Object.keys(values).forEach(key=>{result=result.split(key).join(values[key]);});
-  customizeOutput.textContent=result;
-  customizeResult.classList.add("open");
+
+  const business=document.getElementById("custBusiness").value.trim();
+  const profession=document.getElementById("custProfession").value.trim();
+  const city=document.getElementById("custCity").value.trim();
+  const radius=document.getElementById("custRadius").value.trim();
+  const services=document.getElementById("custServices").value.trim();
+  const objective=document.getElementById("custObjective").value.trim();
+
+  if(!business || !profession || !city || !services || !objective){
+    alert("Veuillez remplir les champs principaux avant de générer votre prompt.");
+    return;
+  }
+
+  const originalText=customizeGenerate.textContent;
+  customizeGenerate.disabled=true;
+  customizeGenerate.textContent="⏳ Proxigo AI travaille...";
+
+  try{
+    const response=await fetch(
+      "https://proxigo-ai-assistant.onrender.com/prompt/personalize",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          user_id: localStorage.getItem("proxigo_user_id"),
+          business,
+          profession,
+          city,
+          radius,
+          services,
+          objective,
+          prompt:customizeSourceText
+        })
+      }
+    );
+
+    const data=await response.json();
+
+    if(!response.ok){
+      if(response.status===401){
+        throw new Error("Vous devez être connecté pour utiliser Proxigo AI.");
+      }
+
+      if(response.status===403){
+        throw new Error("Cette fonctionnalité IA est réservée aux abonnements PRO et BUSINESS.");
+      }
+            if(response.status===403){
+        throw new Error("Cette fonctionnalité IA est réservée aux abonnements PRO et BUSINESS.");
+      }
+
+      throw new Error(data.detail || "Erreur lors de la génération.");
+    }
+
+    customizeOutput.textContent=data.prompt;
+    customizeResult.classList.add("open");
+
+  }catch(error){
+    alert(error.message || "Impossible de contacter Proxigo AI.");
+  }finally{
+    customizeGenerate.disabled=false;
+    customizeGenerate.textContent=originalText;
+  }
+}
+
+      throw new Error(data.detail || "Erreur lors de la génération.");
+    }
+
+    customizeOutput.textContent=data.prompt;
+    customizeResult.classList.add("open");
+
+  }catch(error){
+    alert(error.message || "Impossible de contacter Proxigo AI.");
+  }finally{
+    customizeGenerate.disabled=false;
+    customizeGenerate.textContent=originalText;
+  }
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
