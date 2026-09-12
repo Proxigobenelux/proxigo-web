@@ -724,10 +724,20 @@ const empty=document.getElementById("empty");
 
 function renderPrompts(){
   grid.innerHTML="";
-  const data=currentProfession==="plomberie"?plumbingPrompts:currentProfession==="electricite"?electricityPrompts:currentProfession==="jardinage"?gardeningPrompts:currentProfession==="renovation"?renovationPrompts:currentProfession==="peinture"?peinturePrompts:currentProfession==="demenagement"?demenagementPrompts:currentProfession==="chauffage"?chauffagePrompts:currentProfession==="vitres"?vitresPrompts:currentProfession==="nettoyage"?genericCleaning:null;
+  let data=null;
+  if(currentProfession==="nettoyage") data=genericCleaning;
+  else if(currentProfession==="plomberie") data=plumbingPrompts;
+  else if(currentProfession==="electricite") data=electricityPrompts;
+  else if(currentProfession==="jardinage") data=gardeningPrompts;
+  else if(currentProfession==="renovation") data=renovationPrompts;
+  else if(currentProfession==="peinture") data=peinturePrompts;
+  else if(currentProfession==="demenagement") data=demenagementPrompts;
+  else if(currentProfession==="chauffage") data=chauffagePrompts;
+  else if(currentProfession==="vitres") data=vitresPrompts;
+  else if(currentProfession==="automobile") data=null;
 
   if(!data){
-    grid.innerHTML='<div class="coming" style="grid-column:1/-1"><h3>🚀 Contenu en préparation</h3><p>Les prompts spécialisés pour ce métier arrivent prochainement. La plomberie et l’électricité disposent maintenant de packs spécialisés.</p></div>';
+    grid.innerHTML='<div class="coming" style="grid-column:1/-1"><h3>🚀 Contenu en préparation</h3><p>Les prompts spécialisés pour ce métier arrivent prochainement.</p></div>';
     empty.style.display="none";
     return;
   }
@@ -742,7 +752,7 @@ function renderPrompts(){
     if(!matchCat||!matchSearch)return;
 
     count++;
-    const isPro=["plomberie","electricite","jardinage","renovation","peinture","demenagement","chauffage"].includes(currentProfession) && ["devis","prospection","fidelisation","developpement"].includes(category);
+    const isPro=["plomberie","electricite","jardinage","renovation","peinture","demenagement","chauffage","vitres"].includes(currentProfession) && ["devis","prospection","fidelisation","developpement"].includes(category);
     const card=document.createElement("article");
     card.className="card";
     card.innerHTML=`
