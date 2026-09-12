@@ -37,6 +37,33 @@ header{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.96);border-bott
 footer{border-top:1px solid rgba(255,255,255,.1);padding:30px 0;text-align:center;color:#8997a7;font-size:13px}
 @media(max-width:850px){.professions{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
 @media(max-width:550px){.nav-buttons .btn-blue{display:none}.hero{padding-top:45px}.hero h1{font-size:38px}}
+
+/* Proxigo prompt personalization */
+.customize-backdrop{position:fixed;inset:0;background:rgba(2,10,22,.82);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.customize-backdrop.open{display:flex}
+.customize-modal{width:min(720px,100%);max-height:90vh;overflow:auto;background:#0f1d2f;border:1px solid #29405b;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.customize-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #263a52}
+.customize-head h3{margin:0;font-size:22px}
+.customize-close{background:none;border:1px solid #38516e;color:#cbd5e1;border-radius:10px;padding:7px 11px;cursor:pointer}
+.customize-body{padding:22px 24px}
+.customize-sub{color:#aebdce;margin:0 0 18px}
+.customize-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.customize-field{display:flex;flex-direction:column;gap:6px}
+.customize-field.full{grid-column:1/-1}
+.customize-field label{font-size:13px;font-weight:700;color:#dbe7f3}
+.customize-field input,.customize-field textarea{width:100%;box-sizing:border-box;background:#071321;border:1px solid #29405b;color:#eef6ff;border-radius:10px;padding:11px 12px;font:inherit;outline:none}
+.customize-field textarea{min-height:86px;resize:vertical}
+.customize-field input:focus,.customize-field textarea:focus{border-color:#20d9a3}
+.customize-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.customize-btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer}
+.customize-btn.primary{background:#20d9a3;color:#04120d}
+.customize-btn.secondary{background:#17283d;color:#dbe7f3;border:1px solid #29405b}
+.customize-result{display:none;margin-top:20px;background:#071321;border:1px solid #29405b;border-radius:12px;padding:16px}
+.customize-result.open{display:block}
+.customize-result pre{white-space:pre-wrap;margin:0;color:#e7eef7;font:inherit;line-height:1.65}
+.customize-copy{margin-top:12px}
+@media(max-width:650px){.customize-form{grid-template-columns:1fr}.customize-field.full{grid-column:auto}.customize-head h3{font-size:18px}}
+
 </style>
 </head>
 <body>
@@ -815,12 +842,20 @@ function renderPrompts(){
       <div class="prompt">${isPro?"🔒 PROMPT PRO\n\n"+text:text}</div>
       ${isPro?'<div class="locked">🚀 Ce prompt avancé fait partie de la bibliothèque Proxigo PRO.</div>':""}
       <div class="card-actions">
-        ${isPro?'<a href="index.html#inscription" class="btn pro-link">🔓 Passer à PRO</a>':'<button class="btn copy">📋 Copier</button>'}
+        ${isPro?'<a href="index.html#inscription" class="btn pro-link">🔓 Passer à PRO</a>':'<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn copy">📋 Copier</button><button class="btn customize-prompt" type="button">✨ Personnaliser</button></div>'}
       </div>`;
     grid.appendChild(card);
   });
 
   empty.style.display=count===0?"block":"none";
+
+
+  grid.querySelectorAll(".customize-prompt").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const text=button.closest(".card").querySelector(".prompt").innerText;
+      openCustomizer(text);
+    });
+  });
 
   grid.querySelectorAll(".copy").forEach(button=>{
     button.addEventListener("click",async()=>{
@@ -863,6 +898,110 @@ document.querySelectorAll(".category").forEach(button=>{
 
 searchInput.addEventListener("input",renderPrompts);
 renderPrompts();
+
+/* Proxigo personalization V1: replaces prompt placeholders with the professional's information. */
+const customizeBackdrop=document.getElementById("customizeBackdrop");
+const customizeClose=document.getElementById("customizeClose");
+const customizeCancel=document.getElementById("customizeCancel");
+const customizeGenerate=document.getElementById("customizeGenerate");
+const customizeCopy=document.getElementById("customizeCopy");
+const customizeResult=document.getElementById("customizeResult");
+const customizeOutput=document.getElementById("customizeOutput");
+let customizeSourceText="";
+
+function openCustomizer(promptText){
+  customizeSourceText=promptText;
+  customizeResult.classList.remove("open");
+  customizeOutput.textContent="";
+  customizeBackdrop.classList.add("open");
+  customizeBackdrop.setAttribute("aria-hidden","false");
+  document.getElementById("custProfession").focus();
+}
+
+function closeCustomizer(){
+  customizeBackdrop.classList.remove("open");
+  customizeBackdrop.setAttribute("aria-hidden","true");
+}
+
+function personalizePrompt(){
+  const values={
+    "[ENTREPRISE]":document.getElementById("custBusiness").value.trim() || "[ENTREPRISE]",
+    "[VILLE]":document.getElementById("custCity").value.trim() || "[VILLE]",
+    "[X]":document.getElementById("custRadius").value.trim() || "[X]",
+    "[SERVICES]":document.getElementById("custServices").value.trim() || "[SERVICES]",
+    "[OBJECTIF]":document.getElementById("custObjective").value.trim() || "[OBJECTIF]",
+    "[MÉTIER]":document.getElementById("custProfession").value.trim() || "[MÉTIER]",
+    "[PROFESSION]":document.getElementById("custProfession").value.trim() || "[PROFESSION]"
+  };
+  let result=customizeSourceText;
+  Object.keys(values).forEach(key=>{result=result.split(key).join(values[key]);});
+  customizeOutput.textContent=result;
+  customizeResult.classList.add("open");
+}
+
+customizeGenerate.addEventListener("click",personalizePrompt);
+customizeClose.addEventListener("click",closeCustomizer);
+customizeCancel.addEventListener("click",closeCustomizer);
+customizeBackdrop.addEventListener("click",e=>{if(e.target===customizeBackdrop)closeCustomizer();});
+customizeCopy.addEventListener("click",async()=>{
+  try{
+    await navigator.clipboard.writeText(customizeOutput.textContent);
+    const old=customizeCopy.textContent;
+    customizeCopy.textContent="✅ Copié !";
+    setTimeout(()=>customizeCopy.textContent=old,1800);
+  }catch(e){
+    alert("Impossible de copier automatiquement. Sélectionnez le texte et copiez-le manuellement.");
+  }
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCustomizer();});
+
 </script>
+
+<div class="customize-backdrop" id="customizeBackdrop" aria-hidden="true">
+  <section class="customize-modal" role="dialog" aria-modal="true" aria-labelledby="customizeTitle">
+    <div class="customize-head">
+      <h3 id="customizeTitle">✨ Personnaliser mon prompt</h3>
+      <button class="customize-close" id="customizeClose" type="button">✕</button>
+    </div>
+    <div class="customize-body">
+      <p class="customize-sub">Donnez quelques informations sur votre entreprise et Proxigo adaptera le prompt à votre activité.</p>
+      <div class="customize-form">
+        <div class="customize-field">
+          <label for="custBusiness">Nom de l'entreprise</label>
+          <input id="custBusiness" placeholder="Ex. Didi Facility Services">
+        </div>
+        <div class="customize-field">
+          <label for="custProfession">Métier</label>
+          <input id="custProfession" placeholder="Ex. nettoyage">
+        </div>
+        <div class="customize-field">
+          <label for="custCity">Ville / région</label>
+          <input id="custCity" placeholder="Ex. La Louvière, Hainaut">
+        </div>
+        <div class="customize-field">
+          <label for="custRadius">Zone d'intervention</label>
+          <input id="custRadius" placeholder="Ex. 30 km">
+        </div>
+        <div class="customize-field full">
+          <label for="custServices">Services proposés</label>
+          <textarea id="custServices" placeholder="Ex. nettoyage bureaux, vitres, après travaux..."></textarea>
+        </div>
+        <div class="customize-field full">
+          <label for="custObjective">Objectif</label>
+          <input id="custObjective" placeholder="Ex. trouver 10 nouveaux clients professionnels">
+        </div>
+      </div>
+      <div class="customize-actions">
+        <button class="customize-btn secondary" id="customizeCancel" type="button">Annuler</button>
+        <button class="customize-btn primary" id="customizeGenerate" type="button">✨ Générer mon prompt</button>
+      </div>
+      <div class="customize-result" id="customizeResult">
+        <pre id="customizeOutput"></pre>
+        <button class="customize-btn primary customize-copy" id="customizeCopy" type="button">📋 Copier le prompt personnalisé</button>
+      </div>
+    </div>
+  </section>
+</div>
+
 </body>
 </html>
