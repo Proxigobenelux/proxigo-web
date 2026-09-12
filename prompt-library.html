@@ -990,7 +990,7 @@ async function personalizePrompt(){
       if(response.status===401){
         throw new Error("Vous devez être connecté pour utiliser Proxigo AI.");
       }
-
+     if(!response.ok){
       if(response.status===403){
         throw new Error("Cette fonctionnalité IA est réservée aux abonnements PRO et BUSINESS.");
       }
