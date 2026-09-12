@@ -969,7 +969,7 @@ async function personalizePrompt(){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          user_id: localStorage.getItem("proxigo_user_id"),
+          user_id: (await supabaseClient.auth.getSession()).data.session?.user?.id || null,
           business,
           profession,
           city,
