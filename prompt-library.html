@@ -900,16 +900,21 @@ searchInput.addEventListener("input",renderPrompts);
 renderPrompts();
 
 /* Proxigo personalization V1: replaces prompt placeholders with the professional's information. */
-const customizeBackdrop=document.getElementById("customizeBackdrop");
-const customizeClose=document.getElementById("customizeClose");
-const customizeCancel=document.getElementById("customizeCancel");
-const customizeGenerate=document.getElementById("customizeGenerate");
-const customizeCopy=document.getElementById("customizeCopy");
-const customizeResult=document.getElementById("customizeResult");
-const customizeOutput=document.getElementById("customizeOutput");
+let customizeBackdrop, customizeClose, customizeCancel, customizeGenerate, customizeCopy, customizeResult, customizeOutput;
 let customizeSourceText="";
 
+function initCustomizer(){
+  customizeBackdrop=document.getElementById("customizeBackdrop");
+  customizeClose=document.getElementById("customizeClose");
+  customizeCancel=document.getElementById("customizeCancel");
+  customizeGenerate=document.getElementById("customizeGenerate");
+  customizeCopy=document.getElementById("customizeCopy");
+  customizeResult=document.getElementById("customizeResult");
+  customizeOutput=document.getElementById("customizeOutput");
+}
+
 function openCustomizer(promptText){
+  if(!customizeBackdrop) initCustomizer();
   customizeSourceText=promptText;
   customizeResult.classList.remove("open");
   customizeOutput.textContent="";
@@ -919,11 +924,13 @@ function openCustomizer(promptText){
 }
 
 function closeCustomizer(){
+  if(!customizeBackdrop) initCustomizer();
   customizeBackdrop.classList.remove("open");
   customizeBackdrop.setAttribute("aria-hidden","true");
 }
 
 function personalizePrompt(){
+  if(!customizeBackdrop) initCustomizer();
   const values={
     "[ENTREPRISE]":document.getElementById("custBusiness").value.trim() || "[ENTREPRISE]",
     "[VILLE]":document.getElementById("custCity").value.trim() || "[VILLE]",
@@ -939,21 +946,24 @@ function personalizePrompt(){
   customizeResult.classList.add("open");
 }
 
-customizeGenerate.addEventListener("click",personalizePrompt);
-customizeClose.addEventListener("click",closeCustomizer);
-customizeCancel.addEventListener("click",closeCustomizer);
-customizeBackdrop.addEventListener("click",e=>{if(e.target===customizeBackdrop)closeCustomizer();});
-customizeCopy.addEventListener("click",async()=>{
-  try{
-    await navigator.clipboard.writeText(customizeOutput.textContent);
-    const old=customizeCopy.textContent;
-    customizeCopy.textContent="✅ Copié !";
-    setTimeout(()=>customizeCopy.textContent=old,1800);
-  }catch(e){
-    alert("Impossible de copier automatiquement. Sélectionnez le texte et copiez-le manuellement.");
-  }
+document.addEventListener("DOMContentLoaded",()=>{
+  initCustomizer();
+  customizeGenerate.addEventListener("click",personalizePrompt);
+  customizeClose.addEventListener("click",closeCustomizer);
+  customizeCancel.addEventListener("click",closeCustomizer);
+  customizeBackdrop.addEventListener("click",e=>{if(e.target===customizeBackdrop)closeCustomizer();});
+  customizeCopy.addEventListener("click",async()=>{
+    try{
+      await navigator.clipboard.writeText(customizeOutput.textContent);
+      const old=customizeCopy.textContent;
+      customizeCopy.textContent="✅ Copié !";
+      setTimeout(()=>customizeCopy.textContent=old,1800);
+    }catch(e){
+      alert("Impossible de copier automatiquement. Sélectionnez le texte et copiez-le manuellement.");
+    }
+  });
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCustomizer();});
 });
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCustomizer();});
 
 </script>
 
