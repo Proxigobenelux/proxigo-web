@@ -65,6 +65,18 @@ footer{border-top:1px solid rgba(255,255,255,.1);padding:30px 0;text-align:cente
 @media(max-width:650px){.customize-form{grid-template-columns:1fr}.customize-field.full{grid-column:auto}.customize-head h3{font-size:18px}}
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://iyexxyhfuclwzftknynk.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY ="sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+</script>  
 </head>
 <body>
 <header><div class="container nav">
