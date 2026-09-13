@@ -1821,6 +1821,33 @@ const tenderJob = document.getElementById("tenderJob");
 const tenderCountry = document.getElementById("tenderCountry");
 const tenderResults = document.getElementById("tenderResults");
 
+function isTenderActive(item) {
+    if (!item.deadline) return true;
+
+    const deadline = new Date(item.deadline);
+
+    // Si la date est invalide, on conserve l'offre
+    if (Number.isNaN(deadline.getTime())) return true;
+
+    return deadline > new Date();
+}
+
+function formatTenderDeadline(value) {
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(value);
+    }
+
+    return date.toLocaleString("fr-BE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
 if (searchTendersButton) {
     searchTendersButton.addEventListener("click", async () => {
 
@@ -1838,132 +1865,166 @@ if (searchTendersButton) {
         tenderResults.style.display = "block";
         tenderResults.innerHTML = "<p>Recherche des appels d'offres en cours...</p>";
 
-        const data = await rechercherAppelsOffres(job, country, 20);
+        try {
+            // On demande 50 résultats afin d'avoir plus de chances
+            // d'obtenir 20 appels d'offres encore ouverts.
+            const data = await rechercherAppelsOffres(job, country, 50);
 
-        searchTendersButton.disabled = false;
-        searchTendersButton.textContent = "Rechercher des appels d'offres";
+            if (!data || data.status !== "ok") {
+                tenderResults.innerHTML = `
+                    <p style="color:#ff6b6b;">
+                        Impossible de récupérer les appels d'offres pour le moment.
+                    </p>
+                `;
+                return;
+            }
 
-        if (data.status !== "ok") {
-            tenderResults.innerHTML =
-                "<p>Une erreur est survenue pendant la recherche.</p>";
-            return;
-        }
+            // Suppression automatique des appels d'offres expirés
+            const activeOpportunities = (data.opportunities || [])
+                .filter(isTenderActive)
+                .slice(0, 20);
 
-        if (!data.opportunities || data.opportunities.length === 0) {
-            tenderResults.innerHTML =
-                "<p>Aucun appel d'offres trouvé pour cette recherche.</p>";
-            return;
-        }
-
-        tenderResults.innerHTML = `
-            <h3>${data.count} appel(s) d'offres trouvé(s)</h3>
-            <div class="proxigo-tender-list">
-              ${data.opportunities.map((item, index) => `
-                    <div
-    class="proxigo-tender-card"
-    data-tender-index="${index}"
-    style="
-        display:${index < 5 ? "block" : "none"};
-                        padding:18px;
-                        margin:15px 0;
-                        border:1px solid rgba(255,255,255,.15);
+            if (!activeOpportunities.length) {
+                tenderResults.innerHTML = `
+                    <div style="
+                        padding:20px;
                         border-radius:12px;
-                        background:rgba(255,255,255,.04);
+                        background:rgba(255,255,255,0.05);
+                        text-align:center;
                     ">
-                        <div style="
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:flex-start;
-    margin-bottom:12px;
-">
-    <span style="
-        display:inline-block;
-        padding:5px 10px;
-        border-radius:999px;
-        background:rgba(34,214,163,.12);
-        border:1px solid rgba(34,214,163,.35);
-        font-size:12px;
-        font-weight:700;
-    ">
-        ${escapeTenderHtml(
-            tenderCountry.options[tenderCountry.selectedIndex]?.text ||
-            "Europe"
-        )}
-    </span>
-
-    <span style="
-        font-size:12px;
-        opacity:.75;
-    ">
-        ${escapeTenderHtml(item.source_name || "Source publique")}
-    </span>
-</div>
-
-<h3 style="
-    font-size:18px;
-    line-height:1.4;
-    margin:0 0 12px 0;
-">
-    ${escapeTenderHtml(item.title || "Appel d'offres")}
-</h3>
-
-${item.relevance_score !== undefined ? `
-    <div style="
-        margin:6px 0 10px 0;
-        font-size:14px;
-        font-weight:700;
-    ">
-        🎯 Pertinence : ${escapeTenderHtml(item.relevance_score)} / 100
-        — ${escapeTenderHtml(item.relevance_label || "À vérifier")}
-    </div>
-` : ""}
-
-${item.organism ? `
-    <p style="margin:8px 0;">
-        <strong>🏢 Organisme :</strong>
-        ${escapeTenderHtml(item.organism)}
-    </p>
-` : ""}
-
-<p style="
-    margin:8px 0 16px 0;
-    opacity:.8;
-    font-size:14px;
-">
-    <strong>📡 Source :</strong>
-    ${escapeTenderHtml(item.source_name || "Non précisée")}
-</p>
-
-${item.source_url ? `
-    <a
-        href="${escapeTenderUrl(item.source_url)}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-primary"
-        style="
-            display:inline-block;
-            margin-top:6px;
-        "
-    >
-        Voir l'appel d'offres ↗
-    </a>
-` : ""}
+                        <p style="font-size:18px;font-weight:700;">
+                            Aucun appel d'offres encore ouvert
+                        </p>
+                        <p>
+                            Aucun appel d'offres avec une date limite valide
+                            n'a été trouvé pour cette recherche.
+                        </p>
                     </div>
-                `).join("")}
-            </div>
-            ${data.opportunities.length > 5 ? `
-    <div style="text-align:center; margin-top:22px;">
-        <button
-            type="button"
-            id="showMoreTenders"
-            class="btn btn-primary"
-        >
-            Voir plus d'appels d'offres
-        </button>
-    </div>
-` : ""}
-        `;
+                `;
+                return;
+            }
+
+            tenderResults.innerHTML = `
+                <h3 style="margin-bottom:20px;">
+                    ${activeOpportunities.length} appel(s) d'offres trouvé(s)
+                </h3>
+
+                <div class="proxigo-tender-list">
+
+                    ${activeOpportunities.map((item, index) => {
+
+                        const title = item.title || "Appel d'offres";
+                        const organism = item.organism || item.buyer || "Organisme non précisé";
+                        const source = item.source_name || item.source || "Source non précisée";
+                        const relevance = item.relevance ?? item.score ?? null;
+                        const sourceUrl = item.source_url || item.url || "#";
+
+                        return `
+                            <div class="proxigo-tender-card"
+                                 style="
+                                    margin-bottom:18px;
+                                    padding:20px;
+                                    border-radius:14px;
+                                    background:rgba(255,255,255,0.05);
+                                 ">
+
+                                <h4 style="
+                                    margin:0 0 12px 0;
+                                    font-size:18px;
+                                ">
+                                    ${escapeTenderHtml(title)}
+                                </h4>
+
+                                ${
+                                    relevance !== null
+                                    ? `
+                                        <p style="
+                                            margin:0 0 10px 0;
+                                            font-weight:700;
+                                        ">
+                                            🎯 Pertinence :
+                                            ${escapeTenderHtml(String(relevance))}/100
+                                        </p>
+                                    `
+                                    : ""
+                                }
+
+                                <p style="margin:8px 0;">
+                                    🏢 <strong>Organisme :</strong>
+                                    ${escapeTenderHtml(organism)}
+                                </p>
+
+                                <p style="margin:8px 0;">
+                                    📌 <strong>Source :</strong>
+                                    ${escapeTenderHtml(source)}
+                                </p>
+
+                                ${
+                                    item.deadline
+                                    ? `
+                                        <p style="
+                                            margin:12px 0;
+                                            font-weight:700;
+                                        ">
+                                            📅 Date limite :
+                                            ${escapeTenderHtml(
+                                                formatTenderDeadline(item.deadline)
+                                            )}
+                                        </p>
+                                    `
+                                    : ""
+                                }
+
+                                <div style="margin-top:16px;">
+                                    <a
+                                        href="${escapeTenderHtml(sourceUrl)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style="font-weight:700;"
+                                    >
+                                        Voir l'appel d'offres ↗
+                                    </a>
+                                </div>
+
+                            </div>
+                        `;
+                    }).join("")}
+
+                </div>
+
+                ${
+                    activeOpportunities.length > 5
+                    ? `
+                        <div style="text-align:center;margin-top:20px;">
+                            <button
+                                id="showMoreTenders"
+                                type="button"
+                                class="btn btn-primary"
+                            >
+                                Voir plus d'appels d'offres
+                            </button>
+                        </div>
+                    `
+                    : ""
+                }
+            `;
+
+        } catch (error) {
+
+            console.error("Erreur recherche appels d'offres :", error);
+
+            tenderResults.innerHTML = `
+                <p style="color:#ff6b6b;">
+                    Une erreur est survenue pendant la recherche.
+                </p>
+            `;
+
+        } finally {
+
+            searchTendersButton.disabled = false;
+            searchTendersButton.textContent = "Rechercher des appels d'offres";
+
+        }
     });
 }
 if (tenderResults) {
