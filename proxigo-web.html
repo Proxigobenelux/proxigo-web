@@ -970,7 +970,7 @@
 
   </footer>
 <script>
-document.getElementById("webSiteForm").addEventListener("submit", function(e) {
+document.getElementById("webSiteForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const name = document.getElementById("webName").value.trim();
@@ -986,7 +986,46 @@ document.getElementById("webSiteForm").addEventListener("submit", function(e) {
     alert("Merci de remplir tous les champs obligatoires.");
     return;
   }
+  try {
+    const response = await fetch(
+      "https://proxigo-ai-assistant.onrender.com/web-requests",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          company: company,
+          phone: phone,
+          email: email,
+          activity: activity,
+          offer: offer,
+          domain: domain,
+          description: description
+        })
+      }
+    );
 
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail || "Impossible d'enregistrer la demande."
+      );
+    }
+
+    console.log("Demande Proxigo Web enregistrée :", data);
+
+  } catch (error) {
+    console.error("Erreur Proxigo Web :", error);
+
+    alert(
+      "Votre demande n'a pas pu être enregistrée. Veuillez réessayer."
+    );
+
+    return;
+  }
   const message =
 `NOUVELLE DEMANDE PROXIGO WEB
 
