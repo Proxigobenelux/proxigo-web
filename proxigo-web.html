@@ -825,26 +825,126 @@
 
 
     <!-- CONTACT -->
-    <section id="contact" class="cta">
+    <!-- CONTACT / DEMANDE DE SITE -->
+<section id="contact" class="web-form-section">
 
-      <div class="container">
+  <div class="container">
 
-        <h2>Prêt à créer votre site ?</h2>
+    <div class="section-title">
+      <h2>Demandez votre site professionnel</h2>
+      <p>
+        Décrivez-nous votre activité et le site dont vous avez besoin.
+        L'équipe Proxigo vous recontactera pour préparer votre projet.
+      </p>
+    </div>
 
-        <p>
-          Donnez une vraie présence professionnelle à votre activité.
-        </p>
+    <form class="web-form" id="webSiteForm">
 
-        <a
-          href="https://wa.me/32466186651?text=Bonjour%20Proxigo%2C%20je%20souhaite%20cr%C3%A9er%20un%20site%20professionnel."
-          class="btn btn-primary"
-          target="_blank">
-          💬 Demander mon site sur WhatsApp
-        </a>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="webName">Nom / Prénom *</label>
+          <input
+            type="text"
+            id="webName"
+            name="name"
+            placeholder="Votre nom"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="webCompany">Entreprise</label>
+          <input
+            type="text"
+            id="webCompany"
+            name="company"
+            placeholder="Nom de votre entreprise">
+        </div>
+
+        <div class="form-group">
+          <label for="webPhone">Téléphone *</label>
+          <input
+            type="tel"
+            id="webPhone"
+            name="phone"
+            placeholder="+32 ..."
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="webEmail">E-mail *</label>
+          <input
+            type="email"
+            id="webEmail"
+            name="email"
+            placeholder="vous@entreprise.com"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="webActivity">Votre activité *</label>
+          <input
+            type="text"
+            id="webActivity"
+            name="activity"
+            placeholder="Plombier, nettoyage, transport..."
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="webOffer">Formule souhaitée *</label>
+          <select id="webOffer" name="offer" required>
+            <option value="">Choisissez une formule</option>
+            <option value="STARTER">STARTER — 499€ HT</option>
+            <option value="PRO">PRO — 899€ HT</option>
+            <option value="BUSINESS">BUSINESS — 1 499€ HT</option>
+            <option value="A définir">Je ne sais pas encore</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="webDomain">Nom de domaine souhaité</label>
+          <input
+            type="text"
+            id="webDomain"
+            name="domain"
+            placeholder="exemple.be ou exemple.com">
+        </div>
+
+        <div class="form-group full">
+          <label for="webDescription">
+            Parlez-nous de votre projet *
+          </label>
+
+          <textarea
+            id="webDescription"
+            name="description"
+            placeholder="Présentez votre activité, vos services et ce que vous souhaitez avoir sur votre site..."
+            required></textarea>
+        </div>
 
       </div>
 
-    </section>
+      <button
+        type="submit"
+        class="btn btn-primary form-submit">
+        🚀 Demander mon site
+      </button>
+
+      <p class="form-note">
+        Vos informations sont utilisées uniquement pour traiter votre demande.
+      </p>
+
+      <div
+        id="webFormMessage"
+        style="display:none; margin-top:20px; text-align:center; font-weight:700;">
+      </div>
+
+    </form>
+
+  </div>
+
+</section>
 
   </main>
 
