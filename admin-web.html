@@ -606,7 +606,32 @@
           request.email || "Non renseigné"
         )}
         <br>
+        <div style="margin:15px 0; display:flex; gap:10px; flex-wrap:wrap;">
 
+  <a
+    href="tel:${request.phone || ""}"
+    style="background:#20c997; color:#07110d; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;"
+  >
+    Appeler
+  </a>
+
+  <a
+    href="https://wa.me/${(request.phone || "").replace(/\D/g, "")}"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="background:#20c997; color:#07110d; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;"
+  >
+    WhatsApp
+  </a>
+
+  <a
+    href="mailto:${request.email || ""}"
+    style="background:#20c997; color:#07110d; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;"
+  >
+    Email
+  </a>
+
+</div>
         <strong>Activité :</strong>
         ${escapeHtml(
           request.activity || "Non renseignée"
