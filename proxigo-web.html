@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Proxigo Web — Votre site professionnel clé en main</title>
+
+  <meta name="description"
+        content="Proxigo Web crée votre site professionnel clé en main pour développer votre activité en Belgique, France, Luxembourg et aux Pays-Bas.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07111f;
+      color: #f4f7fb;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 17, 31, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #2f66ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #c8d1df;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .nav-btn {
+      background: #2f66ff;
+      padding: 11px 17px;
+      border-radius: 9px;
+      color: white !important;
+      font-weight: 700;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 85px;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(47,102,255,0.18), transparent 45%);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid rgba(47,102,255,0.5);
+      border-radius: 30px;
+      color: #8eaeff;
+      background: rgba(47,102,255,0.08);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.05;
+      max-width: 900px;
+      margin: auto;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: #2f66ff;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 25px auto 35px;
+      color: #aeb9c9;
+      font-size: 19px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #2f66ff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: white;
+    }
+
+    /* SECTION */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: #9eabbd;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    /* SERVICES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      background: #0c192a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .feature-icon {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .feature p {
+      color: #9eabbd;
+      font-size: 15px;
+    }
+
+    /* PRICING */
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      position: relative;
+      background: #0c192a;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 32px;
+    }
+
+    .price-card.popular {
+      border: 2px solid #2f66ff;
+      transform: translateY(-8px);
+    }
+
+    .popular-label {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2f66ff;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .price-card h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .price-description {
+      color: #9eabbd;
+      font-size: 14px;
+      min-height: 48px;
+    }
+
+    .price {
+      font-size: 42px;
+      font-weight: 900;
+      margin: 22px 0;
+    }
+
+    .price small {
+      font-size: 14px;
+      color: #9eabbd;
+      font-weight: normal;
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .price-card li {
+      padding: 8px 0;
+      color: #d4dce7;
+      font-size: 14px;
+    }
+
+    .price-card li::before {
+      content: "✓";
+      color: #22d6a3;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .full-btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* PROCESS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #2f66ff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #9eabbd;
+      font-size: 14px;
+    }
+
+    /* PAYMENT */
+    .payment-box {
+      background: linear-gradient(
+        135deg,
+        rgba(47,102,255,0.15),
+        rgba(34,214,163,0.08)
+      );
+      border: 1px solid rgba(47,102,255,0.25);
+      border-radius: 20px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .payment-box h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .payment-box p {
+      max-width: 700px;
+      margin: auto;
+      color: #b8c3d2;
+    }
+
+    .payment-highlight {
+      margin-top: 25px;
+      font-size: 23px;
+      font-weight: 900;
+      color: #22d6a3;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 90px 0;
+    }
+
+    .cta h2 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #9eabbd;
+      margin-bottom: 30px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 35px 0;
+      color: #8996a8;
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      nav {
+        display: none;
+      }
+
+      .features,
+      .pricing,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.popular {
+        transform: none;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .payment-box {
+        padding: 35px 20px;
+      }
+
+      .cta h2 {
+        font-size: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+
+      <a href="index.html" class="logo">
+        PROXI<span>GO</span>
+      </a>
+
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#offres">Offres</a>
+        <a href="#fonctionnement">Comment ça marche</a>
+        <a href="#contact" class="nav-btn">Créer mon site</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero">
+      <div class="container">
+
+        <div class="badge">
+          PROXIGO WEB — CRÉATION DE SITES PROFESSIONNELS
+        </div>
+
+        <h1>
+          Votre activité mérite
+          <span>un vrai site professionnel.</span>
+        </h1>
+
+        <p>
+          Nous créons votre site internet clé en main,
+          moderne, rapide et adapté aux téléphones.
+          Vous vous concentrez sur votre activité,
+          Proxigo s'occupe du reste.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#offres" class="btn btn-primary">
+            Voir les offres
+          </a>
+
+          <a href="#contact" class="btn btn-secondary">
+            Demander mon site
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Un site qui travaille pour vous</h2>
+          <p>
+            Tout ce dont un professionnel a besoin pour présenter
+            son activité et recevoir de nouveaux clients.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">🖥️</div>
+            <h3>Site professionnel</h3>
+            <p>
+              Une présentation moderne de votre entreprise,
+              vos services, vos réalisations et vos coordonnées.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📱</div>
+            <h3>100% mobile</h3>
+            <p>
+              Votre site s'adapte automatiquement aux smartphones,
+              tablettes et ordinateurs.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">💬</div>
+            <h3>WhatsApp & Contact</h3>
+            <p>
+              Vos clients peuvent vous contacter rapidement
+              par formulaire, téléphone ou WhatsApp.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📍</div>
+            <h3>Localisation</h3>
+            <p>
+              Intégration de votre zone d'activité et possibilité
+              d'afficher votre emplacement sur une carte.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🔎</div>
+            <h3>SEO de base</h3>
+            <p>
+              Structure optimisée pour aider les clients à trouver
+              votre entreprise sur les moteurs de recherche.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <h3>Mise en ligne</h3>
+            <p>
+              Nous préparons votre site et vous accompagnons
+              jusqu'à sa mise en ligne.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- OFFRES -->
+    <section id="offres">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Choisissez votre formule</h2>
+          <p>
+            Des offres simples pour les indépendants,
+            entreprises et professionnels.
+          </p>
+        </div>
+
+        <div class="pricing">
+
+          <!-- STARTER -->
+          <div class="price-card">
+
+            <h3>STARTER</h3>
+
+            <p class="price-description">
+              Pour démarrer rapidement sur internet.
+            </p>
+
+            <div class="price">
+              499€ <small>HT</small>
+            </div>
+
+            <ul>
+              <li>Site de 1 à 5 pages</li>
+              <li>Design professionnel</li>
+              <li>Compatible mobile</li>
+              <li>Présentation des services</li>
+              <li>Formulaire de contact</li>
+              <li>WhatsApp</li>
+              <li>Mise en ligne</li>
+              <li>SEO de base</li>
+            </ul>
+
+            <a href="#contact" class="btn btn-secondary full-btn">
+              Choisir STARTER
+            </a>
+
+          </div>
+
+
+          <!-- PRO -->
+          <div class="price-card popular">
+
+            <div class="popular-label">
+              LE PLUS CHOISI
+            </div>
+
+            <h3>PRO</h3>
+
+            <p class="price-description">
+              Pour développer votre visibilité et obtenir plus de contacts.
+            </p>
+
+            <div class="price">
+              899€ <small>HT</small>
+            </div>
+
+            <ul>
+              <li>Tout le pack STARTER</li>
+              <li>Design personnalisé</li>
+              <li>Demande de devis</li>
+              <li>Carte Google Maps</li>
+              <li>WhatsApp professionnel</li>
+              <li>SEO renforcé</li>
+              <li>Optimisation mobile</li>
+              <li>Configuration du domaine</li>
+            </ul>
+
+            <a href="#contact" class="btn btn-primary full-btn">
+              Choisir PRO
+            </a>
+
+          </div>
+
+
+          <!-- BUSINESS -->
+          <div class="price-card">
+
+            <h3>BUSINESS</h3>
+
+            <p class="price-description">
+              Pour les entreprises qui veulent aller plus loin.
+            </p>
+
+            <div class="price">
+              1 499€ <small>HT</small>
+            </div>
+
+            <ul>
+              <li>Tout le pack PRO</li>
+              <li>Réservation en ligne</li>
+              <li>Paiement en ligne</li>
+              <li>Espace client</li>
+              <li>Automatisations</li>
+              <li>Fonctionnalités personnalisées</li>
+              <li>Formulaires avancés</li>
+              <li>Accompagnement au lancement</li>
+            </ul>
+
+            <a href="#contact" class="btn btn-secondary full-btn">
+              Choisir BUSINESS
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FONCTIONNEMENT -->
+    <section id="fonctionnement">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Comment ça marche ?</h2>
+          <p>
+            Un processus simple, sans complication technique.
+          </p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Vous nous contactez</h3>
+            <p>
+              Vous nous expliquez votre activité et vos besoins.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Nous créons</h3>
+            <p>
+              Notre équipe prépare votre site et son contenu.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Vous validez</h3>
+            <p>
+              Vous vérifiez le résultat et demandez vos éventuelles
+              modifications.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Mise en ligne</h3>
+            <p>
+              Votre site est publié et prêt à recevoir vos clients.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PAIEMENT -->
+    <section>
+      <div class="container">
+
+        <div class="payment-box">
+
+          <h2>Vous payez à la livraison</h2>
+
+          <p>
+            Notre objectif est simple : vous permettre de voir votre
+            site avant de finaliser le paiement, selon les conditions
+            prévues dans votre devis ou contrat.
+          </p>
+
+          <div class="payment-highlight">
+            Création → Validation → Livraison → Paiement
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="cta">
+
+      <div class="container">
+
+        <h2>Prêt à créer votre site ?</h2>
+
+        <p>
+          Donnez une vraie présence professionnelle à votre activité.
+        </p>
+
+        <a
+          href="https://wa.me/32466186651?text=Bonjour%20Proxigo%2C%20je%20souhaite%20cr%C3%A9er%20un%20site%20professionnel."
+          class="btn btn-primary"
+          target="_blank">
+          💬 Demander mon site sur WhatsApp
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container footer-content">
+
+      <div>
+        © 2026 Proxigo Benelux — Proxigo Web
+      </div>
+
+      <div>
+        Création de sites professionnels clé en main.
+      </div>
+
+      <div>
+        <a href="index.html">← Retour à Proxigo</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
