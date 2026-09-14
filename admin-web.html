@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Proxigo — Administration Web</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f14;
+      color: #ffffff;
+    }
+
+    header {
+      background: #111821;
+      border-bottom: 1px solid #26313d;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font-weight: bold;
+    }
+
+    .logout {
+      background: #dc3545;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .login-box {
+      max-width: 420px;
+      margin: 80px auto;
+      background: #111821;
+      border: 1px solid #26313d;
+      border-radius: 14px;
+      padding: 30px;
+    }
+
+    .login-box h2 {
+      margin-top: 0;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid #344150;
+      background: #0b0f14;
+      color: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .login-button {
+      width: 100%;
+      background: #20c997;
+      color: #07110d;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .error {
+      background: #3a151a;
+      color: #ffb3bb;
+    }
+
+    .success {
+      background: #123b2d;
+      color: #9ff0c9;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: #111821;
+      border: 1px solid #26313d;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      margin-top: 6px;
+    }
+
+    .request {
+      background: #111821;
+      border: 1px solid #26313d;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .request-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .request h3 {
+      margin: 0 0 8px;
+    }
+
+    .date {
+      color: #9ba8b5;
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #26313d;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .details {
+      margin-top: 18px;
+      line-height: 1.7;
+    }
+
+    .description {
+      background: #0b0f14;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      white-space: pre-wrap;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #9ba8b5;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PROXIGO — Administration Web</h1>
+  <button id="logoutButton" class="logout" style="display:none;">
+    Déconnexion
+  </button>
+</header>
+
+<!-- ========================= -->
+<!-- CONNEXION -->
+<!-- ========================= -->
+
+<section id="loginSection" class="login-box">
+
+  <h2>Connexion administrateur</h2>
+
+  <p>
+    Connectez-vous avec votre compte Proxigo.
+  </p>
+
+  <label>Email</label>
+  <input
+    type="email"
+    id="email"
+    placeholder="Votre adresse email"
+    autocomplete="email"
+  >
+
+  <label>Mot de passe</label>
+  <input
+    type="password"
+    id="password"
+    placeholder="Votre mot de passe"
+    autocomplete="current-password"
+  >
+
+  <button id="loginButton" class="login-button">
+    Se connecter
+  </button>
+
+  <div id="loginMessage" class="message"></div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- TABLEAU DE BORD -->
+<!-- ========================= -->
+
+<section id="dashboard" class="dashboard">
+
+  <div class="container">
+
+    <div class="topbar">
+
+      <div>
+        <h2>Demandes Proxigo Web</h2>
+        <p id="adminEmail"></p>
+      </div>
+
+      <button id="refreshButton">
+        Actualiser
+      </button>
+
+    </div>
+
+
+    <div class="stats">
+
+      <div class="stat">
+        Total
+        <strong id="statTotal">0</strong>
+      </div>
+
+      <div class="stat">
+        NEW
+        <strong id="statNew">0</strong>
+      </div>
+
+      <div class="stat">
+        Contacté
+        <strong id="statContacted">0</strong>
+      </div>
+
+      <div class="stat">
+        Devis envoyé
+        <strong id="statQuote">0</strong>
+      </div>
+
+      <div class="stat">
+        En cours / Terminé
+        <strong id="statProgress">0</strong>
+      </div>
+
+    </div>
+
+
+    <div id="requestsContainer">
+      <div class="empty">
+        Chargement des demandes...
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+  // =====================================================
+  // CONFIGURATION SUPABASE
+  // =====================================================
+
+  const SUPABASE_URL =
+    "https://iyexxyhfuclwzftknynk.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  // =====================================================
+  // CONFIGURATION API PROXIGO
+  // =====================================================
+
+  const API_URL =
+    "https://proxigo-ai-assistant.onrender.com";
+
+
+  // =====================================================
+  // ELEMENTS
+  // =====================================================
+
+  const loginSection =
+    document.getElementById("loginSection");
+
+  const dashboard =
+    document.getElementById("dashboard");
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+  const logoutButton =
+    document.getElementById("logoutButton");
+
+  const refreshButton =
+    document.getElementById("refreshButton");
+
+  const loginMessage =
+    document.getElementById("loginMessage");
+
+  const requestsContainer =
+    document.getElementById("requestsContainer");
+
+
+  // =====================================================
+  // MESSAGE
+  // =====================================================
+
+  function showLoginMessage(message, type = "error") {
+
+    loginMessage.textContent = message;
+
+    loginMessage.className =
+      "message " + type;
+
+    loginMessage.style.display = "block";
+  }
+
+
+  // =====================================================
+  // CONNEXION
+  // =====================================================
+
+  loginButton.addEventListener("click", async () => {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    if (!email || !password) {
+
+      showLoginMessage(
+        "Veuillez remplir l'email et le mot de passe."
+      );
+
+      return;
+    }
+
+    loginButton.disabled = true;
+    loginButton.textContent = "Connexion...";
+
+    try {
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data.session) {
+        throw new Error(
+          "Aucune session d'authentification."
+        );
+      }
+
+      await loadDashboard();
+
+    } catch (error) {
+
+      console.error(error);
+
+      showLoginMessage(
+        error.message ||
+        "Connexion impossible."
+      );
+
+    } finally {
+
+      loginButton.disabled = false;
+      loginButton.textContent = "Se connecter";
+    }
+
+  });
+
+
+  // =====================================================
+  // CHARGER LE TABLEAU DE BORD
+  // =====================================================
+
+  async function loadDashboard() {
+
+    const {
+      data: {
+        session
+      }
+    } = await supabaseClient.auth.getSession();
+
+    if (!session) {
+
+      loginSection.style.display = "block";
+      dashboard.style.display = "none";
+      logoutButton.style.display = "none";
+
+      return;
+    }
+
+    loginSection.style.display = "none";
+    dashboard.style.display = "block";
+    logoutButton.style.display = "block";
+
+    document.getElementById("adminEmail").textContent =
+      "Connecté : " + session.user.email;
+
+    await loadRequests(session.access_token);
+  }
+
+
+  // =====================================================
+  // RECUPERER LES DEMANDES
+  // =====================================================
+
+  async function loadRequests(accessToken) {
+
+    requestsContainer.innerHTML =
+      '<div class="empty">Chargement...</div>';
+
+    try {
+
+      const response = await fetch(
+        API_URL + "/web-requests",
+        {
+          method: "GET",
+
+          headers: {
+            "Authorization":
+              "Bearer " + accessToken
+          }
+        }
+      );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.detail ||
+          "Impossible de récupérer les demandes."
+        );
+      }
+
+      renderRequests(
+        data.requests || []
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      requestsContainer.innerHTML =
+        '<div class="empty">' +
+        "Erreur : " +
+        escapeHtml(error.message) +
+        "</div>";
+    }
+  }
+
+
+  // =====================================================
+  // AFFICHAGE
+  // =====================================================
+
+  function renderRequests(requests) {
+
+    updateStats(requests);
+
+    if (!requests.length) {
+
+      requestsContainer.innerHTML =
+        '<div class="empty">' +
+        "Aucune demande Proxigo Web." +
+        "</div>";
+
+      return;
+    }
+
+    requestsContainer.innerHTML =
+      requests.map(renderRequest).join("");
+  }
+
+
+  function renderRequest(request) {
+
+    const created =
+      request.created_at
+        ? new Date(
+            request.created_at
+          ).toLocaleString("fr-FR")
+        : "";
+
+    const status =
+      request.status || "NEW";
+
+    return `
+      <article class="request">
+
+        <div class="request-header">
+
+          <div>
+            <h3>
+              ${escapeHtml(
+                request.name || "Sans nom"
+              )}
+            </h3>
+
+            <div class="date">
+              ${escapeHtml(created)}
+            </div>
+          </div>
+
+          <span class="badge">
+            ${escapeHtml(status)}
+          </span>
+
+        </div>
+
+        <div class="details">
+
+          <strong>Entreprise :</strong>
+          ${escapeHtml(
+            request.company || "Non renseignée"
+          )}
+          <br>
+
+          <strong>Téléphone :</strong>
+          ${escapeHtml(
+            request.phone || "Non renseigné"
+          )}
+          <br>
+
+          <strong>Email :</strong>
+          ${escapeHtml(
+            request.email || "Non renseigné"
+          )}
+          <br>
+
+          <strong>Activité :</strong>
+          ${escapeHtml(
+            request.activity || "Non renseignée"
+          )}
+          <br>
+
+          <strong>Formule :</strong>
+          ${escapeHtml(
+            request.offer || "Non renseignée"
+          )}
+          <br>
+
+          <strong>Domaine :</strong>
+          ${escapeHtml(
+            request.domain || "Non renseigné"
+          )}
+
+          <div class="description">
+            ${escapeHtml(
+              request.description || ""
+            )}
+          </div>
+
+        </div>
+
+      </article>
+    `;
+  }
+
+
+  // =====================================================
+  // STATISTIQUES
+  // =====================================================
+
+  function updateStats(requests) {
+
+    document.getElementById("statTotal")
+      .textContent = requests.length;
+
+    document.getElementById("statNew")
+      .textContent =
+        requests.filter(
+          r => String(r.status).toUpperCase() === "NEW"
+        ).length;
+
+    document.getElementById("statContacted")
+      .textContent =
+        requests.filter(
+          r => String(r.status).toLowerCase() === "contacté"
+        ).length;
+
+    document.getElementById("statQuote")
+      .textContent =
+        requests.filter(
+          r => String(r.status).toLowerCase() === "devis envoyé"
+        ).length;
+
+    document.getElementById("statProgress")
+      .textContent =
+        requests.filter(
+          r =>
+            ["en cours", "terminé"]
+              .includes(
+                String(r.status).toLowerCase()
+              )
+        ).length;
+  }
+
+
+  // =====================================================
+  // ACTUALISER
+  // =====================================================
+
+  refreshButton.addEventListener(
+    "click",
+    loadDashboard
+  );
+
+
+  // =====================================================
+  // DECONNEXION
+  // =====================================================
+
+  logoutButton.addEventListener(
+    "click",
+    async () => {
+
+      await supabaseClient.auth.signOut();
+
+      dashboard.style.display = "none";
+      logoutButton.style.display = "none";
+      loginSection.style.display = "block";
+
+      document.getElementById("password").value = "";
+
+      showLoginMessage(
+        "Vous êtes déconnecté.",
+        "success"
+      );
+    }
+  );
+
+
+  // =====================================================
+  // SECURITE AFFICHAGE HTML
+  // =====================================================
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  // =====================================================
+  // VERIFICATION SESSION AU CHARGEMENT
+  // =====================================================
+
+  supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+
+      if (session) {
+        await loadDashboard();
+      } else {
+
+        loginSection.style.display = "block";
+        dashboard.style.display = "none";
+        logoutButton.style.display = "none";
+      }
+    }
+  );
+
+
+  loadDashboard();
+
+</script>
+
+</body>
+</html>
