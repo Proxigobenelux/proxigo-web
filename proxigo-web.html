@@ -969,6 +969,50 @@
     </div>
 
   </footer>
+<script>
+document.getElementById("webSiteForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
+  const name = document.getElementById("webName").value.trim();
+  const company = document.getElementById("webCompany").value.trim();
+  const phone = document.getElementById("webPhone").value.trim();
+  const email = document.getElementById("webEmail").value.trim();
+  const activity = document.getElementById("webActivity").value.trim();
+  const offer = document.getElementById("webOffer").value;
+  const domain = document.getElementById("webDomain").value.trim();
+  const description = document.getElementById("webDescription").value.trim();
+
+  if (!name || !phone || !email || !activity || !offer || !description) {
+    alert("Merci de remplir tous les champs obligatoires.");
+    return;
+  }
+
+  const message =
+`🚀 NOUVELLE DEMANDE PROXIGO WEB
+
+👤 Nom : ${name}
+🏢 Entreprise : ${company || "Non renseignée"}
+📞 Téléphone : ${phone}
+📧 Email : ${email}
+💼 Activité : ${activity}
+📦 Formule : ${offer}
+🌐 Domaine souhaité : ${domain || "Non renseigné"}
+
+📝 PROJET :
+${description}`;
+
+  const whatsappNumber = "32466186651";
+  const whatsappUrl =
+    "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+
+  const formMessage = document.getElementById("webFormMessage");
+
+  formMessage.style.display = "block";
+  formMessage.style.color = "#22d6a3";
+  formMessage.textContent = "✅ Votre demande est prête. Ouverture de WhatsApp...";
+
+  window.open(whatsappUrl, "_blank");
+});
+</script>
 </body>
 </html>
