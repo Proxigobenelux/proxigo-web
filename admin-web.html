@@ -554,93 +554,238 @@
 
   function renderRequest(request) {
 
-    const created =
-      request.created_at
-        ? new Date(
-            request.created_at
-          ).toLocaleString("fr-FR")
-        : "";
+  const created =
+    request.created_at
+      ? new Date(
+          request.created_at
+        ).toLocaleString("fr-FR")
+      : "";
 
-    const status =
-      request.status || "NEW";
+  const status =
+    request.status || "NEW";
 
-    return `
-      <article class="request">
+  return `
+    <article class="request">
 
-        <div class="request-header">
+      <div class="request-header">
 
-          <div>
-            <h3>
-              ${escapeHtml(
-                request.name || "Sans nom"
-              )}
-            </h3>
-
-            <div class="date">
-              ${escapeHtml(created)}
-            </div>
-          </div>
-
-          <span class="badge">
-            ${escapeHtml(status)}
-          </span>
-
-        </div>
-
-        <div class="details">
-
-          <strong>Entreprise :</strong>
-          ${escapeHtml(
-            request.company || "Non renseignée"
-          )}
-          <br>
-
-          <strong>Téléphone :</strong>
-          ${escapeHtml(
-            request.phone || "Non renseigné"
-          )}
-          <br>
-
-          <strong>Email :</strong>
-          ${escapeHtml(
-            request.email || "Non renseigné"
-          )}
-          <br>
-
-          <strong>Activité :</strong>
-          ${escapeHtml(
-            request.activity || "Non renseignée"
-          )}
-          <br>
-
-          <strong>Formule :</strong>
-          ${escapeHtml(
-            request.offer || "Non renseignée"
-          )}
-          <br>
-
-          <strong>Domaine :</strong>
-          ${escapeHtml(
-            request.domain || "Non renseigné"
-          )}
-
-          <div class="description">
+        <div>
+          <h3>
             ${escapeHtml(
-              request.description || ""
+              request.name || "Sans nom"
             )}
+          </h3>
+
+          <div class="date">
+            ${escapeHtml(created)}
           </div>
+        </div>
+
+        <span class="badge">
+          ${escapeHtml(status)}
+        </span>
+
+      </div>
+
+      <div class="details">
+
+        <strong>Entreprise :</strong>
+        ${escapeHtml(
+          request.company || "Non renseignée"
+        )}
+        <br>
+
+        <strong>Téléphone :</strong>
+        ${escapeHtml(
+          request.phone || "Non renseigné"
+        )}
+        <br>
+
+        <strong>Email :</strong>
+        ${escapeHtml(
+          request.email || "Non renseigné"
+        )}
+        <br>
+
+        <strong>Activité :</strong>
+        ${escapeHtml(
+          request.activity || "Non renseignée"
+        )}
+        <br>
+
+        <strong>Formule :</strong>
+        ${escapeHtml(
+          request.offer || "Non renseignée"
+        )}
+        <br>
+
+        <strong>Domaine :</strong>
+        ${escapeHtml(
+          request.domain || "Non renseigné"
+        )}
+
+        <div class="description">
+          ${escapeHtml(
+            request.description || ""
+          )}
+        </div>
+
+        <div style="margin-top:20px;">
+
+          <label>
+            <strong>Statut :</strong>
+          </label>
+
+          <select id="status-${request.id}">
+            <option value="NEW" ${status === "NEW" ? "selected" : ""}>
+              NEW
+            </option>
+
+            <option value="Contacté" ${status === "Contacté" ? "selected" : ""}>
+              Contacté
+            </option>
+
+            <option value="Devis envoyé" ${status === "Devis envoyé" ? "selected" : ""}>
+              Devis envoyé
+            </option>
+
+            <option value="En cours" ${status === "En cours" ? "selected" : ""}>
+              En cours
+            </option>
+
+            <option value="Terminé" ${status === "Terminé" ? "selected" : ""}>
+              Terminé
+            </option>
+          </select>
+
+          <label>
+            <strong>Notes :</strong>
+          </label>
+
+          <textarea
+            id="notes-${request.id}"
+            placeholder="Ajouter une note..."
+          >${escapeHtml(request.notes || "")}</textarea>
+
+          <button
+            onclick="saveRequest(${request.id})"
+            style="
+              background:#20c997;
+              color:#07110d;
+              margin-top:5px;
+            "
+          >
+            Enregistrer
+          </button>
+
+          <span
+            id="save-message-${request.id}"
+            style="
+              margin-left:10px;
+              color:#9ff0c9;
+            "
+          ></span>
 
         </div>
 
-      </article>
-    `;
+      </div>
+
+    </article>
+  `;
+}
+  
+// ENREGISTRER STATUT + NOTES
+// =====================================================
+
+async function saveRequest(requestId) {
+
+  const statusElement =
+    document.getElementById("status-" + requestId);
+
+  const notesElement =
+    document.getElementById("notes-" + requestId);
+
+  const messageElement =
+    document.getElementById("save-message-" + requestId);
+
+  const status =
+    statusElement.value;
+
+  const notes =
+    notesElement.value;
+
+  messageElement.textContent =
+    "Enregistrement...";
+
+  try {
+
+    const {
+      data: {
+        session
+      }
+    } = await supabaseClient.auth.getSession();
+
+    if (!session) {
+
+      throw new Error(
+        "Session administrateur expirée."
+      );
+    }
+
+    const response =
+      await fetch(
+        API_URL + "/web-requests/" + requestId,
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization":
+              "Bearer " + session.access_token
+          },
+
+          body: JSON.stringify({
+            status: status,
+            notes: notes
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.detail ||
+        "Impossible de mettre à jour la demande."
+      );
+    }
+
+    messageElement.textContent =
+      "✓ Enregistré";
+
+    setTimeout(() => {
+      messageElement.textContent = "";
+    }, 3000);
+
+    await loadRequests(
+      session.access_token
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    messageElement.textContent =
+      "Erreur : " + error.message;
   }
+}
 
 
-  // =====================================================
-  // STATISTIQUES
-  // =====================================================
-
+// =====================================================
+// STATISTIQUES
+// =====================================================
   function updateStats(requests) {
 
     document.getElementById("statTotal")
