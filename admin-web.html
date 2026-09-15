@@ -625,7 +625,7 @@
   </a>
 
   <a
-    href="mailto:${request.email || ""}"
+    href="mailto:${request.email || ""}?subject=${encodeURIComponent("Votre demande Proxigo Web")}&body=${encodeURIComponent("Bonjour " + (request.name || "") + ",\n\nJe vous contacte concernant votre demande de création de site Proxigo Web.\n\nNous avons bien reçu votre demande et souhaitons échanger avec vous afin de voir ensemble les détails de votre projet.\n\nBien cordialement,\nProxigo Benelux")}"
     style="background:#20c997; color:#07110d; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;"
   >
     Email
