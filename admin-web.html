@@ -616,7 +616,7 @@
   </a>
 
   <a
-    href="https://wa.me/${(request.phone || "").replace(/\D/g, "")}"
+    href="https://wa.me/${(request.phone || "").replace(/\D/g, "")}?text=${encodeURIComponent("Bonjour " + (request.name || "") + ", je vous contacte concernant votre demande de création de site Proxigo Web.")}"
     target="_blank"
     rel="noopener noreferrer"
     style="background:#20c997; color:#07110d; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;"
