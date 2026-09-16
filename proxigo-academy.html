@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PROXIGO ACADEMY – Formations IA, Digital & Business</title>
+
+  <meta
+    name="description"
+    content="PROXIGO ACADEMY : formations pratiques pour entrepreneurs, indépendants et freelances. IA, automatisation, marketing digital, e-commerce, création de sites et applications."
+  >
+
+  <link rel="canonical" href="https://proxigo.eu/proxigo-academy.html">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07110d;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      background: #0b1812;
+      border-bottom: 1px solid #20372b;
+      padding: 18px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #20c997;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #dce8e2;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: #20c997;
+    }
+
+    .nav-btn {
+      background: #20c997;
+      color: #07110d !important;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 25px 70px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #20c997;
+      color: #20c997;
+      padding: 7px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 70px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    h1 span {
+      color: #20c997;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: auto;
+      color: #b8c8bf;
+      font-size: 19px;
+    }
+
+    .hero-buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: #20c997;
+      color: #07110d;
+    }
+
+    .btn-secondary {
+      border: 1px solid #385447;
+      background: #0d1d15;
+      color: #ffffff;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 70px 25px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #aebdb5;
+    }
+
+    .formations {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: #0d1d15;
+      border: 1px solid #20372b;
+      border-radius: 15px;
+      padding: 28px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #20c997;
+    }
+
+    .icon {
+      font-size: 34px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #aebdb5;
+      min-height: 72px;
+    }
+
+    .price {
+      margin: 20px 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: #20c997;
+    }
+
+    .price small {
+      font-size: 13px;
+      color: #899b91;
+      font-weight: normal;
+    }
+
+    .card-btn {
+      display: block;
+      text-align: center;
+      border: 1px solid #20c997;
+      padding: 11px;
+      border-radius: 8px;
+      color: #20c997;
+      font-weight: 700;
+    }
+
+    .card-btn:hover {
+      background: #20c997;
+      color: #07110d;
+    }
+
+    .how {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .step {
+      background: #0b1812;
+      border-radius: 12px;
+      padding: 25px;
+      border: 1px solid #20372b;
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #20c997;
+      color: #07110d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .academy-box {
+      background: linear-gradient(135deg, #10251a, #0b1812);
+      border: 1px solid #20c997;
+      border-radius: 18px;
+      padding: 45px 30px;
+      text-align: center;
+    }
+
+    .academy-box h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .academy-box p {
+      max-width: 750px;
+      margin: 0 auto 25px;
+      color: #c0cec7;
+    }
+
+    .pack-price {
+      font-size: 45px;
+      font-weight: 800;
+      color: #20c997;
+      margin: 20px 0;
+    }
+
+    .old-price {
+      font-size: 17px;
+      color: #7f9188;
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+
+    .features {
+      max-width: 700px;
+      margin: 25px auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      text-align: left;
+    }
+
+    .features div {
+      color: #dce8e2;
+    }
+
+    .features div::first-letter {
+      color: #20c997;
+    }
+
+    footer {
+      border-top: 1px solid #20372b;
+      padding: 35px 25px;
+      text-align: center;
+      color: #87988f;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #20c997;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 15px;
+      }
+
+      .nav {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+
+    <a href="index.html" class="logo">
+      PROXIGO <span>ACADEMY</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">PROXIGO</a>
+      <a href="proxigo-web.html">PROXIGO WEB</a>
+      <a href="#formations">Formations</a>
+      <a href="#fonctionnement">Comment ça marche ?</a>
+      <a href="#pack" class="nav-btn">Voir le Pack</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="badge">
+      🎓 PROXIGO ACADEMY
+    </div>
+
+    <h1>
+      Apprenez à créer,<br>
+      développer et <span>automatiser</span> votre activité.
+    </h1>
+
+    <p>
+      Des formations pratiques pour entrepreneurs, indépendants,
+      freelances et personnes qui souhaitent développer une activité
+      grâce à l'intelligence artificielle et au numérique.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#formations" class="btn btn-primary">
+        🎓 Découvrir les formations
+      </a>
+
+      <a href="#pack" class="btn btn-secondary">
+        🚀 Voir le Pack Academy
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- FORMATIONS -->
+
+  <section class="section" id="formations">
+
+    <div class="section-title">
+
+      <h2>Nos formations</h2>
+
+      <p>
+        Apprenez à votre rythme avec des cours pratiques,
+        des exercices, des outils et des ressources.
+      </p>
+
+    </div>
+
+
+    <div class="formations">
+
+
+      <article class="card">
+
+        <div class="icon">🤖</div>
+
+        <h3>Créer son entreprise avec l'IA</h3>
+
+        <p>
+          De l'idée au lancement : marché, offre, identité,
+          clients, outils et automatisation.
+        </p>
+
+        <div class="price">
+          49 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">⚙️</div>
+
+        <h3>IA & Automatisation</h3>
+
+        <p>
+          Automatisez les tâches répétitives et construisez
+          votre propre système digital.
+        </p>
+
+        <div class="price">
+          79 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">📱</div>
+
+        <h3>Marketing digital de A à Z</h3>
+
+        <p>
+          Réseaux sociaux, SEO, publicité, contenu,
+          email marketing et acquisition.
+        </p>
+
+        <div class="price">
+          79 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">🛒</div>
+
+        <h3>Créer son E-commerce</h3>
+
+        <p>
+          Construisez votre boutique, vos fiches produits,
+          votre stratégie de vente et vos automatisations.
+        </p>
+
+        <div class="price">
+          99 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">💻</div>
+
+        <h3>Devenir Freelance</h3>
+
+        <p>
+          Trouver son activité, créer son portfolio,
+          prospecter et obtenir ses premiers clients.
+        </p>
+
+        <div class="price">
+          59 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">🌐</div>
+
+        <h3>Créer un site web avec l'IA</h3>
+
+        <p>
+          Créez un site professionnel de l'idée jusqu'à
+          la mise en ligne et au référencement.
+        </p>
+
+        <div class="price">
+          79 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">📲</div>
+
+        <h3>Créer une application avec l'IA</h3>
+
+        <p>
+          Transformez une idée en application avec interface,
+          base de données et fonctionnalités.
+        </p>
+
+        <div class="price">
+          99 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">🎯</div>
+
+        <h3>Trouver ses premiers clients avec l'IA</h3>
+
+        <p>
+          Prospectez efficacement avec Google, email,
+          réseaux sociaux, CRM et IA.
+        </p>
+
+        <div class="price">
+          59 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">🧠</div>
+
+        <h3>Créer son assistant IA</h3>
+
+        <p>
+          Créez un assistant capable d'aider votre entreprise
+          dans la vente, le support et l'administration.
+        </p>
+
+        <div class="price">
+          99 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">🚀</div>
+
+        <h3>Construire son business digital complet</h3>
+
+        <p>
+          Un parcours complet pour construire et développer
+          une activité digitale avec l'IA.
+        </p>
+
+        <div class="price">
+          149 € <small>lancement</small>
+        </div>
+
+        <a href="#contact" class="card-btn">
+          Découvrir
+        </a>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- PACK -->
+
+  <section class="section" id="pack">
+
+    <div class="academy-box">
+
+      <h2>🚀 Le Pack PROXIGO ACADEMY</h2>
+
+      <p>
+        Accédez aux 10 formations et développez vos compétences
+        dans l'IA, le digital, le business et l'automatisation.
+      </p>
+
+      <div class="pack-price">
+        397 €
+        <span class="old-price">597 €</span>
+      </div>
+
+      <div class="features">
+
+        <div>✅ 10 formations</div>
+        <div>✅ Cours pratiques</div>
+        <div>✅ Exercices</div>
+        <div>✅ Quiz</div>
+        <div>✅ Prompts IA</div>
+        <div>✅ Modèles professionnels</div>
+        <div>✅ Checklists</div>
+        <div>✅ Ressources téléchargeables</div>
+
+      </div>
+
+      <a href="#contact" class="btn btn-primary">
+        🎓 Rejoindre PROXIGO ACADEMY
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FONCTIONNEMENT -->
+
+  <section class="section" id="fonctionnement">
+
+    <div class="section-title">
+
+      <h2>Comment ça marche ?</h2>
+
+      <p>
+        Une méthode simple pour apprendre et passer rapidement à l'action.
+      </p>
+
+    </div>
+
+
+    <div class="how">
+
+      <div class="step">
+
+        <div class="step-number">1</div>
+
+        <h3>Choisissez votre formation</h3>
+
+        <p>
+          Sélectionnez la compétence que vous souhaitez développer.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">2</div>
+
+        <h3>Apprenez</h3>
+
+        <p>
+          Suivez les modules, les cours et les démonstrations
+          à votre rythme.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">3</div>
+
+        <h3>Pratiquez</h3>
+
+        <p>
+          Réalisez les exercices et utilisez les ressources
+          fournies dans chaque formation.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">4</div>
+
+        <h3>Lancez votre projet</h3>
+
+        <p>
+          Transformez vos connaissances en véritable projet.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- IA -->
+
+  <section class="section">
+
+    <div class="academy-box">
+
+      <h2>🤖 Une Academy pensée pour l'ère de l'IA</h2>
+
+      <p>
+        Nos formations intègrent l'intelligence artificielle
+        comme un véritable outil de travail : création,
+        automatisation, marketing, développement et acquisition
+        de clients.
+      </p>
+
+      <a href="#formations" class="btn btn-primary">
+        Découvrir les formations
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACT -->
+
+  <section class="section" id="contact">
+
+    <div class="section-title">
+
+      <h2>PROXIGO ACADEMY arrive</h2>
+
+      <p>
+        Les premières formations sont actuellement en préparation.
+        Inscrivez-vous pour être informé du lancement.
+      </p>
+
+      <div style="margin-top:25px;">
+
+        <a
+          href="https://proxigo.eu"
+          class="btn btn-primary"
+        >
+          🌐 Retour sur Proxigo
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <p>
+    © 2026 <strong>PROXIGO ACADEMY</strong> – Une branche de PROXIGO
+  </p>
+
+  <p style="margin-top:8px;">
+
+    <a href="index.html">PROXIGO</a>
+    ·
+    <a href="proxigo-web.html">PROXIGO WEB</a>
+    ·
+    <a href="https://proxigo.eu">proxigo.eu</a>
+
+  </p>
+
+</footer>
+
+</body>
+</html>
