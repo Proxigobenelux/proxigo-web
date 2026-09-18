@@ -921,6 +921,62 @@
   </p>
 
 </footer>
+<script>
+  // ===== PROXIGO ACADEMY - CONNEXION =====
 
+  const academyLoginButton =
+    document.getElementById("academy-login-btn");
+
+  const academyEmail =
+    document.getElementById("academy-email");
+
+  const academyPassword =
+    document.getElementById("academy-password");
+
+  const academyAuthMessage =
+    document.getElementById("academy-auth-message");
+
+  academyLoginButton.addEventListener("click", async () => {
+    const email = academyEmail.value.trim();
+    const password = academyPassword.value;
+
+    academyAuthMessage.textContent = "";
+
+    if (!email || !password) {
+      academyAuthMessage.textContent =
+        "Veuillez renseigner votre email et votre mot de passe.";
+      return;
+    }
+
+    academyLoginButton.disabled = true;
+    academyLoginButton.textContent = "Connexion...";
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      academyAuthMessage.textContent =
+        "Connexion impossible : " + error.message;
+
+      academyLoginButton.disabled = false;
+      academyLoginButton.textContent = "Se connecter";
+      return;
+    }
+
+    academyAuthMessage.textContent =
+      "Connexion réussie ✅";
+
+    academyLoginButton.textContent =
+      "Connecté ✅";
+
+    console.log(
+      "PROXIGO ACADEMY : utilisateur connecté",
+      data.user
+    );
+  });
+</script>
 </body>
 </html>
