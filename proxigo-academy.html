@@ -1269,9 +1269,55 @@ if (modulesContainer) {
         lesson.title ||
         "Leçon";
 
-      lessonBody.textContent =
-        lessonData.lesson?.content ||
-        "Cette leçon ne contient pas encore de contenu.";
+      const lessonContentText =
+  lessonData.lesson?.content ||
+  "Cette leçon ne contient pas encore de contenu.";
+
+const escapeHtml = (text) =>
+  text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+const renderLessonContent = (text) => {
+  const safeText = escapeHtml(text);
+
+  return safeText
+    .replace(
+      /^### (.+)$/gm,
+      '<h3 style="margin:25px 0 12px;color:#20c997;font-size:20px;">$1</h3>'
+    )
+    .replace(
+      /^## (.+)$/gm,
+      '<h2 style="margin:30px 0 15px;color:#ffffff;font-size:25px;">$1</h2>'
+    )
+    .replace(
+      /^# (.+)$/gm,
+      '<h1 style="margin:0 0 20px;color:#ffffff;font-size:32px;">$1</h1>'
+    )
+    .replace(
+      /^- (.+)$/gm,
+      '<li style="margin:8px 0;color:#dce8e2;">$1</li>'
+    )
+    .replace(
+      /(<li[\s\S]*?<\/li>)/g,
+      '<ul style="padding-left:25px;margin:15px 0;">$1</ul>'
+    )
+    .replace(
+      /\n{2,}/g,
+      '</p><p style="margin:18px 0;line-height:1.8;">'
+    )
+    .replace(
+      /\n/g,
+      "<br>"
+    );
+};
+
+lessonBody.innerHTML = renderLessonContent(
+  lessonContentText
+);
 
       lessonContent.scrollIntoView({
         behavior: "smooth",
