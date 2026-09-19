@@ -1031,6 +1031,15 @@
   academyCourseButtons.forEach((button) => {
     button.addEventListener("click", async (event) => {
       event.preventDefault();
+      if (button.dataset.accessGranted === "true") {
+  document
+    .getElementById("academy-learning")
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  return;
+}
 
       const courseSlug = button.dataset.courseSlug;
 
@@ -1110,7 +1119,7 @@ if (courseDescription && result.course) {
     result.course.description ||
     "Votre espace d'apprentissage PROXIGO ACADEMY.";
 }
-
+button.dataset.accessGranted = "true";
 button.textContent = "Formation ouverte";
 
 learningSection?.scrollIntoView({
