@@ -1179,38 +1179,118 @@ if (modulesContainer) {
     moduleBox.appendChild(moduleDescription);
 
     (module.lessons || []).forEach((lesson) => {
-      const lessonBox =
-        document.createElement("div");
+  const lessonBox =
+    document.createElement("div");
 
-      lessonBox.style.cssText = `
-        padding:14px 0;
-        border-top:1px solid #294534;
-      `;
+  lessonBox.style.cssText = `
+    padding:14px 0;
+    border-top:1px solid #294534;
+    cursor:pointer;
+  `;
 
-      const lessonTitle =
-        document.createElement("strong");
+  const lessonTitle =
+    document.createElement("strong");
 
-      lessonTitle.textContent =
-        lesson.title || "Leçon";
+  lessonTitle.textContent =
+    lesson.title || "Leçon";
 
-      lessonTitle.style.color = "#ffffff";
+  lessonTitle.style.cssText = `
+    color:#ffffff;
+    display:block;
+  `;
 
-      const lessonDuration =
-        document.createElement("div");
+  const lessonDuration =
+    document.createElement("div");
 
-      lessonDuration.textContent =
-        `${lesson.duration_minutes || 0} min`;
+  lessonDuration.textContent =
+    `${lesson.duration_minutes || 0} min`;
 
-      lessonDuration.style.cssText = `
-        color:#8fa198;
-        font-size:14px;
-        margin-top:5px;
-      `;
+  lessonDuration.style.cssText = `
+    color:#8fa198;
+    font-size:14px;
+    margin-top:5px;
+  `;
 
-      lessonBox.appendChild(lessonTitle);
-      lessonBox.appendChild(lessonDuration);
-      moduleBox.appendChild(lessonBox);
-    });
+  lessonBox.appendChild(lessonTitle);
+  lessonBox.appendChild(lessonDuration);
+
+  /* ===== OUVERTURE D'UNE LEÇON ===== */
+  lessonBox.addEventListener("click", async () => {
+    const lessonContent =
+      document.getElementById("academy-lesson-content");
+
+    const lessonContentTitle =
+      document.getElementById("academy-lesson-title");
+
+    const lessonBody =
+      document.getElementById("academy-lesson-body");
+
+    if (!lessonContent || !lessonContentTitle || !lessonBody) {
+      console.error(
+        "Zone de contenu de la leçon introuvable."
+      );
+      return;
+    }
+
+    lessonContent.style.display = "block";
+
+    lessonContentTitle.textContent =
+      lesson.title || "Leçon";
+
+    lessonBody.textContent =
+      "Chargement de la leçon...";
+
+    try {
+      const lessonResponse = await fetch(
+        `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}/lessons/${lesson.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`
+          }
+        }
+      );
+
+      const lessonData =
+        await lessonResponse.json();
+
+      if (!lessonResponse.ok) {
+        console.error(
+          "Erreur chargement leçon :",
+          lessonData
+        );
+
+        lessonBody.textContent =
+          "Impossible de charger cette leçon.";
+        return;
+      }
+
+      lessonContentTitle.textContent =
+        lessonData.lesson?.title ||
+        lesson.title ||
+        "Leçon";
+
+      lessonBody.textContent =
+        lessonData.lesson?.content ||
+        "Cette leçon ne contient pas encore de contenu.";
+
+      lessonContent.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    } catch (error) {
+      console.error(
+        "Erreur ouverture leçon :",
+        error
+      );
+
+      lessonBody.textContent =
+        "Une erreur est survenue lors du chargement de la leçon.";
+    }
+  });
+
+  moduleBox.appendChild(lessonBox);
+});
 
     modulesContainer.appendChild(moduleBox);
   });
