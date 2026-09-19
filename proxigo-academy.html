@@ -1083,16 +1083,39 @@
         }
 
         console.log(
-          "PROXIGO ACADEMY — accès autorisé ✅",
-          result
-        );
+  "PROXIGO ACADEMY — accès autorisé ✅",
+  result
+);
 
-        alert(
-          "Accès à la formation autorisé ✅"
-        );
+const learningSection =
+  document.getElementById("academy-learning");
 
-        button.textContent = "Accéder à la formation";
+const courseTitle =
+  document.getElementById("academy-course-title");
 
+const courseDescription =
+  document.getElementById("academy-course-description");
+
+if (learningSection) {
+  learningSection.style.display = "block";
+}
+
+if (courseTitle && result.course) {
+  courseTitle.textContent =
+    "🎓 " + result.course.title;
+}
+
+if (courseDescription && result.course) {
+  courseDescription.textContent =
+    result.course.description ||
+    "Votre espace d'apprentissage PROXIGO ACADEMY.";
+}
+
+button.textContent = "Formation ouverte";
+
+learningSection?.scrollIntoView({
+  behavior: "smooth"
+});
       } catch (error) {
         console.error(
           "Erreur connexion Academy :",
