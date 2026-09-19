@@ -1119,6 +1119,104 @@ if (courseDescription && result.course) {
     result.course.description ||
     "Votre espace d'apprentissage PROXIGO ACADEMY.";
 }
+/* ===== CHARGEMENT DES MODULES ET LEÇONS ===== */
+const courseResponse = await fetch(
+  `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}`
+);
+
+const courseData = await courseResponse.json();
+
+if (!courseResponse.ok) {
+  console.error(
+    "Erreur chargement formation :",
+    courseData
+  );
+  throw new Error(
+    "Impossible de charger les modules."
+  );
+}
+
+const modulesContainer =
+  document.getElementById("academy-modules");
+
+if (modulesContainer) {
+  const modules =
+    courseData.course?.modules || [];
+
+  modulesContainer.innerHTML = "";
+
+  modules.forEach((module) => {
+    const moduleBox = document.createElement("div");
+
+    moduleBox.style.cssText = `
+      background:#13251b;
+      border:1px solid #294534;
+      border-radius:15px;
+      padding:25px;
+      margin-bottom:20px;
+    `;
+
+    const moduleTitle = document.createElement("h3");
+    moduleTitle.textContent =
+      module.title || "Module";
+    moduleTitle.style.cssText = `
+      color:#ffffff;
+      margin-bottom:10px;
+    `;
+
+    const moduleDescription =
+      document.createElement("p");
+
+    moduleDescription.textContent =
+      module.description || "";
+
+    moduleDescription.style.cssText = `
+      color:#aebeb5;
+      margin-bottom:20px;
+    `;
+
+    moduleBox.appendChild(moduleTitle);
+    moduleBox.appendChild(moduleDescription);
+
+    (module.lessons || []).forEach((lesson) => {
+      const lessonBox =
+        document.createElement("div");
+
+      lessonBox.style.cssText = `
+        padding:14px 0;
+        border-top:1px solid #294534;
+      `;
+
+      const lessonTitle =
+        document.createElement("strong");
+
+      lessonTitle.textContent =
+        lesson.title || "Leçon";
+
+      lessonTitle.style.color = "#ffffff";
+
+      const lessonDuration =
+        document.createElement("div");
+
+      lessonDuration.textContent =
+        `${lesson.duration_minutes || 0} min`;
+
+      lessonDuration.style.cssText = `
+        color:#8fa198;
+        font-size:14px;
+        margin-top:5px;
+      `;
+
+      lessonBox.appendChild(lessonTitle);
+      lessonBox.appendChild(lessonDuration);
+      moduleBox.appendChild(lessonBox);
+    });
+
+    modulesContainer.appendChild(moduleBox);
+  });
+}
+/* ===== FIN CHARGEMENT MODULES ===== */
+
 button.dataset.accessGranted = "true";
 button.textContent = "Formation ouverte";
 
