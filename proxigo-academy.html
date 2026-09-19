@@ -982,5 +982,91 @@
     );
   });
 </script>
+  <script>
+  // ===== PROXIGO ACADEMY - ACCÈS FORMATION =====
+
+  const academyCourseButtons =
+    document.querySelectorAll(".academy-course-btn");
+
+  academyCourseButtons.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const courseSlug = button.dataset.courseSlug;
+
+      if (!courseSlug) {
+        console.error("Slug de formation manquant.");
+        return;
+      }
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+        document
+          .getElementById("academy-auth")
+          ?.scrollIntoView({
+            behavior: "smooth"
+          });
+
+        return;
+      }
+
+      button.textContent = "Vérification...";
+
+      try {
+        const response = await fetch(
+          `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}/access`,
+          {
+            headers: {
+              Authorization: `Bearer ${session.access_token}`
+            }
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.error("Erreur accès Academy :", result);
+          button.textContent = "Découvrir";
+          return;
+        }
+
+        if (!result.has_access) {
+          alert(
+            "Vous n'avez pas encore accès à cette formation."
+          );
+
+          button.textContent = "Découvrir";
+          return;
+        }
+
+        console.log(
+          "PROXIGO ACADEMY — accès autorisé ✅",
+          result
+        );
+
+        alert(
+          "Accès à la formation autorisé ✅"
+        );
+
+        button.textContent = "Accéder à la formation";
+
+      } catch (error) {
+        console.error(
+          "Erreur connexion Academy :",
+          error
+        );
+
+        button.textContent = "Découvrir";
+
+        alert(
+          "Impossible de vérifier votre accès pour le moment."
+        );
+      }
+    });
+  });
+</script>
 </body>
 </html>
