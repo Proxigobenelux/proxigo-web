@@ -878,7 +878,23 @@
         color:#dce8e2;
       "
     ></div>
-
+    <button
+  id="academy-complete-lesson-btn"
+  type="button"
+  style="
+    margin-top:30px;
+    padding:14px 24px;
+    border:none;
+    border-radius:10px;
+    background:#20c997;
+    color:#07110c;
+    font-weight:700;
+    cursor:pointer;
+    font-size:15px;
+  "
+>
+  ✓ Marquer comme terminée
+</button>
   </div>
 
 </section>
@@ -1239,7 +1255,72 @@ if (modulesContainer) {
 
     lessonBody.textContent =
       "Chargement de la leçon...";
+    const completeLessonButton =
+  document.getElementById("academy-complete-lesson-btn");
 
+if (completeLessonButton) {
+  completeLessonButton.textContent =
+    "✓ Marquer comme terminée";
+
+  completeLessonButton.disabled = false;
+
+  completeLessonButton.onclick = async () => {
+    completeLessonButton.textContent =
+      "Enregistrement...";
+
+    completeLessonButton.disabled = true;
+
+    try {
+      const progressResponse = await fetch(
+        `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}/lessons/${lesson.id}/complete`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${session.access_token}`
+          }
+        }
+      );
+
+      const progressData =
+        await progressResponse.json();
+
+      if (!progressResponse.ok) {
+        console.error(
+          "Erreur progression :",
+          progressData
+        );
+
+        completeLessonButton.textContent =
+          "⚠️ Erreur";
+
+        completeLessonButton.disabled = false;
+        return;
+      }
+
+      console.log(
+        "PROXIGO ACADEMY — leçon terminée ✅",
+        progressData
+      );
+
+      completeLessonButton.textContent =
+        "✓ Leçon terminée";
+
+      completeLessonButton.style.background =
+        "#198754";
+
+    } catch (error) {
+      console.error(
+        "Erreur enregistrement progression :",
+        error
+      );
+
+      completeLessonButton.textContent =
+        "⚠️ Réessayer";
+
+      completeLessonButton.disabled = false;
+    }
+  };
+}
     try {
       const lessonResponse = await fetch(
         `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}/lessons/${lesson.id}`,
