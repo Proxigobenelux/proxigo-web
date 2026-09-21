@@ -1155,6 +1155,8 @@ async function loadAcademyProgress(
 
     const percent =
       progressData.progress_percent || 0;
+    window.academyCompletedLessonIds =
+  progressData.completed_lesson_ids || [];
 
     if (progressText) {
       progressText.textContent =
