@@ -1447,6 +1447,10 @@ if (completeLessonButton) {
 
       completeLessonButton.style.background =
         "#198754";
+      await loadAcademyProgress(
+  courseSlug,
+  session.access_token
+);
 
     } catch (error) {
       console.error(
