@@ -1103,7 +1103,81 @@
 </script>
   <script>
   // ===== PROXIGO ACADEMY - ACCÈS FORMATION =====
+// ============================================================
+// PROXIGO ACADEMY — AFFICHAGE DE LA PROGRESSION
+// ============================================================
 
+async function loadAcademyProgress(
+  courseSlug,
+  accessToken
+) {
+  try {
+    const progressResponse = await fetch(
+      `https://proxigo-ai-assistant.onrender.com/academy/courses/${courseSlug}/progress`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    const progressData =
+      await progressResponse.json();
+
+    if (!progressResponse.ok) {
+      console.error(
+        "Erreur récupération progression :",
+        progressData
+      );
+      return;
+    }
+
+    const progressText =
+      document.getElementById(
+        "academy-progress-text"
+      );
+
+    const progressBar =
+      document.getElementById(
+        "academy-progress-bar"
+      );
+
+    const progressCount =
+      document.getElementById(
+        "academy-progress-count"
+      );
+
+    const completed =
+      progressData.completed_lessons || 0;
+
+    const total =
+      progressData.total_lessons || 0;
+
+    const percent =
+      progressData.progress_percent || 0;
+
+    if (progressText) {
+      progressText.textContent =
+        `${percent} %`;
+    }
+
+    if (progressBar) {
+      progressBar.style.width =
+        `${percent}%`;
+    }
+
+    if (progressCount) {
+      progressCount.textContent =
+        `${completed} / ${total} leçons terminées`;
+    }
+
+  } catch (error) {
+    console.error(
+      "Erreur chargement progression Academy :",
+      error
+    );
+  }
+}
   const academyCourseButtons =
     document.querySelectorAll(".academy-course-btn");
 
@@ -1174,7 +1248,10 @@
   "PROXIGO ACADEMY — accès autorisé ✅",
   result
 );
-
+await loadAcademyProgress(
+  courseSlug,
+  session.access_token
+);
 const learningSection =
   document.getElementById("academy-learning");
 
