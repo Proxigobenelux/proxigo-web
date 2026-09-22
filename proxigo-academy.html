@@ -1400,11 +1400,26 @@ if (modulesContainer) {
     const completeLessonButton =
   document.getElementById("academy-complete-lesson-btn");
 
-if (completeLessonButton) {
+const completedLessonIds =
+  window.academyCompletedLessonIds || [];
+
+const isLessonCompleted =
+  completedLessonIds.includes(lesson.id);
+
+if (isLessonCompleted) {
+  completeLessonButton.textContent =
+    "✓ Leçon terminée";
+
+  completeLessonButton.disabled = true;
+
+  completeLessonButton.style.background =
+    "#198754";
+} else {
   completeLessonButton.textContent =
     "✓ Marquer comme terminée";
 
   completeLessonButton.disabled = false;
+}
 
   completeLessonButton.onclick = async () => {
     completeLessonButton.textContent =
