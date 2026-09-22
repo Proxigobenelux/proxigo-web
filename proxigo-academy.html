@@ -1180,7 +1180,11 @@ async function loadAcademyProgress(
     );
   }
 }
-  const academyCourseButtons =
+    console.log(
+  "PROXIGO ACADEMY — boutons détectés :",
+  document.querySelectorAll(".academy-course-btn").length
+);
+    const academyCourseButtons =
     document.querySelectorAll(".academy-course-btn");
 
   academyCourseButtons.forEach((button) => {
