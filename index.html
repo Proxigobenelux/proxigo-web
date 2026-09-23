@@ -707,13 +707,90 @@ textarea:focus{
       <a href="proxigo-academy.html">🎓 PROXIGO ACADEMY</a>
       <a href="prompt-library.html">🤖 Prompt Library</a>
       <button
-  id="proxigoAuthStatus"
-  type="button"
-  class="auth-status"
-  style="display:none; border:0; background:transparent; color:white; cursor:pointer; font:inherit; font-weight:600;"
+ <div
+  id="proxigoAccountMenu"
+  style="display:inline-flex; position:relative;"
 >
-  🔴 Connecté
-</button>
+  <button
+    id="proxigoAuthStatus"
+    type="button"
+    class="auth-status"
+    style="border:0; background:transparent; color:white; cursor:pointer; font:inherit; font-weight:600;"
+  >
+    🔴 Connecté ▾
+  </button>
+
+  <div
+    id="proxigoAccountDropdown"
+    style="
+      display:none;
+      position:absolute;
+      right:0;
+      top:45px;
+      min-width:220px;
+      background:#071225;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:12px;
+      padding:8px;
+      box-shadow:0 15px 40px rgba(0,0,0,.35);
+      z-index:9999;
+    "
+  >
+    <button
+      type="button"
+      id="proxigoAccountSpace"
+      style="
+        width:100%;
+        padding:12px;
+        border:0;
+        background:transparent;
+        color:white;
+        text-align:left;
+        cursor:pointer;
+        border-radius:8px;
+        font:inherit;
+      "
+    >
+      👤 Mon espace professionnel
+    </button>
+
+    <button
+      type="button"
+      id="proxigoAccountProfile"
+      style="
+        width:100%;
+        padding:12px;
+        border:0;
+        background:transparent;
+        color:white;
+        text-align:left;
+        cursor:pointer;
+        border-radius:8px;
+        font:inherit;
+      "
+    >
+      ⚙️ Mon profil
+    </button>
+
+    <button
+      type="button"
+      id="proxigoAccountLogout"
+      style="
+        width:100%;
+        padding:12px;
+        border:0;
+        background:transparent;
+        color:#ff6b6b;
+        text-align:left;
+        cursor:pointer;
+        border-radius:8px;
+        font:inherit;
+      "
+    >
+      🚪 Se déconnecter
+    </button>
+  </div>
+</div>
       <a href="#demande" class="nav-btn">Déposer une demande</a>
     </nav>
 
@@ -2308,21 +2385,119 @@ supabaseClient.auth.getSession().then(({ data }) => {
     }
   }
 });
-const proxigoAuthStatus = document.getElementById("proxigoAuthStatus");
+const proxigoAuthStatus =
+  document.getElementById("proxigoAuthStatus");
 
-if (proxigoAuthStatus) {
-  proxigoAuthStatus.addEventListener("click", async () => {
+const proxigoAccountDropdown =
+  document.getElementById("proxigoAccountDropdown");
 
-    const { error } = await supabaseClient.auth.signOut();
+if (proxigoAuthStatus && proxigoAccountDropdown) {
 
-    if (error) {
-      console.error("Erreur déconnexion :", error);
-      alert("Impossible de vous déconnecter. Veuillez réessayer.");
-      return;
-    }
+  proxigoAuthStatus.addEventListener("click", function (event) {
 
-    alert("Vous êtes déconnecté de Proxigo.");
+    event.stopPropagation();
+
+    const isOpen =
+      proxigoAccountDropdown.style.display === "block";
+
+    proxigoAccountDropdown.style.display =
+      isOpen ? "none" : "block";
   });
+
+
+  document.addEventListener("click", function () {
+
+    proxigoAccountDropdown.style.display = "none";
+
+  });
+
+
+  const accountSpace =
+    document.getElementById("proxigoAccountSpace");
+
+  if (accountSpace) {
+
+    accountSpace.addEventListener("click", function () {
+
+      proxigoAccountDropdown.style.display = "none";
+
+      const dashboard =
+        document.getElementById("proDashboard");
+
+      if (dashboard) {
+
+        dashboard.style.display = "block";
+
+        dashboard.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+
+    });
+
+  }
+
+
+  const accountProfile =
+    document.getElementById("proxigoAccountProfile");
+
+  if (accountProfile) {
+
+    accountProfile.addEventListener("click", function () {
+
+      proxigoAccountDropdown.style.display = "none";
+
+      const editProfile =
+        document.getElementById("editProfileBox");
+
+      if (editProfile) {
+
+        editProfile.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }
+
+    });
+
+  }
+
+
+  const accountLogout =
+    document.getElementById("proxigoAccountLogout");
+
+  if (accountLogout) {
+
+    accountLogout.addEventListener("click", async function () {
+
+      proxigoAccountDropdown.style.display = "none";
+
+      const { error } =
+        await supabaseClient.auth.signOut();
+
+      if (error) {
+
+        console.error(
+          "Erreur déconnexion :",
+          error
+        );
+
+        alert(
+          "Impossible de vous déconnecter. Veuillez réessayer."
+        );
+
+        return;
+      }
+
+      alert("Vous êtes déconnecté de Proxigo.");
+
+    });
+
+  }
+
 }
 
 loadProfessionalDashboard();
