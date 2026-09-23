@@ -1529,8 +1529,8 @@ const escapeHtml = (text) =>
 
 const renderLessonContent = (text) => {
   const safeText = escapeHtml(text);
-
-  return safeText
+const cleanedText = safeText.replace(/^# .+$/m, "");
+  return cleanedText
     .replace(
       /^### (.+)$/gm,
       '<h3 style="margin:25px 0 12px;color:#20c997;font-size:20px;">$1</h3>'
