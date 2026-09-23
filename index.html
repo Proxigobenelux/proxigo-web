@@ -706,9 +706,14 @@ textarea:focus{
       <a href="proxigo-web.html">PROXIGO WEB</a>
       <a href="proxigo-academy.html">🎓 PROXIGO ACADEMY</a>
       <a href="prompt-library.html">🤖 Prompt Library</a>
-      <span id="proxigoAuthStatus" class="auth-status" style="display:none;">
+      <button
+  id="proxigoAuthStatus"
+  type="button"
+  class="auth-status"
+  style="display:none; border:0; background:transparent; color:white; cursor:pointer; font:inherit; font-weight:600;"
+>
   🔴 Connecté
-</span>
+</button>
       <a href="#demande" class="nav-btn">Déposer une demande</a>
     </nav>
 
@@ -2272,6 +2277,7 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
   if (event === "SIGNED_IN" && session) {
     loadProfessionalDashboard();
+    }
     supabaseClient.auth.getSession().then(({ data }) => {
   const authStatus = document.getElementById("proxigoAuthStatus");
 
@@ -2297,7 +2303,22 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     }
   }
 });
+const proxigoAuthStatus = document.getElementById("proxigoAuthStatus");
 
+if (proxigoAuthStatus) {
+  proxigoAuthStatus.addEventListener("click", async () => {
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      console.error("Erreur déconnexion :", error);
+      alert("Impossible de vous déconnecter. Veuillez réessayer.");
+      return;
+    }
+
+    alert("Vous êtes déconnecté de Proxigo.");
+  });
+}
 
 loadProfessionalDashboard();
 
