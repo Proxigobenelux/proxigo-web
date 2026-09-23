@@ -2262,7 +2262,8 @@ if (proLogoutButton) {
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
 
-  const authStatus = document.getElementById("proxigoAuthStatus");
+  const authStatus =
+    document.getElementById("proxigoAuthStatus");
 
   if (session) {
     if (authStatus) {
@@ -2277,9 +2278,24 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
   if (event === "SIGNED_IN" && session) {
     loadProfessionalDashboard();
+  }
+
+  if (event === "SIGNED_OUT") {
+
+    const dashboard =
+      document.getElementById("proDashboard");
+
+    if (dashboard) {
+      dashboard.style.display = "none";
     }
-    supabaseClient.auth.getSession().then(({ data }) => {
-  const authStatus = document.getElementById("proxigoAuthStatus");
+  }
+});
+
+
+supabaseClient.auth.getSession().then(({ data }) => {
+
+  const authStatus =
+    document.getElementById("proxigoAuthStatus");
 
   if (data.session) {
     if (authStatus) {
@@ -2289,17 +2305,6 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   } else {
     if (authStatus) {
       authStatus.style.display = "none";
-    }
-  }
-});
-  }
-
-  if (event === "SIGNED_OUT") {
-
-    const dashboard = document.getElementById("proDashboard");
-
-    if (dashboard) {
-      dashboard.style.display = "none";
     }
   }
 });
