@@ -706,6 +706,9 @@ textarea:focus{
       <a href="proxigo-web.html">PROXIGO WEB</a>
       <a href="proxigo-academy.html">🎓 PROXIGO ACADEMY</a>
       <a href="prompt-library.html">🤖 Prompt Library</a>
+      <span id="proxigoAuthStatus" class="auth-status" style="display:none;">
+  🔴 Connecté
+</span>
       <a href="#demande" class="nav-btn">Déposer une demande</a>
     </nav>
 
@@ -2254,8 +2257,35 @@ if (proLogoutButton) {
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
 
+  const authStatus = document.getElementById("proxigoAuthStatus");
+
+  if (session) {
+    if (authStatus) {
+      authStatus.style.display = "inline-flex";
+      authStatus.textContent = "🔴 Connecté";
+    }
+  } else {
+    if (authStatus) {
+      authStatus.style.display = "none";
+    }
+  }
+
   if (event === "SIGNED_IN" && session) {
     loadProfessionalDashboard();
+    supabaseClient.auth.getSession().then(({ data }) => {
+  const authStatus = document.getElementById("proxigoAuthStatus");
+
+  if (data.session) {
+    if (authStatus) {
+      authStatus.style.display = "inline-flex";
+      authStatus.textContent = "🔴 Connecté";
+    }
+  } else {
+    if (authStatus) {
+      authStatus.style.display = "none";
+    }
+  }
+});
   }
 
   if (event === "SIGNED_OUT") {
