@@ -2306,9 +2306,116 @@ if (dashboardCity) {
     "Ville : " + (professional.city || "Non renseignée");
 }
 
+const dashboardSubscription =
+  document.getElementById("dashboardSubscription");
+
+const subscriptionStatusTitle =
+  document.getElementById("subscriptionStatusTitle");
+
+const subscriptionStatusText =
+  document.getElementById("subscriptionStatusText");
+
+const subscriptionFreeOffer =
+  document.getElementById("subscriptionFreeOffer");
+
+const subscriptionProOffer =
+  document.getElementById("subscriptionProOffer");
+
+const subscriptionBusinessOffer =
+  document.getElementById("subscriptionBusinessOffer");
+
+
+const subscription =
+  String(professional.subscription || "free")
+    .trim()
+    .toLowerCase();
+
+const isActive =
+  professional.is_active !== false;
+
+
 if (dashboardSubscription) {
+
   dashboardSubscription.textContent =
-    (professional.subscription || "free").toUpperCase();
+    subscription.toUpperCase();
+
+}
+
+
+if (subscription === "business" && isActive) {
+
+  if (subscriptionStatusTitle) {
+    subscriptionStatusTitle.textContent =
+      "🚀 BUSINESS — 59 €/mois";
+  }
+
+  if (subscriptionStatusText) {
+    subscriptionStatusText.textContent =
+      "✅ Votre abonnement BUSINESS est actif. Vous bénéficiez des fonctionnalités premium Proxigo.";
+  }
+
+  if (subscriptionFreeOffer) {
+    subscriptionFreeOffer.style.display = "none";
+  }
+
+  if (subscriptionProOffer) {
+    subscriptionProOffer.style.display = "none";
+  }
+
+  if (subscriptionBusinessOffer) {
+    subscriptionBusinessOffer.style.display = "none";
+  }
+
+}
+
+
+else if (subscription === "pro" && isActive) {
+
+  if (subscriptionStatusTitle) {
+    subscriptionStatusTitle.textContent =
+      "⭐ PRO — 29 €/mois";
+  }
+
+  if (subscriptionStatusText) {
+    subscriptionStatusText.textContent =
+      "✅ Votre abonnement PRO est actif.";
+  }
+
+  if (subscriptionFreeOffer) {
+    subscriptionFreeOffer.style.display = "none";
+  }
+
+  if (subscriptionProOffer) {
+    subscriptionProOffer.style.display = "none";
+  }
+
+}
+
+
+else {
+
+  if (subscriptionStatusTitle) {
+    subscriptionStatusTitle.textContent =
+      "🆓 FREE — 0 €/mois";
+  }
+
+  if (subscriptionStatusText) {
+    subscriptionStatusText.textContent =
+      "Votre compte utilise actuellement l’offre gratuite.";
+  }
+
+  if (subscriptionFreeOffer) {
+    subscriptionFreeOffer.style.display = "block";
+  }
+
+  if (subscriptionProOffer) {
+    subscriptionProOffer.style.display = "block";
+  }
+
+  if (subscriptionBusinessOffer) {
+    subscriptionBusinessOffer.style.display = "block";
+  }
+
 }
 }
 
@@ -2712,6 +2819,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
 
       <div class="card" id="subscriptionCard">
+
   <h3>💼 Mon abonnement</h3>
 
   <p>
@@ -2719,17 +2827,54 @@ document.addEventListener("DOMContentLoaded", function () {
     <strong id="dashboardSubscription">Chargement...</strong>
   </p>
 
-  <div style="margin-top:16px;">
-    <strong>🆓 FREE — 0 €</strong>
+  <!-- STATUT DE L'ABONNEMENT -->
+  <div
+    id="subscriptionStatusBox"
+    style="
+      margin-top:16px;
+      padding:14px;
+      border-radius:10px;
+      background:#10233d;
+    "
+  >
+    <strong id="subscriptionStatusTitle">
+      Vérification de votre abonnement...
+    </strong>
+
+    <p
+      id="subscriptionStatusText"
+      style="margin:6px 0 0;"
+    >
+      Chargement...
+    </p>
+  </div>
+
+
+  <!-- OFFRE FREE -->
+  <div
+    id="subscriptionFreeOffer"
+    style="margin-top:18px;"
+  >
+
+    <strong>🆓 FREE — 0 €/mois</strong>
+
     <p style="margin-top:5px;">
       ✓ Profil professionnel<br>
       ✓ Accès limité aux demandes clients<br>
       ✕ Accès complet aux appels d'offres
     </p>
+
   </div>
 
-  <div style="margin-top:18px;">
+
+  <!-- OFFRE PRO -->
+  <div
+    id="subscriptionProOffer"
+    style="margin-top:18px;"
+  >
+
     <strong>⭐ PRO — 29 €/mois</strong>
+
     <p style="margin-top:5px;">
       ✓ Demandes clients<br>
       ✓ Accès aux appels d'offres<br>
@@ -2740,13 +2885,22 @@ document.addEventListener("DOMContentLoaded", function () {
     <button
       type="button"
       class="btn btn-primary full"
-      id="upgradeProButton">
+      id="upgradeProButton"
+    >
       Passer à PRO — 29 €/mois
     </button>
+
   </div>
 
-  <div style="margin-top:18px;">
+
+  <!-- OFFRE BUSINESS -->
+  <div
+    id="subscriptionBusinessOffer"
+    style="margin-top:18px;"
+  >
+
     <strong>🚀 BUSINESS — 59 €/mois</strong>
+
     <p style="margin-top:5px;">
       ✓ Accès complet aux appels d'offres<br>
       ✓ Priorité sur les demandes clients<br>
@@ -2758,10 +2912,13 @@ document.addEventListener("DOMContentLoaded", function () {
     <button
       type="button"
       class="btn btn-green full"
-      id="upgradeBusinessButton">
+      id="upgradeBusinessButton"
+    >
       Passer à BUSINESS — 59 €/mois
     </button>
+
   </div>
+
 </div>
 
       <div class="card">
