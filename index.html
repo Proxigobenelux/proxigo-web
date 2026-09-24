@@ -2181,7 +2181,14 @@ const phone = document.getElementById("proPhone").value.trim();
       alert("Les mots de passe ne correspondent pas.");
       return;
     }
-
+    if (window.proxigoGrowth) {
+  window.proxigoGrowth.track("signup_started", {
+    professional_type: category,
+    metadata: {
+      city: city
+    }
+  });
+}
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
       password: password,
@@ -2201,7 +2208,14 @@ const phone = document.getElementById("proPhone").value.trim();
       alert("Impossible de créer le compte : " + error.message);
       return;
     }
-
+    if (window.proxigoGrowth) {
+  window.proxigoGrowth.track("signup_completed", {
+    professional_type: category,
+    metadata: {
+      city: city
+    }
+  });
+}
     console.log("Compte professionnel créé :", data);
 
     alert(
