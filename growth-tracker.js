@@ -61,7 +61,7 @@
     term: params.get("utm_term")
   };
 }
-  }
+  
 
   function getProfessionalType() {
     const value =
