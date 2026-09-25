@@ -106,32 +106,68 @@
   }
 
   async function track(eventName, metadata = {}) {
-    if (!hasConsent()) return;
+  if (!hasConsent()) return;
 
-    if (!eventName || typeof eventName !== "string") return;
+  if (!eventName || typeof eventName !== "string") return;
 
-    const cleanMetadata = {};
+  const cleanMetadata = {};
+  let professionalType = getProfessionalType();
 
-    Object.entries(metadata || {}).slice(0, 20).forEach(([key, value]) => {
-      if (value === undefined || value === null) return;
+  Object.entries(metadata || {}).slice(0, 20).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
 
-      // Never send credentials or direct contact fields as growth metadata.
-      if (/password|token|secret|email|phone|telephone|contact/i.test(key)) return;
+    // Ne jamais envoyer de données sensibles.
+    if (/password|token|secret|email|phone|telephone|contact/i.test(key)) {
+      return;
+    }
 
-      const stringValue =
-        typeof value === "string" ? value.slice(0, 300) : value;
+    // professional_type va dans sa colonne dédiée.
+    if (key === "professional_type") {
+      if (typeof value === "string") {
+        professionalType = value.slice(0, 100);
+      }
+      return;
+    }
 
-      cleanMetadata[key] = stringValue;
-    });
+    // Support de :
+    // { metadata: { city: "Mons" } }
+    if (key === "metadata" && value && typeof value === "object") {
+      Object.entries(value).slice(0, 20).forEach(([metaKey, metaValue]) => {
+        if (metaValue === undefined || metaValue === null) return;
 
-    await post(EVENTS_ENDPOINT, {
-      session_id: getSessionId(),
-      event_name: eventName.slice(0, 100),
-      page_url: safeUrl(window.location.href),
-      professional_type: getProfessionalType(),
-      metadata: cleanMetadata
-    });
-  }
+        if (
+          /password|token|secret|email|phone|telephone|contact/i.test(metaKey)
+        ) {
+          return;
+        }
+
+        const cleanValue =
+          typeof metaValue === "string"
+            ? metaValue.slice(0, 300)
+            : metaValue;
+
+        cleanMetadata[metaKey] = cleanValue;
+      });
+
+      return;
+    }
+
+    const stringValue =
+      typeof value === "string"
+        ? value.slice(0, 300)
+        : value;
+
+    cleanMetadata[key] = stringValue;
+  });
+
+  await post(EVENTS_ENDPOINT, {
+    session_id: getSessionId(),
+    event_name: eventName.slice(0, 100),
+    page_url: safeUrl(window.location.href),
+    professional_type: professionalType || null,
+    metadata: cleanMetadata
+  });
+}
 
   function setConsent(value) {
     if (value === "accepted") {
