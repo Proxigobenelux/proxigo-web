@@ -51,13 +51,16 @@
   }
 
   function getUtm() {
-    const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window.location.search);
 
-    return {
-      source: params.get("utm_source"),
-      medium: params.get("utm_medium"),
-      campaign: params.get("utm_campaign")
-    };
+  return {
+    source: params.get("utm_source"),
+    medium: params.get("utm_medium"),
+    campaign: params.get("utm_campaign"),
+    content: params.get("utm_content"),
+    term: params.get("utm_term")
+  };
+}
   }
 
   function getProfessionalType() {
