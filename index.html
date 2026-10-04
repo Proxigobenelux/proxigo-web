@@ -686,7 +686,10 @@ select:focus,
 textarea:focus{
   box-shadow:0 0 0 3px rgba(47,102,255,.12);
 }   
-  </style>
+  
+.artist-nav{color:#16d2a0 !important;font-weight:900;white-space:nowrap;}
+.artist-nav:hover{color:#fff !important;}
+</style>
 </head>
 
 <body>
@@ -704,6 +707,7 @@ textarea:focus{
       <a href="#professionnels">Professionnels</a>
       <a href="#appels">Appels d'offres</a>
       <a href="proxigo-web.html">PROXIGO WEB</a>
+      <a href="proxigo-artist.html" class="artist-nav">🎤 PROXIGO ARTIST</a>
       <a href="proxigo-academy.html">🎓 PROXIGO ACADEMY</a>
       <a href="prompt-library.html">🤖 Prompt Library</a>
       <button
@@ -2181,14 +2185,7 @@ const phone = document.getElementById("proPhone").value.trim();
       alert("Les mots de passe ne correspondent pas.");
       return;
     }
-    if (window.proxigoGrowth) {
-  window.proxigoGrowth.track("signup_started", {
-    professional_type: category,
-    metadata: {
-      city: city
-    }
-  });
-}
+
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
       password: password,
@@ -2208,14 +2205,7 @@ const phone = document.getElementById("proPhone").value.trim();
       alert("Impossible de créer le compte : " + error.message);
       return;
     }
-    if (window.proxigoGrowth) {
-  window.proxigoGrowth.track("signup_completed", {
-    professional_type: category,
-    metadata: {
-      city: city
-    }
-  });
-}
+
     console.log("Compte professionnel créé :", data);
 
     alert(
@@ -4167,8 +4157,5 @@ function escapeClientInterestHtml(value) {
     .replaceAll("'", "&#039;");
 }
 </script>
-<script src="growth-tracker.js"></script> 
-<script src="growth-tracker.js?v=20260925"></script>
-<script src="growth-tracker.js?v=20260925"></script>  
 </body>
 </html>
