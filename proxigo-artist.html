@@ -516,11 +516,9 @@ Chargement…
 <h2>
 📅 Concerts
 </h2>
-
-<div class="empty">
-Les concerts seront affichés ici dès qu'ils seront publiés dans l'espace artiste.
+<div id="concertsList" class="empty">
+  Chargement des concerts...
 </div>
-
 </section>
 
 
@@ -590,6 +588,81 @@ c => ({
 }
 
 
+  async function loadConcerts(artistId){
+
+  const box = document.getElementById("concertsList");
+
+  if(!box) return;
+
+  box.innerHTML = "Chargement des concerts...";
+
+  const { data, error } = await db
+    .from("artist_concerts")
+    .select(`
+      id,
+      title,
+      event_date,
+      event_time,
+      venue,
+      city,
+      country,
+      description
+    `)
+    .eq("artist_id", artistId)
+    .order("event_date", { ascending: true });
+
+  if(error){
+    console.error("Erreur concerts :", error);
+    box.innerHTML = "Impossible de charger les concerts.";
+    return;
+  }
+
+  if(!data || data.length === 0){
+    box.innerHTML = "Aucun concert annoncé pour le moment.";
+    return;
+  }
+
+  box.className = "concerts-grid";
+
+  box.innerHTML = data.map(concert => {
+
+    const date = concert.event_date
+      ? new Date(concert.event_date + "T00:00:00")
+          .toLocaleDateString("fr-FR", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+          })
+      : "";
+
+    return `
+      <div class="concert-card">
+
+        <div class="concert-date">
+          📅 ${esc(date)}
+        </div>
+
+        <h3>${esc(concert.title)}</h3>
+
+        <p>🕕 ${esc(concert.event_time || "")}</p>
+
+        <p>
+          📍 ${esc(concert.venue || "")}
+          ${concert.city ? " — " + esc(concert.city) : ""}
+        </p>
+
+        ${
+          concert.description
+            ? `<p class="concert-description">${esc(concert.description)}</p>`
+            : ""
+        }
+
+      </div>
+    `;
+
+  }).join("");
+
+}
 async function loadDirectory(){
 
 const box =
@@ -799,7 +872,7 @@ document.getElementById("profileCover")
 await loadMusic(artist.id);
 
 await loadVideos(artist.id);
-
+await loadConcerts(artist.id);
 }
 
 
