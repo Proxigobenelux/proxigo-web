@@ -710,7 +710,7 @@ c => ({
         status.textContent = "❤️ Cette adresse est déjà inscrite au Fan Club.";
       } else {
         console.error("Erreur Fan Club :", error);
-        status.textContent = "Impossible de finaliser l'inscription.";
+        status.textContent = "Erreur : " + (error.message || "erreur inconnue");
       }
 
       return;
