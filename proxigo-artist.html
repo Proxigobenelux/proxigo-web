@@ -1,1 +1,1057 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PROXIGO ARTIST — PROXIGO</title><meta name="description" content="PROXIGO ARTIST — plateforme pour artistes, musique, vidéos, concerts et communauté de fans."><style>:root{--bg:#07111f;--card:#0e1a2a;--line:#24354b;--text:#f5f7fb;--muted:#9eacc0;--blue:#3268ff;--green:#18d39b}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#091525);color:var(--text);font-family:Arial,Helvetica,sans-serif}nav{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;background:rgba(7,17,31,.95);z-index:5}.logo{font-size:27px;font-weight:800}.logo span{color:var(--green)}.navlinks a{color:#dfe7f2;text-decoration:none;margin-left:25px;font-weight:700;font-size:14px}.navlinks a:hover{color:var(--green)}.hero{padding:80px 8% 65px;text-align:center;background:radial-gradient(circle at 50% 0,#17366b 0,transparent 55%)}.badge{display:inline-block;padding:8px 14px;border:1px solid #31518a;border-radius:999px;color:#72a0ff;font-weight:700}h1{font-size:54px;margin:20px 0 12px}.hero p{max-width:720px;margin:auto;color:var(--muted);font-size:18px;line-height:1.6}.btn{display:inline-block;margin-top:28px;background:var(--blue);color:#fff;text-decoration:none;padding:14px 24px;border-radius:10px;font-weight:800}section{max-width:1150px;margin:0 auto;padding:45px 25px}h2{font-size:30px;margin-top:0}.muted{color:var(--muted)}#artists{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}.cover{height:170px;background:linear-gradient(135deg,#17366b,#0b1422);display:flex;align-items:center;justify-content:center;overflow:hidden}.cover img{width:100%;height:100%;object-fit:cover}.avatar{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--green)}.body{padding:20px}.body h3{margin:0 0 6px;font-size:23px}.tag{color:var(--green);font-size:13px;font-weight:800}.info{color:var(--muted);margin:12px 0;line-height:1.5}footer{border-top:1px solid var(--line);padding:30px 8%;color:var(--muted);text-align:center}.status{text-align:center;color:var(--muted);padding:30px}@media(max-width:800px){.navlinks{display:none}h1{font-size:38px}}</style></head><body><nav><div class="logo">PROXI<span>GO</span></div><div class="navlinks"><a href="index.html">Accueil</a><a href="proxigo-web.html">PROXIGO WEB</a><a href="proxigo-artist.html">🎤 PROXIGO ARTIST</a><a href="proxigo-academy.html">🎓 PROXIGO ACADEMY</a></div></nav><header class="hero"><div class="badge">🎤 PROXIGO ARTIST</div><h1>Donnez une nouvelle dimension à votre carrière.</h1><p>Un espace professionnel pour présenter votre musique, vos vidéos, vos concerts, votre boutique et votre communauté de fans.</p><a class="btn" href="#artistes">Découvrir les artistes</a></header><section id="artistes"><h2>Les artistes PROXIGO</h2><p class="muted">Découvrez les profils publics disponibles sur la plateforme.</p><div id="artists"><div class="status">Chargement des artistes…</div></div></section><footer>© PROXIGO BENELUX — PROXIGO ARTIST</footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>const SUPABASE_URL="https://iyexxyhfuclwzftknynk.supabase.co";const SUPABASE_KEY="sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);async function loadArtists(){const box=document.getElementById("artists");const{data,error}=await sb.from("artist_profiles").select("id,name,slug,stage_name,biography,photo_url,cover_url,country,city,genre,website_url,is_active").eq("is_active",true).order("stage_name");if(error){box.innerHTML='<div class="status">Impossible de charger les artistes pour le moment.</div>';return}if(!data?.length){box.innerHTML='<div class="status">Aucun artiste public pour le moment.</div>';return}box.innerHTML=data.map(a=>{const cover=a.cover_url?`<img src="${esc(a.cover_url)}" alt="">`:'';const photo=a.photo_url?`<img class="avatar" src="${esc(a.photo_url)}" alt="${esc(a.stage_name||a.name)}">`:'<div class="avatar"></div>';return `<article class="card"><div class="cover">${cover}</div><div class="body">${photo}<h3>${esc(a.stage_name||a.name)}</h3><div class="tag">${esc(a.genre||"Artiste")}</div><div class="info">${esc([a.city,a.country].filter(Boolean).join(", "))}<br>${esc(a.biography||"Artiste PROXIGO")}</div><a class="btn" href="proxigo-artist.html?artist=${encodeURIComponent(a.slug)}">Voir le profil</a></div></article>`}).join('')}function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}loadArtists();</script></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROXIGO ARTIST — PROXIGO</title>
+<meta name="description" content="PROXIGO ARTIST — découvrez les artistes, leur musique, leurs vidéos et leur univers.">
+
+<style>
+:root{
+--bg:#06101f;
+--bg2:#09182b;
+--card:#0d1a2b;
+--line:#22364f;
+--text:#f5f7fb;
+--muted:#9eacc0;
+--blue:#3268ff;
+--green:#18d39b
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+background:linear-gradient(180deg,var(--bg),var(--bg2));
+color:var(--text);
+font-family:Inter,Arial,Helvetica,sans-serif
+}
+
+nav{
+height:76px;
+border-bottom:1px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 5%;
+position:sticky;
+top:0;
+background:rgba(6,16,31,.96);
+backdrop-filter:blur(12px);
+z-index:20
+}
+
+.logo{
+font-size:27px;
+font-weight:900
+}
+
+.logo span{
+color:var(--green)
+}
+
+.navlinks{
+display:flex;
+gap:24px;
+align-items:center
+}
+
+.navlinks a{
+color:#dfe7f2;
+text-decoration:none;
+font-weight:800;
+font-size:14px
+}
+
+.navlinks a:hover{
+color:var(--green)
+}
+
+.hero{
+padding:72px 7% 68px;
+text-align:center;
+background:radial-gradient(circle at 50% 0,#1a3d7a 0,transparent 58%)
+}
+
+.badge{
+display:inline-block;
+padding:8px 15px;
+border:1px solid #31518a;
+border-radius:999px;
+color:#72a0ff;
+font-weight:800
+}
+
+h1{
+font-size:clamp(38px,5vw,60px);
+line-height:1.05;
+margin:20px 0 14px
+}
+
+.hero p{
+max-width:760px;
+margin:auto;
+color:var(--muted);
+font-size:18px;
+line-height:1.6
+}
+
+.btn{
+display:inline-block;
+margin-top:26px;
+background:var(--blue);
+color:#fff;
+text-decoration:none;
+padding:14px 23px;
+border-radius:10px;
+font-weight:900;
+border:0;
+cursor:pointer
+}
+
+section{
+max-width:1150px;
+margin:0 auto;
+padding:45px 25px
+}
+
+h2{
+font-size:30px;
+margin:0 0 10px
+}
+
+.muted{
+color:var(--muted)
+}
+
+#artists{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+margin-top:24px
+}
+
+.card{
+background:rgba(13,26,43,.96);
+border:1px solid var(--line);
+border-radius:18px;
+overflow:hidden
+}
+
+.cover{
+height:190px;
+background:linear-gradient(135deg,#17366b,#0b1422);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden
+}
+
+.cover img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.avatar{
+width:92px;
+height:92px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid var(--green);
+background:#0d1a2b
+}
+
+.body{
+padding:21px
+}
+
+.body h3{
+margin:12px 0 6px;
+font-size:23px
+}
+
+.tag{
+color:var(--green);
+font-size:13px;
+font-weight:900
+}
+
+.info{
+color:var(--muted);
+margin:12px 0;
+line-height:1.5
+}
+
+.status{
+text-align:center;
+color:var(--muted);
+padding:35px
+}
+
+.empty{
+padding:25px;
+border:1px dashed #314762;
+border-radius:14px;
+color:var(--muted)
+}
+
+.profile{
+display:none
+}
+
+.profile.active{
+display:block
+}
+
+.profileHero{
+min-height:430px;
+padding:60px 7%;
+display:grid;
+grid-template-columns:1.15fr .85fr;
+gap:45px;
+align-items:center;
+background:radial-gradient(circle at 80% 15%,#1b3c7c 0,transparent 55%)
+}
+
+.pill{
+display:inline-block;
+padding:7px 13px;
+border:1px solid var(--green);
+border-radius:999px;
+color:var(--green);
+font-size:12px;
+font-weight:900
+}
+
+.profileHero h1{
+font-size:clamp(48px,6vw,72px);
+margin:18px 0 8px
+}
+
+.meta{
+color:#a7b7cc;
+font-size:17px
+}
+
+.bio{
+color:#c5d0df;
+font-size:17px;
+line-height:1.65;
+max-width:650px;
+margin-top:20px
+}
+
+.profileCover{
+height:360px;
+border-radius:24px;
+background:linear-gradient(145deg,#267cff,#8e3fe7 55%,#151b35);
+border:1px solid #385073;
+background-size:cover;
+background-position:center;
+box-shadow:0 25px 80px #0007
+}
+
+.actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap
+}
+
+.secondary{
+background:#14243b;
+border:1px solid #2b405e
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:18px;
+margin-top:20px
+}
+
+.track{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+padding:20px
+}
+
+.track h3{
+margin:0 0 5px;
+font-size:17px
+}
+
+.play{
+border:0;
+background:var(--blue);
+color:#fff;
+border-radius:50%;
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none
+}
+
+.video{
+padding:0;
+overflow:hidden
+}
+
+.videoThumb{
+height:155px;
+background:#091525;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px
+}
+
+.videoBody{
+padding:17px
+}
+
+.back{
+color:#9fb0c7;
+text-decoration:none;
+font-weight:800
+}
+
+.back:hover{
+color:#fff
+}
+
+footer{
+border-top:1px solid var(--line);
+padding:30px 7%;
+color:#70839d;
+text-align:center
+}
+
+@media(max-width:800px){
+
+.navlinks{
+display:none
+}
+
+.profileHero{
+grid-template-columns:1fr;
+padding-top:45px
+}
+
+.profileCover{
+height:280px
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+PROXI<span>GO</span>
+</div>
+
+<div class="navlinks">
+
+<a href="index.html">Accueil</a>
+
+<a href="proxigo-web.html">
+PROXIGO WEB
+</a>
+
+<a href="proxigo-artist.html">
+🎤 PROXIGO ARTIST
+</a>
+
+<a href="proxigo-academy.html">
+🎓 PROXIGO ACADEMY
+</a>
+
+</div>
+
+</nav>
+
+
+<div id="directory">
+
+<header class="hero">
+
+<div class="badge">
+🎤 PROXIGO ARTIST
+</div>
+
+<h1>
+Donnez une nouvelle dimension à votre carrière.
+</h1>
+
+<p>
+Un espace professionnel pour présenter votre musique,
+vos vidéos, vos concerts et votre communauté de fans.
+</p>
+
+<a class="btn" href="#artistes">
+Découvrir les artistes
+</a>
+
+</header>
+
+
+<section id="artistes">
+
+<h2>
+Les artistes PROXIGO
+</h2>
+
+<p class="muted">
+Découvrez les profils publics disponibles sur la plateforme.
+</p>
+
+<div id="artists">
+<div class="status">
+Chargement des artistes…
+</div>
+</div>
+
+</section>
+
+</div>
+
+
+<div id="profile" class="profile">
+
+<section class="profileHero">
+
+<div>
+
+<a class="back" href="proxigo-artist.html">
+← Retour aux artistes
+</a>
+
+<div style="margin-top:24px" class="pill">
+ARTISTE OFFICIEL PROXIGO
+</div>
+
+<h1 id="stageName">
+Artiste
+</h1>
+
+<div id="meta" class="meta"></div>
+
+<div id="bio" class="bio">
+Chargement du profil…
+</div>
+
+<div class="actions">
+
+<a class="btn" href="#musique">
+▶ Écouter la musique
+</a>
+
+<a class="btn secondary" href="#fans">
+♥ Fan Club
+</a>
+
+</div>
+
+</div>
+
+
+<div id="profileCover" class="profileCover">
+</div>
+
+</section>
+
+
+<section id="musique">
+
+<h2>
+🎵 Musique
+</h2>
+
+<p id="musicStatus" class="muted">
+Chargement…
+</p>
+
+<div id="tracks" class="grid">
+</div>
+
+</section>
+
+
+<section>
+
+<h2>
+💿 Albums
+</h2>
+
+<div id="albums" class="grid">
+</div>
+
+</section>
+
+
+<section>
+
+<h2>
+🎬 Vidéos
+</h2>
+
+<div id="videos" class="grid">
+</div>
+
+</section>
+
+
+<section id="concerts">
+
+<h2>
+📅 Concerts
+</h2>
+
+<div class="empty">
+Les concerts seront affichés ici dès qu'ils seront publiés dans l'espace artiste.
+</div>
+
+</section>
+
+
+<section id="fans">
+
+<div class="card" style="padding:28px">
+
+<h2>
+♥ Fan Club
+</h2>
+
+<p class="bio">
+Rejoignez la communauté officielle de l'artiste
+pour recevoir les nouveautés, sorties, concerts
+et contenus exclusifs.
+</p>
+
+<button class="btn"
+onclick="alert('Le Fan Club sera activé prochainement.')">
+
+Rejoindre le Fan Club
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<footer>
+© PROXIGO BENELUX — PROXIGO ARTIST
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://iyexxyhfuclwzftknynk.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_GvZVB758D9Mxp4fcYXhe1w_SjE_cFWz";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+function esc(v){
+
+return String(v ?? "").replace(
+/[&<>"']/g,
+c => ({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[c])
+);
+
+}
+
+
+async function loadDirectory(){
+
+const box =
+document.getElementById("artists");
+
+const {data,error} =
+await db
+.from("artist_profiles")
+.select(`
+id,
+name,
+slug,
+stage_name,
+biography,
+photo_url,
+cover_url,
+country,
+city,
+genre,
+website_url,
+is_active
+`)
+.eq("is_active",true)
+.order("stage_name");
+
+
+if(error){
+
+box.innerHTML =
+'<div class="status">Impossible de charger les artistes pour le moment.</div>';
+
+return;
+
+}
+
+
+if(!data?.length){
+
+box.innerHTML =
+'<div class="status">Aucun artiste public pour le moment.</div>';
+
+return;
+
+}
+
+
+box.innerHTML =
+data.map(a => {
+
+const cover =
+a.cover_url
+?
+`<img src="${esc(a.cover_url)}" alt="">`
+:
+"";
+
+
+const photo =
+a.photo_url
+?
+`<img class="avatar" src="${esc(a.photo_url)}" alt="${esc(a.stage_name || a.name)}">`
+:
+'<div class="avatar"></div>';
+
+
+return `
+
+<article class="card">
+
+<div class="cover">
+${cover}
+</div>
+
+<div class="body">
+
+${photo}
+
+<h3>
+${esc(a.stage_name || a.name)}
+</h3>
+
+<div class="tag">
+${esc(a.genre || "Artiste")}
+</div>
+
+<div class="info">
+
+${esc(
+[a.city,a.country]
+.filter(Boolean)
+.join(", ")
+)}
+
+<br>
+
+${esc(
+a.biography || "Artiste PROXIGO"
+)}
+
+</div>
+
+<a class="btn"
+href="proxigo-artist.html?artist=${encodeURIComponent(a.slug)}">
+
+Voir le profil
+
+</a>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+async function loadProfile(slug){
+
+document.getElementById("directory")
+.style.display="none";
+
+document.getElementById("profile")
+.classList.add("active");
+
+
+const {data:artist,error} =
+await db
+.from("artist_profiles")
+.select(`
+id,
+name,
+slug,
+stage_name,
+biography,
+photo_url,
+cover_url,
+country,
+city,
+genre,
+is_active
+`)
+.eq("slug",slug)
+.eq("is_active",true)
+.single();
+
+
+if(error || !artist){
+
+document.getElementById("stageName")
+.textContent="Artiste introuvable";
+
+document.getElementById("bio")
+.textContent=
+"Ce profil n'est pas disponible.";
+
+return;
+
+}
+
+
+document.title =
+(artist.stage_name || artist.name)
++" — PROXIGO ARTIST";
+
+
+document.getElementById("stageName")
+.textContent =
+artist.stage_name ||
+artist.name ||
+"Artiste";
+
+
+document.getElementById("meta")
+.textContent =
+[
+artist.genre,
+artist.city,
+artist.country
+]
+.filter(Boolean)
+.join(" · ");
+
+
+document.getElementById("bio")
+.textContent =
+artist.biography ||
+"Artiste officiel PROXIGO ARTIST.";
+
+
+const cover =
+artist.cover_url ||
+artist.photo_url;
+
+
+if(cover){
+
+document.getElementById("profileCover")
+.style.backgroundImage =
+`url("${encodeURI(cover)}")`;
+
+}
+
+
+await loadMusic(artist.id);
+
+await loadVideos(artist.id);
+
+}
+
+
+async function loadMusic(artistId){
+
+const status =
+document.getElementById("musicStatus");
+
+const tracksEl =
+document.getElementById("tracks");
+
+const albumsEl =
+document.getElementById("albums");
+
+
+const [tr,al] =
+await Promise.all([
+
+db
+.from("artist_tracks")
+.select("*")
+.eq("artist_id",artistId)
+.order("created_at",{ascending:false}),
+
+db
+.from("artist_albums")
+.select("*")
+.eq("artist_id",artistId)
+.order("created_at",{ascending:false})
+
+]);
+
+
+const tracks =
+tr.data || [];
+
+const albums =
+al.data || [];
+
+
+status.textContent =
+tr.error
+?
+"La musique n'est pas encore publiée publiquement."
+:
+(
+tracks.length
+?
+`${tracks.length} morceau(x) disponible(s)`
+:
+"Aucun morceau publié pour le moment."
+);
+
+
+tracksEl.innerHTML =
+tracks.map(t => {
+
+const title =
+esc(
+t.title ||
+t.name ||
+"Morceau"
+);
+
+const audio =
+t.audio_url ||
+t.stream_url ||
+t.url ||
+"";
+
+
+return `
+
+<div class="card track">
+
+<div>
+
+<h3>
+${title}
+</h3>
+
+<span class="muted">
+${esc(t.duration || "Audio officiel")}
+</span>
+
+</div>
+
+${
+audio
+?
+`
+<a class="play"
+href="${encodeURI(audio)}"
+target="_blank"
+rel="noopener">
+
+▶
+
+</a>
+`
+:
+"<span class='muted'>Bientôt</span>"
+}
+
+</div>
+
+`;
+
+}).join("");
+
+
+albumsEl.innerHTML =
+al.error || !albums.length
+?
+`
+<div class="empty">
+Aucun album publié pour le moment.
+</div>
+`
+:
+albums.map(a => `
+
+<div class="card" style="padding:20px">
+
+<h3>
+${esc(a.title || a.name || "Album")}
+</h3>
+
+<span class="muted">
+${esc(a.release_date || "Album officiel")}
+</span>
+
+</div>
+
+`).join("");
+
+}
+
+
+async function loadVideos(artistId){
+
+const box =
+document.getElementById("videos");
+
+
+const {data,error} =
+await db
+.from("artist_videos")
+.select("*")
+.eq("artist_id",artistId)
+.eq("is_active",true)
+.order("published_at",{ascending:false});
+
+
+if(error || !data?.length){
+
+box.innerHTML =
+`
+<div class="empty">
+Aucune vidéo publiée pour le moment.
+</div>
+`;
+
+return;
+
+}
+
+
+box.innerHTML =
+data.map(v => {
+
+const url =
+v.video_url || "#";
+
+
+const thumb =
+v.thumbnail_url
+?
+`
+<img
+src="${esc(v.thumbnail_url)}"
+alt=""
+style="width:100%;height:100%;object-fit:cover">
+`
+:
+"🎬";
+
+
+return `
+
+<article class="card video">
+
+<div class="videoThumb">
+
+${thumb}
+
+</div>
+
+<div class="videoBody">
+
+<h3>
+${esc(v.title || "Vidéo")}
+</h3>
+
+<p class="muted">
+${esc(v.description || "Vidéo officielle")}
+</p>
+
+${
+url !== "#"
+?
+`
+<a class="btn"
+href="${encodeURI(url)}"
+target="_blank"
+rel="noopener">
+
+▶ Voir la vidéo
+
+</a>
+`
+:
+""
+}
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+const slug =
+new URLSearchParams(location.search)
+.get("artist");
+
+
+if(slug){
+
+loadProfile(slug);
+
+}else{
+
+loadDirectory();
+
+}
+
+</script>
+
+</body>
+</html>
