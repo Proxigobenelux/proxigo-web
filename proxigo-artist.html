@@ -536,12 +536,29 @@ pour recevoir les nouveautés, sorties, concerts
 et contenus exclusifs.
 </p>
 
-<button class="btn"
-onclick="alert('Le Fan Club sera activé prochainement.')">
+<form id="fanClubForm">
 
-Rejoindre le Fan Club
+  <input
+    id="fanName"
+    type="text"
+    placeholder="Votre nom"
+    required
+  >
 
-</button>
+  <input
+    id="fanEmail"
+    type="email"
+    placeholder="Votre adresse e-mail"
+    required
+  >
+
+  <button class="btn" type="submit">
+    ❤️ Rejoindre le Fan Club
+  </button>
+
+  <p id="fanClubStatus" class="muted"></p>
+
+</form>
 
 </div>
 
@@ -661,6 +678,49 @@ c => ({
     `;
 
   }).join("");
+
+}
+  function setupFanClub(artistId){
+
+  const form = document.getElementById("fanClubForm");
+  const status = document.getElementById("fanClubStatus");
+
+  if(!form) return;
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const name = document.getElementById("fanName").value.trim();
+    const email = document.getElementById("fanEmail").value.trim();
+
+    status.textContent = "Inscription en cours...";
+
+    const { error } = await db
+      .from("artist_fans")
+      .insert({
+        artist_id: artistId,
+        name: name,
+        email: email
+      });
+
+    if(error){
+
+      if(error.code === "23505"){
+        status.textContent = "❤️ Cette adresse est déjà inscrite au Fan Club.";
+      } else {
+        console.error("Erreur Fan Club :", error);
+        status.textContent = "Impossible de finaliser l'inscription.";
+      }
+
+      return;
+    }
+
+    status.textContent = "🎉 Bienvenue dans le Fan Club de DIDI STAR !";
+
+    form.reset();
+
+  });
 
 }
 async function loadDirectory(){
@@ -873,6 +933,7 @@ await loadMusic(artist.id);
 
 await loadVideos(artist.id);
 await loadConcerts(artist.id);
+setupFanClub(artist.id);  
 }
 
 
