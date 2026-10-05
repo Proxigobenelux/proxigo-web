@@ -697,13 +697,36 @@ c => ({
           )} place(s) disponible(s)
         </p>
 
-        <button
-          class="btn"
-          type="button"
-          onclick="alert('Billetterie bientôt disponible')"
-        >
-          🎫 Acheter un billet
-        </button>
+        <div class="ticket-buy">
+
+  <label>
+    Nombre de billets
+  </label>
+
+  <select id="ticketQty-${ticket.id}">
+    <option value="1">1 billet</option>
+    <option value="2">2 billets</option>
+    <option value="3">3 billets</option>
+    <option value="4">4 billets</option>
+    <option value="5">5 billets</option>
+  </select>
+
+  <p>
+    Total :
+    <strong id="ticketTotal-${ticket.id}">
+      ${Number(ticket.price).toFixed(2)} €
+    </strong>
+  </p>
+
+  <button
+    class="btn"
+    type="button"
+    onclick="selectTicket('${ticket.id}', ${Number(ticket.price)})"
+  >
+    🎫 Continuer
+  </button>
+
+</div>
 
       </div>
     `
@@ -713,6 +736,22 @@ c => ({
     `;
 
   }).join("");
+
+}
+  function selectTicket(ticketId, price){
+
+  const select = document.getElementById("ticketQty-" + ticketId);
+
+  if(!select) return;
+
+  const quantity = Number(select.value);
+  const total = quantity * Number(price);
+
+  alert(
+    "🎫 " + quantity + " billet(s)\n\n" +
+    "💶 Total : " + total.toFixed(2) + " €\n\n" +
+    "La prochaine étape sera le paiement sécurisé."
+  );
 
 }
   function setupFanClub(artistId){
