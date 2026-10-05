@@ -638,11 +638,17 @@ c => ({
     box.innerHTML = "Aucun concert annoncé pour le moment.";
     return;
   }
-
+  const { data: tickets } = await db
+  .from("artist_tickets")
+  .select("id, concert_id, name, price, quantity_total, quantity_sold")
+  .in("concert_id", data.map(c => c.id))
+  .eq("is_active", true);
   box.className = "concerts-grid";
 
   box.innerHTML = data.map(concert => {
-
+  const ticket = (tickets || []).find(
+  t => t.concert_id === concert.id
+);
     const date = concert.event_date
       ? new Date(concert.event_date + "T00:00:00")
           .toLocaleDateString("fr-FR", {
@@ -673,7 +679,36 @@ c => ({
             ? `<p class="concert-description">${esc(concert.description)}</p>`
             : ""
         }
+ ${
+  ticket
+    ? `
+      <div class="ticket-box">
 
+        <strong>🎫 ${esc(ticket.name)}</strong>
+
+        <p>
+          💶 ${Number(ticket.price).toFixed(2)} €
+        </p>
+
+        <p>
+          👥 ${Math.max(
+            0,
+            ticket.quantity_total - ticket.quantity_sold
+          )} place(s) disponible(s)
+        </p>
+
+        <button
+          class="btn"
+          type="button"
+          onclick="alert('Billetterie bientôt disponible')"
+        >
+          🎫 Acheter un billet
+        </button>
+
+      </div>
+    `
+    : ""
+}
       </div>
     `;
 
