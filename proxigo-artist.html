@@ -721,7 +721,7 @@ c => ({
   <button
     class="btn"
     type="button"
-    onclick="selectTicket('${ticket.id}', ${Number(ticket.price)})"
+    onclick="selectTicket('${ticket.id}', ${Number(ticket.price)}, this)"
   >
     🎫 Continuer
   </button>
@@ -738,21 +738,68 @@ c => ({
   }).join("");
 
 }
-  function selectTicket(ticketId, price){
+  fasync function selectTicket(ticketId, price, button) {
 
   const select = document.getElementById("ticketQty-" + ticketId);
 
-  if(!select) return;
+  if (!select) return;
 
   const quantity = Number(select.value);
-  const total = quantity * Number(price);
 
-  alert(
-    "🎫 " + quantity + " billet(s)\n\n" +
-    "💶 Total : " + total.toFixed(2) + " €\n\n" +
-    "La prochaine étape sera le paiement sécurisé."
-  );
+  if (!Number.isInteger(quantity) || quantity < 1) {
+    alert("Veuillez sélectionner un nombre de billets valide.");
+    return;
+  }
 
+  try {
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = "⏳ Préparation du paiement...";
+    }
+
+    const response = await fetch(
+      "https://iyexxyhfuclwzftknynk.supabase.co/functions/v1/create-ticket-checkout",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ticket_id: ticketId,
+          quantity: quantity
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.error || "Impossible de créer le paiement."
+      );
+    }
+
+    if (!result.url) {
+      throw new Error("Stripe n'a pas retourné de lien de paiement.");
+    }
+
+    window.location.href = result.url;
+
+  } catch (error) {
+
+    console.error("Erreur paiement :", error);
+
+    alert(
+      "❌ Impossible de préparer le paiement.\n\n" +
+      error.message
+    );
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "🎫 Continuer";
+    }
+  }
 }
   function setupFanClub(artistId){
 
